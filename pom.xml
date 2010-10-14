@@ -64,7 +64,6 @@
           <configuration>
             <source>1.6</source>
             <target>1.6</target>
-            <compilerArgument>-proc:none</compilerArgument>
           </configuration>
         </plugin>
         <plugin>
@@ -105,6 +104,10 @@
     <repository>
       <id>clojars</id>
       <url>http://clojars.org/repo/</url>
+    </repository>
+    <repository>
+      <id>projectlombok.org</id>
+      <url>http://projectlombok.org/mavenrepo</url>
     </repository>
   </repositories>
  
@@ -241,6 +244,17 @@
         <groupId>com.google.guava</groupId>
         <artifactId>guava</artifactId>
         <version>r07</version>
+      </dependency>
+
+      <!-- Project Lombok -->
+      <!-- Not ready to be used yet;
+           doesn't work in Netbeans 6.9.1
+           -->
+      <dependency>
+        <groupId>org.projectlombok</groupId>
+        <artifactId>lombok</artifactId>
+        <version>0.9.3</version>
+        <scope>provided</scope>
       </dependency>
 
       <!-- Clojure -->

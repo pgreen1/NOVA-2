@@ -12,6 +12,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>edu.wvu.lcsee.green</groupId>
   <artifactId>nova-impl</artifactId>
+  <packaging>jar</packaging>
   <version>0.0.1-SNAPSHOT</version>
   <name>NOVA Implementation</name>
   <description>NOVA Implementation</description>
