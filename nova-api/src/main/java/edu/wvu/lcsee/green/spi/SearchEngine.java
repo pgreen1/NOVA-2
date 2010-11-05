@@ -1,4 +1,4 @@
-package edu.wvu.lcsee.green.apps;
+package edu.wvu.lcsee.green.spi;
 
 import com.google.common.collect.ImmutableList;
 import edu.wvu.lcsee.green.search.State;

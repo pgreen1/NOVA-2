@@ -64,6 +64,18 @@
     </plugins>
   </build>
   <dependencies>
+    <!-- NOVA -->
+    <dependency>
+      <groupId>edu.wvu.lcsee.green</groupId>
+      <artifactId>nova-api</artifactId>
+    </dependency>
+
+    <!-- Google Guava -->
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+    </dependency>
+
     <dependency>
       <groupId>org.clojure</groupId>
       <artifactId>clojure</artifactId>

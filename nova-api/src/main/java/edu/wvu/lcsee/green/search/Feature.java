@@ -1,20 +1,22 @@
 package edu.wvu.lcsee.green.search;
 
+import edu.wvu.lcsee.green.model.Attribute;
 import com.google.common.collect.ImmutableSet;
+import java.io.Serializable;
 import javax.annotation.Nonnull;
 
 /**
  *
  * @author pdgreen
  */
-public class Feature {
+public class Feature<VT extends Serializable> {
 
   @Nonnull
-  private final Attribute attribute;
+  private final Attribute<VT> attribute;
   @Nonnull
-  private final ImmutableSet<Number> values;
+  private final ImmutableSet<VT> values;
 
-  public Feature(Attribute attribute, ImmutableSet<Number> values) {
+  public Feature(Attribute<VT> attribute, ImmutableSet<VT> values) {
     this.attribute = attribute;
     this.values = values;
   }
@@ -23,7 +25,7 @@ public class Feature {
     return attribute;
   }
 
-  public ImmutableSet<Number> getValues() {
+  public ImmutableSet<VT> getValues() {
     return values;
   }
 

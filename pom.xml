@@ -83,6 +83,9 @@
   <modules>
     <module>nova-api</module>
     <module>nova-impl</module>
+    <module>nova-ui</module>
+    <module>mymodel</module>
+    <module>mymodel-engine</module>
   </modules>
   <repositories>
     <repository>
@@ -196,11 +199,34 @@
   </reporting>
   <dependencyManagement>
     <dependencies>
+      <dependency>
+        <groupId>edu.wvu.lcsee.green</groupId>
+        <artifactId>nova-api</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>edu.wvu.lcsee.green</groupId>
+        <artifactId>nova-impl</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
       <!-- Testing -->
       <dependency>
         <groupId>junit</groupId>
         <artifactId>junit</artifactId>
         <version>${junitVersion}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.mockito</groupId>
+        <artifactId>mockito-core</artifactId>
+        <version>1.8.5</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.hamcrest</groupId>
+        <artifactId>hamcrest-core</artifactId>
+        <version>1.2</version>
         <scope>test</scope>
       </dependency>
 

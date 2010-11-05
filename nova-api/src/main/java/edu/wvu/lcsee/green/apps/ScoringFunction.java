@@ -1,6 +1,7 @@
 package edu.wvu.lcsee.green.apps;
 
-import edu.wvu.lcsee.green.search.State;
+import com.google.common.base.Preconditions;
+import edu.wvu.lcsee.green.model.Project;
 import java.util.Comparator;
 import javax.annotation.Nonnull;
 
@@ -8,18 +9,18 @@ import javax.annotation.Nonnull;
  *
  * @author pdgreen
  */
-public interface ScoringMethod extends Comparator<Object> {
+public interface ScoringFunction extends Comparator<Object> {
 
-  ScoringMethodId getId();
+  ScoringFunctionId getId();
 
-  Number score(@Nonnull State state);
+  Number score(@Nonnull Project project);
 
-  static class ScoringMethodId {
+  public static class ScoringFunctionId {
 
     private final String idAsString;
 
-    public ScoringMethodId(String idAsString) {
-      this.idAsString = idAsString;
+    public ScoringFunctionId(@Nonnull final String idAsString) {
+      this.idAsString = Preconditions.checkNotNull(idAsString);
     }
 
     @Override
@@ -30,7 +31,7 @@ public interface ScoringMethod extends Comparator<Object> {
       if (getClass() != obj.getClass()) {
         return false;
       }
-      final ScoringMethodId other = (ScoringMethodId) obj;
+      final ScoringFunctionId other = (ScoringFunctionId) obj;
       if ((this.idAsString == null) ? (other.idAsString != null) : !this.idAsString.equals(other.idAsString)) {
         return false;
       }

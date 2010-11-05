@@ -9,10 +9,10 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>edu.wvu.lcsee.green</groupId>
   <packaging>jar</packaging>
-  <artifactId>nova-api</artifactId>
+  <artifactId>nova-ui</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <name>NOVA API</name>
-  <description>NOVA API</description>
+  <name>NOVA UI</name>
+  <description>NOVA UI</description>
   <build>
     <plugins>
       <plugin>
@@ -27,19 +27,22 @@
     </plugins>
   </build>
   <dependencies>
-     <!-- Testing -->
+    <!-- NOVA -->
+    <dependency>
+      <groupId>edu.wvu.lcsee.green</groupId>
+      <artifactId>nova-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>edu.wvu.lcsee.green</groupId>
+      <artifactId>nova-impl</artifactId>
+    </dependency>
+
+
+    <!-- Testing -->
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.mockito</groupId>
-      <artifactId>mockito-core</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.hamcrest</groupId>
-      <artifactId>hamcrest-core</artifactId>
     </dependency>
 
     <!-- Logging -->

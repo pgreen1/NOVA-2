@@ -1,9 +1,10 @@
 package edu.wvu.lcsee.green.search;
 
+import edu.wvu.lcsee.green.model.Treatment;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
-import edu.wvu.lcsee.green.apps.ScoringMethod.ScoringMethodId;
+import edu.wvu.lcsee.green.apps.ScoringFunction.ScoringFunctionId;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -25,9 +26,9 @@ public class State {
   @Nonnull
   private final ImmutableSet<Feature> closed;
   @Nonnull
-  private final ImmutableMap<ScoringMethodId, Number> scores;
+  private final ImmutableMap<ScoringFunctionId, Number> scores;
 
-  public State(Date timeCreated, ImmutableSet<Feature> ignore, ImmutableSet<Feature> open, ImmutableSet<Feature> closed, ImmutableMap<ScoringMethodId, Number> scores) {
+  public State(Date timeCreated, ImmutableSet<Feature> ignore, ImmutableSet<Feature> open, ImmutableSet<Feature> closed, ImmutableMap<ScoringFunctionId, Number> scores) {
     this.timeCreated = timeCreated;
     this.ignore = ignore;
     this.open = open;
@@ -71,21 +72,23 @@ public class State {
   }
 
   public State applyTreatment(@Nonnull final Treatment treatment) {
-    final Set<Feature> all = Sets.union(open, closed);
-    final ImmutableSet<Feature> newOpen = treatment.getSplitFeatures();
-    final ImmutableSet<Feature> newClosed = ImmutableSet.copyOf(Sets.difference(all, newOpen));
-
-    return new State(new Date(), ignore, newOpen, newClosed, scores);
+    throw new UnsupportedOperationException("not implemented");
+//TODO implement me
+//    final Set<Feature> all = Sets.union(open, closed);
+//    final ImmutableSet<Feature> newOpen = treatment.getSplitFeatures();
+//    final ImmutableSet<Feature> newClosed = ImmutableSet.copyOf(Sets.difference(all, newOpen));
+//
+//    return new State(new Date(), ignore, newOpen, newClosed, scores);
   }
 
-  public State addScore(@Nonnull final ScoringMethodId scoringMethodId, @Nonnull final Number score) {
-    final Map<ScoringMethodId, Number> mutableScores = new HashMap(scores);
+  public State addScore(@Nonnull final ScoringFunctionId scoringMethodId, @Nonnull final Number score) {
+    final Map<ScoringFunctionId, Number> mutableScores = new HashMap(scores);
     mutableScores.put(scoringMethodId, score);
     return new State(new Date(), ignore, open, closed, ImmutableMap.copyOf(mutableScores));
   }
 
-  public State addScores(@Nonnull final Map<ScoringMethodId, Number> newScores) {
-    final Map<ScoringMethodId, Number> mutableScores = new HashMap(scores);
+  public State addScores(@Nonnull final Map<ScoringFunctionId, Number> newScores) {
+    final Map<ScoringFunctionId, Number> mutableScores = new HashMap(scores);
     mutableScores.putAll(newScores);
     return new State(new Date(), ignore, open, closed, ImmutableMap.copyOf(mutableScores));
   }
@@ -118,7 +121,7 @@ public class State {
     return closed;
   }
 
-  public ImmutableMap<ScoringMethodId, Number> getScores() {
+  public ImmutableMap<ScoringFunctionId, Number> getScores() {
     return scores;
   }
 }
