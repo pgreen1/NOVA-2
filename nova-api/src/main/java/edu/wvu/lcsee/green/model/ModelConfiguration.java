@@ -11,9 +11,12 @@ import javax.annotation.Nonnull;
  */
 public interface ModelConfiguration {
 
-  ImmutableSet<Attribute> getAllAttributes();
+  @Nonnull
+  ImmutableSet<Attribute<? extends Serializable>> getAllAttributes();
 
-  <V extends Serializable> ImmutableMap<Attribute<V>, Constraints<V>> getDefaultConstraints();
+  @Nonnull
+  <V extends Serializable> Constraints<V> getDefaultConstraintsFor(@Nonnull Attribute<V> attribute);
 
-  Scenario generateModelInstance(@Nonnull Policy policy, @Nonnull CaseStudy caseStudy);
+  @Nonnull
+  Scenario generateScenario(@Nonnull Policy policy, @Nonnull CaseStudy caseStudy);
 }

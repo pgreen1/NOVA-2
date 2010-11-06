@@ -1,6 +1,7 @@
 package edu.wvu.lcsee.green.model;
 
 import com.google.common.collect.ImmutableSet;
+import java.io.Serializable;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -14,5 +15,5 @@ public interface Policy {
   String getName();
 
   @Nonnull
-  ImmutableSet<Attribute> getModifiableAttibutes();
+  ImmutableSet<Attribute<? extends Serializable>> getModifiableAttibutes();
 }

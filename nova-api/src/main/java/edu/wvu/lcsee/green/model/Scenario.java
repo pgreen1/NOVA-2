@@ -19,8 +19,5 @@ public interface Scenario {
   <V extends Serializable> Constraints<V> getConstraintsFor(@Nonnull Attribute<V> attribute);
 
   @Nonnull
-  ImmutableMap<Attribute<? extends Serializable>, Constraints<? extends Serializable>> getConstraintsAsMap();
-
-  @Nonnull
   Scenario applyTreatment(@Nonnull Treatment treatment);
 }
