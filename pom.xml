@@ -209,6 +209,12 @@
         <artifactId>nova-impl</artifactId>
         <version>${project.version}</version>
       </dependency>
+      <dependency>
+        <groupId>edu.wvu.lcsee.green</groupId>
+        <artifactId>nova-ui</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
 
       <!-- Testing -->
       <dependency>
