@@ -85,6 +85,7 @@
     <module>nova-impl</module>
     <module>nova-ui</module>
     <module>mymodel</module>
+    <module>mymodel-model</module>
     <module>mymodel-engine</module>
   </modules>
   <repositories>
@@ -214,8 +215,7 @@
         <artifactId>nova-ui</artifactId>
         <version>${project.version}</version>
       </dependency>
-
-
+      
       <!-- Testing -->
       <dependency>
         <groupId>junit</groupId>

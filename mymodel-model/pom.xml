@@ -9,10 +9,10 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>edu.wvu.lcsee.green.mymodel</groupId>
   <packaging>jar</packaging>
-  <artifactId>mymodel</artifactId>
+  <artifactId>mymodel-model</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <name>MyModel</name>
-  <description>MyModel</description>
+  <name>MyModel Model</name>
+  <description>MyModel Model</description>
   <build>
     <plugins>
       <plugin>
@@ -34,17 +34,6 @@
     <dependency>
       <groupId>edu.wvu.lcsee.green</groupId>
       <artifactId>nova-ui</artifactId>
-    </dependency>
-    <!-- MyModel -->
-     <dependency>
-      <groupId>edu.wvu.lcsee.green.mymodel</groupId>
-      <artifactId>mymodel-model</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-     <dependency>
-      <groupId>edu.wvu.lcsee.green.mymodel</groupId>
-      <artifactId>mymodel-engine</artifactId>
-      <version>${project.version}</version>
     </dependency>
 
 

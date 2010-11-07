@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <parent>
+    <artifactId>nova</artifactId>
+    <groupId>edu.wvu.lcsee.green</groupId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <properties>
+    <clojure.version>1.2.0</clojure.version>
+  </properties>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>edu.wvu.lcsee.green.mymodel</groupId>
+  <artifactId>mymodel-engine</artifactId>
+  <packaging>jar</packaging>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>MyModel Engine</name>
+  <description>MyModel Engine</description>
+  <build>
+    <sourceDirectory>src/main/clojure</sourceDirectory>
+    <testSourceDirectory>src/test/clojure</testSourceDirectory>
+    <resources>
+      <resource>
+        <directory>src/main/clojure</directory>
+      </resource>
+      <resource>
+        <directory>src/main/resources</directory>
+      </resource>
+    </resources>
+    <testResources>
+      <testResource>
+        <directory>src/test/clojure</directory>
+      </testResource>
+    </testResources>
+    <plugins>
+      <plugin>
+        <groupId>com.theoryinpractise</groupId>
+        <artifactId>clojure-maven-plugin</artifactId>
+        <version>1.3.2</version>
+        <configuration>
+          <sourceDirectories>
+            <sourceDirectory>src/main/clojure</sourceDirectory>
+          </sourceDirectories>
+          <clojureOptions>-Xmx1G</clojureOptions>
+        </configuration>
+        <executions>
+          <execution>
+            <id>compile-clojure</id>
+            <phase>compile</phase>
+            <goals>
+              <goal>compile</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.6</source>
+          <target>1.6</target>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+  <dependencies>
+    <!-- NOVA -->
+    <dependency>
+      <groupId>edu.wvu.lcsee.green</groupId>
+      <artifactId>nova-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>edu.wvu.lcsee.green.mymodel</groupId>
+      <artifactId>mymodel-model</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.clojure</groupId>
+      <artifactId>clojure</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.clojure</groupId>
+      <artifactId>clojure-contrib</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>swank-clojure</groupId>
+      <artifactId>swank-clojure</artifactId>
+    </dependency>
+  </dependencies>
+</project>
