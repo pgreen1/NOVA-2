@@ -3,8 +3,6 @@ package edu.wvu.lcsee.green.search;
 import edu.wvu.lcsee.green.model.Treatment;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Sets;
-import edu.wvu.lcsee.green.apps.ScoringFunction.ScoringFunctionId;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -26,9 +24,9 @@ public class State {
   @Nonnull
   private final ImmutableSet<Feature> closed;
   @Nonnull
-  private final ImmutableMap<ScoringFunctionId, Number> scores;
+  private final ImmutableMap<String, Number> scores;
 
-  public State(Date timeCreated, ImmutableSet<Feature> ignore, ImmutableSet<Feature> open, ImmutableSet<Feature> closed, ImmutableMap<ScoringFunctionId, Number> scores) {
+  public State(Date timeCreated, ImmutableSet<Feature> ignore, ImmutableSet<Feature> open, ImmutableSet<Feature> closed, ImmutableMap<String, Number> scores) {
     this.timeCreated = timeCreated;
     this.ignore = ignore;
     this.open = open;
@@ -81,14 +79,14 @@ public class State {
 //    return new State(new Date(), ignore, newOpen, newClosed, scores);
   }
 
-  public State addScore(@Nonnull final ScoringFunctionId scoringMethodId, @Nonnull final Number score) {
-    final Map<ScoringFunctionId, Number> mutableScores = new HashMap(scores);
+  public State addScore(@Nonnull final String scoringMethodId, @Nonnull final Number score) {
+    final Map<String, Number> mutableScores = new HashMap(scores);
     mutableScores.put(scoringMethodId, score);
     return new State(new Date(), ignore, open, closed, ImmutableMap.copyOf(mutableScores));
   }
 
-  public State addScores(@Nonnull final Map<ScoringFunctionId, Number> newScores) {
-    final Map<ScoringFunctionId, Number> mutableScores = new HashMap(scores);
+  public State addScores(@Nonnull final Map<String, Number> newScores) {
+    final Map<String, Number> mutableScores = new HashMap(scores);
     mutableScores.putAll(newScores);
     return new State(new Date(), ignore, open, closed, ImmutableMap.copyOf(mutableScores));
   }
@@ -121,7 +119,7 @@ public class State {
     return closed;
   }
 
-  public ImmutableMap<ScoringFunctionId, Number> getScores() {
+  public ImmutableMap<String, Number> getScores() {
     return scores;
   }
 }

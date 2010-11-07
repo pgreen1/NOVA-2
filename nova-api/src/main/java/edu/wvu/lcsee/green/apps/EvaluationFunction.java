@@ -1,5 +1,7 @@
 package edu.wvu.lcsee.green.apps;
 
+import edu.wvu.lcsee.green.spi.ScoringFunction;
+
 /**
  * 
  *

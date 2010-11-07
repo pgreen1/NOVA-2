@@ -12,6 +12,18 @@ public class ServiceLoaderHelper {
   private ServiceLoaderHelper() {
   }
 
+  public static <T> ImmutableList<T> loadMultiService(Class<T> serviceClass) {
+    final ServiceLoader<T> serviceLoader = ServiceLoader.load(serviceClass);
+
+    final ImmutableList<T> serviceList = ImmutableList.copyOf(serviceLoader.iterator());
+
+    if (serviceList.isEmpty()) {
+      throw new IllegalStateException("No " + serviceClass + " implementions registered");
+    }
+
+    return serviceList;
+  }
+
   public static <T> T loadSingleService(Class<T> serviceClass) {
     final ServiceLoader<T> serviceLoader = ServiceLoader.load(serviceClass);
 
