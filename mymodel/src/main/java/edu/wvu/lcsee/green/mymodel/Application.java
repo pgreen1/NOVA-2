@@ -22,9 +22,9 @@ public class Application {
     final Scenario scenario = MyModelConfigurationDefinition.MY_MODEL_CONFIGURATION.generateScenario(
             MyModelConfigurationDefinition.ALL, MyModelConfigurationDefinition.DEFAULT);
 
-    System.out.println(projectGenerator.generateMany(scenario, 20));
+    System.out.println(projectGenerator.generateManyScoredProjects(scenario, 20));
 
-    final Project project = projectGenerator.generate(scenario);
+    final Project project = projectGenerator.generateScoredProject(scenario);
 
     final Map<String, Number> scores = Maps.newHashMap();
     for (final Map.Entry<String, ScoringFunction> entry : NovaControl.INSTANCE.getScoringFunctions().entrySet()) {

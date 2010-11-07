@@ -21,10 +21,10 @@ public class Application {
 
     final Scenario scenario = loadScenario();
 
-    System.out.println(projectGenerator.generate(scenario));
+    System.out.println(projectGenerator.generateProject(scenario));
 
 
-    System.out.println(projectGenerator.generateMany(scenario, 20));
+    System.out.println(projectGenerator.generateManyProjects(scenario, 20));
   }
 
   static enum TestAttributes implements Attribute<Number> {
