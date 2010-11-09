@@ -11,11 +11,11 @@
   </properties>
   <modelVersion>4.0.0</modelVersion>
   <groupId>edu.wvu.lcsee.green</groupId>
-  <artifactId>nova-impl</artifactId>
+  <artifactId>nova-clojure-impl</artifactId>
   <packaging>jar</packaging>
   <version>0.0.1-SNAPSHOT</version>
-  <name>NOVA Implementation</name>
-  <description>NOVA Implementation</description>
+  <name>NOVA Clojure Implementation</name>
+  <description>NOVA Clojure Implementation</description>
   <build>
     <sourceDirectory>src/main/clojure</sourceDirectory>
     <testSourceDirectory>src/test/clojure</testSourceDirectory>

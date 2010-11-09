@@ -82,8 +82,7 @@
   </build>
   <modules>
     <module>nova-api</module>
-    <module>nova-impl</module>
-    <module>nova-ui</module>
+    <module>nova-clojure-impl</module>
     <module>mymodel</module>
     <module>mymodel-model</module>
     <module>mymodel-engine</module>
@@ -207,12 +206,7 @@
       </dependency>
       <dependency>
         <groupId>edu.wvu.lcsee.green</groupId>
-        <artifactId>nova-impl</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>edu.wvu.lcsee.green</groupId>
-        <artifactId>nova-ui</artifactId>
+        <artifactId>nova-clojure-impl</artifactId>
         <version>${project.version}</version>
       </dependency>
       

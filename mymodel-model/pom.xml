@@ -31,11 +31,6 @@
       <groupId>edu.wvu.lcsee.green</groupId>
       <artifactId>nova-api</artifactId>
     </dependency>
-    <dependency>
-      <groupId>edu.wvu.lcsee.green</groupId>
-      <artifactId>nova-ui</artifactId>
-    </dependency>
-
 
     <!-- Testing -->
     <dependency>

@@ -1,4 +1,4 @@
-package edu.wvu.lcsee.green.ui;
+package edu.wvu.lcsee.green.control;
 
 import com.google.common.collect.ImmutableList;
 import java.util.ServiceLoader;

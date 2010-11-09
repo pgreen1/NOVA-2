@@ -1,5 +1,6 @@
 package edu.wvu.lcsee.green.model.impl;
 
+import com.google.common.base.Objects;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import edu.wvu.lcsee.green.model.ScoredProject;
@@ -44,4 +45,11 @@ public class ScoredProjectImpl implements ScoredProject {
   public ImmutableMap<Attribute<? extends Serializable>, ? extends Serializable> getValuesAsMap() {
     return project.getValuesAsMap();
   }
+
+  @Override
+  public String toString() {
+    return Objects.toStringHelper(this).add("project",project).add("scores",scores).toString();
+  }
+
+
 }

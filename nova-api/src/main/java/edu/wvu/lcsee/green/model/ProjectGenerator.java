@@ -1,4 +1,4 @@
-package edu.wvu.lcsee.green.spi;
+package edu.wvu.lcsee.green.model;
 
 import com.google.common.collect.ImmutableSet;
 import edu.wvu.lcsee.green.model.Project;
