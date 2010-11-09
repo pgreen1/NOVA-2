@@ -26,7 +26,7 @@ public class MyModelConfigurationDefinition {
           1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
           12, 13, 14, 15, 16, 117, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30)).addAttribute(PSIZE, new SetConstraints(ProjectSize.
           values())).build();
-  public static Policy ALL = new PolicyImpl("ALL", ImmutableSet.<Attribute<? extends Serializable>>of(MEXP, PSIZE));
-  public static CaseStudy DEFAULT = new CaseStudyImpl("DEFAULT", ImmutableMap.<Attribute<? extends Serializable>, Constraints<? extends Serializable>>
+  public static Policy POLICY_ALL = new PolicyImpl("ALL", ImmutableSet.<Attribute<? extends Serializable>>of(MEXP, PSIZE));
+  public static CaseStudy CASE_STUDY_DEFAULT = new CaseStudyImpl("DEFAULT", ImmutableMap.<Attribute<? extends Serializable>, Constraints<? extends Serializable>>
           of());
 }
