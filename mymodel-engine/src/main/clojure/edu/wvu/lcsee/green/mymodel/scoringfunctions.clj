@@ -6,7 +6,7 @@
 
 (gen-class
   :name edu.wvu.lcsee.green.mymodel.CostScoringFunction
-  :implements [edu.wvu.lcsee.green.spi.ScoringFunction]
+  :implements [edu.wvu.lcsee.green.model.spi.ScoringFunction]
   :prefix "cost-")
 
 (defn cost-getKey [this]
@@ -23,7 +23,7 @@
 
 (gen-class
   :name edu.wvu.lcsee.green.mymodel.DurationScoringFunction
-  :implements [edu.wvu.lcsee.green.spi.ScoringFunction]
+  :implements [edu.wvu.lcsee.green.model.spi.ScoringFunction]
   :prefix "duration-")
 
 (defn duration-getKey [this]
@@ -36,11 +36,3 @@
           MyModelAttribute$ProjectSize/MEDIUM 1.0
           MyModelAttribute$ProjectSize/LARGE  0.5))
       (.getValueFor project MyModelAttribute/MEXP)))
-
-;
-;(let [scenerio (.generateScenario edu.wvu.lcsee.green.mymodel.model.MyModelConfigurationDefinition/MY_MODEL_CONFIGURATION
-;                  edu.wvu.lcsee.green.mymodel.model.MyModelConfigurationDefinition/ALL
-;                  edu.wvu.lcsee.green.mymodel.model.MyModelConfigurationDefinition/DEFAULT)
-;      projectGenerator (.getProjectGenerator edu.wvu.lcsee.green.ui.NovaControl/INSTANCE)
-;      project (.generate projectGenerator scenerio)]
-;  (cost-score nil project))

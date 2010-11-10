@@ -9,7 +9,7 @@ import edu.wvu.lcsee.green.model.Project;
 import edu.wvu.lcsee.green.model.Scenario;
 import edu.wvu.lcsee.green.model.ProjectGenerator;
 import edu.wvu.lcsee.green.model.ScoredProject;
-import edu.wvu.lcsee.green.spi.ScoringFunction;
+import edu.wvu.lcsee.green.model.spi.ScoringFunction;
 import java.util.Date;
 import java.util.Map;
 import static edu.wvu.lcsee.green.mymodel.model.MyModelConfigurationDefinition.*;

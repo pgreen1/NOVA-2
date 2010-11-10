@@ -1,6 +1,6 @@
-package edu.wvu.lcsee.green.apps;
+package edu.wvu.lcsee.green.search.spi;
 
-import edu.wvu.lcsee.green.spi.ScoringFunction;
+import edu.wvu.lcsee.green.model.spi.ScoringFunction;
 
 /**
  * 

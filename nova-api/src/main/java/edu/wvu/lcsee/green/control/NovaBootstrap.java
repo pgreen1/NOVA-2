@@ -1,7 +1,7 @@
 package edu.wvu.lcsee.green.control;
 
 import com.google.common.collect.ImmutableList;
-import edu.wvu.lcsee.green.spi.NovaControlFactory;
+import edu.wvu.lcsee.green.control.spi.NovaControlFactory;
 import java.util.ServiceLoader;
 
 /**

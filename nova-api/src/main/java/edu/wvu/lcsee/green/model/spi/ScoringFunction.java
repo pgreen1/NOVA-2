@@ -1,4 +1,4 @@
-package edu.wvu.lcsee.green.spi;
+package edu.wvu.lcsee.green.model.spi;
 
 import edu.wvu.lcsee.green.model.Project;
 import javax.annotation.Nonnull;

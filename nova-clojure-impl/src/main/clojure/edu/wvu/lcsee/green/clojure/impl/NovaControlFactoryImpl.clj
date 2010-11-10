@@ -1,12 +1,12 @@
 
 (ns edu.wvu.lcsee.green.clojure.impl.NovaControlFactoryImpl
   (:gen-class
-      :implements [edu.wvu.lcsee.green.spi.NovaControlFactory]
+      :implements [edu.wvu.lcsee.green.control.spi.NovaControlFactory]
       :prefix "ncf-impl-")
   (:require (edu.wvu.lcsee.green.clojure.impl NovaControlImpl ProjectGeneratorImpl))
   ;(:use )
   (:import (com.google.common.collect ImmutableList ImmutableMap)
-           (edu.wvu.lcsee.green.spi ScoringFunction))
+           (edu.wvu.lcsee.green.model.spi ScoringFunction))
   )
 
 (defn loadServicesOfType [serviceClass]

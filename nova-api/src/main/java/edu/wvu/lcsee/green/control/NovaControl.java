@@ -4,7 +4,7 @@ import com.google.common.collect.ImmutableSet;
 import javax.annotation.Nonnull;
 import com.google.common.collect.ImmutableMap;
 import edu.wvu.lcsee.green.model.ProjectGenerator;
-import edu.wvu.lcsee.green.spi.ScoringFunction;
+import edu.wvu.lcsee.green.model.spi.ScoringFunction;
 
 /**
  *
