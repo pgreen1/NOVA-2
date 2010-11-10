@@ -6,7 +6,7 @@
   ;(:use )
   (:import (com.google.common.collect ImmutableList ImmutableMap)
            (edu.wvu.lcsee.green.model.spi ScoringFunction)
-           (edu.wvu.lcsee.green.search.spi SearchEngine))
+           (edu.wvu.lcsee.green.search.spi SearchEnginesProvider))
   )
 
 (defn createRegistryFrom [getKeyFn objList]
@@ -30,7 +30,9 @@
                                    (loadServicesOfType ScoringFunction))
         searchEngineRegistry (createRegistryFrom
                                    (memfn getKey)
-                                   (loadServicesOfType SearchEngine))]
+                                   (flatten
+                                     (map (comp seq (memfn getSearchEngines))
+                                          (loadServicesOfType SearchEnginesProvider))))]
     (new edu.wvu.lcsee.green.clojure.impl.NovaControlImpl 
       (new edu.wvu.lcsee.green.clojure.impl.ProjectGeneratorImpl scoringFunctionRegistry)
       scoringFunctionRegistry

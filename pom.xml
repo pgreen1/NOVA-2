@@ -83,6 +83,7 @@
   <modules>
     <module>nova-api</module>
     <module>nova-clojure-impl</module>
+    <module>nova-search-engines</module>
     <module>mymodel</module>
     <module>mymodel-model</module>
     <module>mymodel-engine</module>
@@ -202,6 +203,11 @@
       <dependency>
         <groupId>edu.wvu.lcsee.green</groupId>
         <artifactId>nova-api</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>edu.wvu.lcsee.green</groupId>
+        <artifactId>nova-search-engines</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>

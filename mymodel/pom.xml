@@ -33,6 +33,10 @@
     </dependency>
     <dependency>
       <groupId>edu.wvu.lcsee.green</groupId>
+      <artifactId>nova-search-engines</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>edu.wvu.lcsee.green</groupId>
       <artifactId>nova-clojure-impl</artifactId>
     </dependency>
     <!-- MyModel -->

@@ -5,7 +5,7 @@ import javax.annotation.Nonnull;
 import com.google.common.collect.ImmutableMap;
 import edu.wvu.lcsee.green.model.ProjectGenerator;
 import edu.wvu.lcsee.green.model.spi.ScoringFunction;
-import edu.wvu.lcsee.green.search.spi.SearchEngine;
+import edu.wvu.lcsee.green.search.SearchEngine;
 
 /**
  *

@@ -41,5 +41,7 @@ public class Application {
       scores.put(entry.getKey(), entry.getValue().score(project));
     }
     System.out.println(ImmutableMap.copyOf(scores));
+
+    System.out.println(novaControl.getAllSearchEngines());
   }
 }

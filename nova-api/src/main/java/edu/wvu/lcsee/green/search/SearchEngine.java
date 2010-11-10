@@ -1,4 +1,4 @@
-package edu.wvu.lcsee.green.search.spi;
+package edu.wvu.lcsee.green.search;
 
 import com.google.common.collect.ImmutableList;
 import edu.wvu.lcsee.green.model.Scenario;
@@ -15,5 +15,5 @@ public interface SearchEngine {
   String getKey();
 
   @Nonnull
-  ImmutableList<State> search(@Nonnull ScoringFunction scoringFunction, @Nonnull final Scenario initialScenerio);
+  Path search(@Nonnull ScoringFunction scoringFunction, @Nonnull final Scenario initialScenerio);
 }
