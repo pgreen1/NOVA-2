@@ -10,6 +10,8 @@ import javax.annotation.Nonnull;
  */
 public interface SearchEngine {
 
+   String getKey();
+
   @Nonnull
   ImmutableList<State> search(@Nonnull final State initialState);
 }
