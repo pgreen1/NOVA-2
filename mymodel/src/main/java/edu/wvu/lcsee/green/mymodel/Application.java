@@ -38,13 +38,13 @@ public class Application {
     final Project project = projectGenerator.generateScoredProject(scenario);
 
     final Map<String, Number> scores = Maps.newHashMap();
-    for (final Map.Entry<String, ScoringFunction> entry : novaControl.getAllScoringFunctions().entrySet()) {
-      scores.put(entry.getKey(), entry.getValue().score(project));
+    for (final ScoringFunction scoringFunction : novaControl.getAllScoringFunctions()) {
+      scores.put(scoringFunction.getKey(), scoringFunction.score(project));
     }
     System.out.println(ImmutableMap.copyOf(scores));
 
-    final ScoringFunction scoringFunction = novaControl.getAllScoringFunctions().values().iterator().next();
-    final SearchEngine searchEngine = novaControl.getAllSearchEngines().values().iterator().next();
+    final ScoringFunction scoringFunction = novaControl.getScoringFunctionForKey("cost");
+    final SearchEngine searchEngine = novaControl.getSearchEngineForKey("strawman");
 
     System.out.println(searchEngine.search(scoringFunction, scenario));
   }

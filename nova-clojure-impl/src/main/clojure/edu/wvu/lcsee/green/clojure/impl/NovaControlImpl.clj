@@ -8,7 +8,7 @@
       :prefix "nc-impl-")
   ;(:require )
   ;(:use )
-  (:import (com.google.common.collect ImmutableMap))
+  (:import (com.google.common.collect ImmutableMap ImmutableSet))
   )
 
 (defn nc-impl-init [projectGenerator scoringFunctionRegistry searchEngineRegistry]
@@ -21,8 +21,23 @@
 
 
 (defn nc-impl-getAllScoringFunctions [this]
-  (get (.state this) :scoringFunctionRegistry))
+  (ImmutableSet/copyOf
+    (.values
+      (get (.state this) :scoringFunctionRegistry))))
 
+
+(defn nc-impl-getScoringFunctionForKey [this key]
+  (.get
+     (get (.state this) :scoringFunctionRegistry)
+     key))
 
 (defn nc-impl-getAllSearchEngines [this]
-  (get (.state this) :searchEngineRegistry))
+  (ImmutableSet/copyOf
+    (.values
+      (get (.state this) :searchEngineRegistry))))
+
+
+(defn nc-impl-getSearchEngineForKey [this key]
+  (.get
+    (get (.state this) :searchEngineRegistry)
+    key))
