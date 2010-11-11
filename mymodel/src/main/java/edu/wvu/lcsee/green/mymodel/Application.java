@@ -17,8 +17,8 @@ import java.util.Date;
 import java.util.Map;
 import static edu.wvu.lcsee.green.mymodel.model.MyModelConfigurationDefinition.*;
 
-import edu.wvu.lcsee.green.mymodel.CostScoringFunction;
-import edu.wvu.lcsee.green.mymodel.DurationScoringFunction;
+//import edu.wvu.lcsee.green.mymodel.CostScoringFunction;
+//import edu.wvu.lcsee.green.mymodel.DurationScoringFunction;
 import edu.wvu.lcsee.green.search.impl.MeanProjectScoreEvaluationFunction;
 
 /**
@@ -32,7 +32,7 @@ public class Application {
 
     final ProjectGenerator projectGenerator = novaControl.getProjectGenerator();
 
-    final Scenario scenario = MY_MODEL_CONFIGURATION.generateScenario(POLICY_ALL, CASE_STUDY_DEFAULT);
+    final Scenario scenario = MY_MODEL_CONFIGURATION.generateScenario(ATTRIBUTE_CONTEXT_DEFAULT, CASE_STUDY_DEFAULT);
 
     final Date before = new Date();
     final ImmutableSet<ScoredProject> scoredProjects = projectGenerator.generateManyScoredProjects(scenario, 20, new DurationScoringFunction(),

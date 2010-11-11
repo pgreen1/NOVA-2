@@ -9,7 +9,7 @@ import javax.annotation.Nullable;
  *
  * @author pdgreen
  */
-public interface Policy {
+public interface AttributeContext {
 
   @Nullable
   String getName();

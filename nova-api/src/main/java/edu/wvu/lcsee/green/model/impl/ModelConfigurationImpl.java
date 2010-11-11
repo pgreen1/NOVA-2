@@ -7,7 +7,7 @@ import edu.wvu.lcsee.green.model.Attribute;
 import edu.wvu.lcsee.green.model.CaseStudy;
 import edu.wvu.lcsee.green.model.Constraints;
 import edu.wvu.lcsee.green.model.ModelConfiguration;
-import edu.wvu.lcsee.green.model.Policy;
+import edu.wvu.lcsee.green.model.AttributeContext;
 import edu.wvu.lcsee.green.model.Scenario;
 import java.io.Serializable;
 import java.util.Map;
@@ -39,8 +39,8 @@ public class ModelConfigurationImpl implements ModelConfiguration {
   }
 
   @Override
-  public Scenario generateScenario(@Nonnull final Policy policy, @Nonnull final CaseStudy caseStudy) {
-    checkNotNull(policy);
+  public Scenario generateScenario(@Nonnull final AttributeContext attributeContext, @Nonnull final CaseStudy caseStudy) {
+    checkNotNull(attributeContext);
     checkNotNull(caseStudy);
     final Map<Attribute<? extends Serializable>, Constraints<? extends Serializable>> attributeConstraints = Maps.
             newHashMap(defaultAttributeConstraints);
@@ -49,6 +49,6 @@ public class ModelConfigurationImpl implements ModelConfiguration {
       attributeConstraints.put(attribute,
               attributeConstraints.get(attribute).mergeConstraints((Constraints) caseStudy.getConstraintsFor(attribute)));
     }
-    return new ScenarioImpl(attributeConstraints, policy.getModifiableAttibutes());
+    return new ScenarioImpl(attributeConstraints, attributeContext.getModifiableAttibutes());
   }
 }

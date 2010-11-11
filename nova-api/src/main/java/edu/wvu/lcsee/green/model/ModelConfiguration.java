@@ -1,7 +1,7 @@
 package edu.wvu.lcsee.green.model;
 
-import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
+import edu.wvu.lcsee.green.model.spi.ScoringFunction;
 import java.io.Serializable;
 import javax.annotation.Nonnull;
 
@@ -18,5 +18,6 @@ public interface ModelConfiguration {
   <V extends Serializable> Constraints<V> getDefaultConstraintsFor(@Nonnull Attribute<V> attribute);
 
   @Nonnull
-  Scenario generateScenario(@Nonnull Policy policy, @Nonnull CaseStudy caseStudy);
+  Scenario generateScenario(@Nonnull AttributeContext attributeContext, @Nonnull CaseStudy caseStudy);
+
 }
