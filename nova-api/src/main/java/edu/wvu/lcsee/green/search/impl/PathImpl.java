@@ -1,5 +1,6 @@
 package edu.wvu.lcsee.green.search.impl;
 
+import com.google.common.base.Objects;
 import java.util.List;
 import javax.annotation.Nonnull;
 import edu.wvu.lcsee.green.search.*;
@@ -67,6 +68,12 @@ public class PathImpl implements Path {
     hash = 61 * hash + (this.timeEnded != null ? this.timeEnded.hashCode() : 0);
     hash = 61 * hash + (this.states != null ? this.states.hashCode() : 0);
     return hash;
+  }
+
+  @Override
+  public String toString() {
+    return Objects.toStringHelper(this).add("started", timeStarted).add("ended", timeEnded).add("stateCount", states.
+            size()).toString();
   }
   //TODO overRide toString
 }

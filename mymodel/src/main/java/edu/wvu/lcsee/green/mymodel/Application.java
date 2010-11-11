@@ -1,5 +1,6 @@
 package edu.wvu.lcsee.green.mymodel;
 
+import edu.wvu.lcsee.green.search.SearchEngine;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Maps;
@@ -42,6 +43,9 @@ public class Application {
     }
     System.out.println(ImmutableMap.copyOf(scores));
 
-    System.out.println(novaControl.getAllSearchEngines());
+    final ScoringFunction scoringFunction = novaControl.getAllScoringFunctions().values().iterator().next();
+    final SearchEngine searchEngine = novaControl.getAllSearchEngines().values().iterator().next();
+
+    System.out.println(searchEngine.search(scoringFunction, scenario));
   }
 }
