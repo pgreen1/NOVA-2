@@ -1,9 +1,7 @@
 package edu.wvu.lcsee.green.model;
 
 import com.google.common.collect.ImmutableSet;
-import edu.wvu.lcsee.green.model.Project;
-import edu.wvu.lcsee.green.model.Scenario;
-import edu.wvu.lcsee.green.model.ScoredProject;
+import edu.wvu.lcsee.green.model.spi.ScoringFunction;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 
@@ -17,7 +15,7 @@ public interface ProjectGenerator {
   Project generateProject(@Nonnull Scenario scenario);
 
   @Nonnull
-  ScoredProject generateScoredProject(@Nonnull Scenario scenario, String... scoreFunctionKeys);
+  ScoredProject generateScoredProject(@Nonnull Scenario scenario, @Nonnull ScoringFunction... scoringFunctions);
 
   @Nonnull
   ImmutableSet<Project> generateManyProjects(@Nonnull Scenario scenario,
@@ -25,5 +23,5 @@ public interface ProjectGenerator {
 
   @Nonnull
   ImmutableSet<ScoredProject> generateManyScoredProjects(@Nonnull Scenario scenario,
-          @Nonnegative int numberOfProjectsToCreate, String... scoreFunctionKeys);
+          @Nonnegative int numberOfProjectsToCreate, @Nonnull ScoringFunction... scoringFunctions);
 }

@@ -12,8 +12,9 @@
 (defn se-impl-getKey [this]
   "strawman")
 
-(defn se-impl-search [this scoringFunction initialScenario]
+(defn se-impl-search [this evaluationFunction initialScenario]
   (let [startTime (new Date)
-        states (ImmutableList/of (new StateImpl initialScenario))
+        states (ImmutableList/of (new StateImpl initialScenario
+                                                (.evaluate evaluationFunction initialScenario)))
         endTime  (new Date)]
     (new PathImpl startTime endTime states)))

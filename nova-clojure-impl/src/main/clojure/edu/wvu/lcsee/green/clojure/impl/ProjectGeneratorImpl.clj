@@ -39,11 +39,11 @@
                  (.. scenario (getConstraintsFor attribute) (generateValue))))
           (. scenario getAllAttributes))))))
 
-(defn pg-impl-generateScoredProject [this scenario scoreFunctionKeys]
+(defn pg-impl-generateScoredProject [this scenario scoringFunctions]
   (let [project (.generateProject this scenario)]
     (new edu.wvu.lcsee.green.model.impl.ScoredProjectImpl
       project
-      (scoreProject project (getScoringFunctions this scoreFunctionKeys)))))
+      (scoreProject project scoringFunctions))))
 
 (defn pg-impl-generateManyProjects [this scenario numberOfProjectsToGenerate]
   (. ImmutableSet copyOf
@@ -51,12 +51,11 @@
           (.generateProject this scenario))
       (range numberOfProjectsToGenerate))))
 
-(defn pg-impl-generateManyScoredProjects [this scenario numberOfProjectsToGenerate scoreFunctionKeys]
-  (let [scoreFunctions (getScoringFunctions this scoreFunctionKeys)]
-    (. ImmutableSet copyOf
-      (map (fn [n]
-             (let [project (.generateProject this scenario)]
-               (new edu.wvu.lcsee.green.model.impl.ScoredProjectImpl
-                 project
-                 (scoreProject project scoreFunctions))))
-        (range numberOfProjectsToGenerate)))))
+(defn pg-impl-generateManyScoredProjects [this scenario numberOfProjectsToGenerate scoringFunctions]
+  (. ImmutableSet copyOf
+    (map (fn [n]
+           (let [project (.generateProject this scenario)]
+             (new edu.wvu.lcsee.green.model.impl.ScoredProjectImpl
+               project
+               (scoreProject project scoringFunctions))))
+      (range numberOfProjectsToGenerate))))

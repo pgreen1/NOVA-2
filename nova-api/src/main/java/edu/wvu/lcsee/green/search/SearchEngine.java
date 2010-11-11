@@ -15,5 +15,5 @@ public interface SearchEngine {
   String getKey();
 
   @Nonnull
-  Path search(@Nonnull ScoringFunction scoringFunction, @Nonnull final Scenario initialScenerio);
+  Path search(@Nonnull EvaluationFunction evaluationFunction, @Nonnull final Scenario initialScenerio);
 }
