@@ -1,5 +1,6 @@
 package edu.wvu.lcsee.green.model.impl;
 
+import java.util.Set;
 import com.google.common.collect.Maps;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
@@ -9,6 +10,7 @@ import edu.wvu.lcsee.green.model.Constraints;
 import edu.wvu.lcsee.green.model.ModelConfiguration;
 import edu.wvu.lcsee.green.model.AttributeContext;
 import edu.wvu.lcsee.green.model.Scenario;
+import edu.wvu.lcsee.green.model.spi.ScoringFunction;
 import java.io.Serializable;
 import java.util.Map;
 import javax.annotation.Nonnull;
@@ -21,10 +23,13 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class ModelConfigurationImpl implements ModelConfiguration {
 
   private final ImmutableMap<Attribute<? extends Serializable>, Constraints<? extends Serializable>> defaultAttributeConstraints;
+  private final ImmutableSet<ScoringFunction> allScoringFunctions;
 
   public ModelConfigurationImpl(
-          @Nonnull final Map<Attribute<? extends Serializable>, Constraints<? extends Serializable>> defaultAttributeConstraints) {
+          @Nonnull final Map<Attribute<? extends Serializable>, Constraints<? extends Serializable>> defaultAttributeConstraints,
+          @Nonnull final Set<ScoringFunction> allScoringFunctions) {
     this.defaultAttributeConstraints = ImmutableMap.copyOf(defaultAttributeConstraints);
+    this.allScoringFunctions = ImmutableSet.copyOf(allScoringFunctions);
   }
 
   @Override
@@ -50,5 +55,10 @@ public class ModelConfigurationImpl implements ModelConfiguration {
               attributeConstraints.get(attribute).mergeConstraints((Constraints) caseStudy.getConstraintsFor(attribute)));
     }
     return new ScenarioImpl(attributeConstraints, attributeContext.getModifiableAttibutes());
+  }
+
+  @Override
+  public ImmutableSet<ScoringFunction> getAllScoringFunctions() {
+    return allScoringFunctions;
   }
 }

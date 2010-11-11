@@ -20,4 +20,6 @@ public interface ModelConfiguration {
   @Nonnull
   Scenario generateScenario(@Nonnull AttributeContext attributeContext, @Nonnull CaseStudy caseStudy);
 
+  @Nonnull
+  ImmutableSet<ScoringFunction> getAllScoringFunctions();
 }
