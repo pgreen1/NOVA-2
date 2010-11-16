@@ -12,12 +12,11 @@
 (defn createRegistryFrom [getKeyFn objList]
   (ImmutableMap/copyOf
     (apply hash-map
-      (flatten
-        (map (fn [obj]
+        (mapcat (fn [obj]
                (list
                  (getKeyFn obj)
                  obj))
-          objList)))))
+          objList))))
 
 (defn loadServicesOfType [serviceClass]
   (ImmutableList/copyOf

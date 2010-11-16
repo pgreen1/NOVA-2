@@ -12,13 +12,10 @@ import edu.wvu.lcsee.green.model.Scenario;
 import edu.wvu.lcsee.green.model.ProjectGenerator;
 import edu.wvu.lcsee.green.model.ScoredProject;
 import edu.wvu.lcsee.green.model.spi.ScoringFunction;
-import edu.wvu.lcsee.green.search.EvaluationFunction;
 import java.util.Date;
 import java.util.Map;
 import static edu.wvu.lcsee.green.mymodel.model.MyModelConfigurationDefinition.*;
 
-//import edu.wvu.lcsee.green.mymodel.CostScoringFunction;
-//import edu.wvu.lcsee.green.mymodel.DurationScoringFunction;
 import edu.wvu.lcsee.green.search.impl.MeanProjectScoreEvaluationFunction;
 
 /**
@@ -35,7 +32,8 @@ public class Application {
     final Scenario scenario = MY_MODEL_CONFIGURATION.generateScenario(ATTRIBUTE_CONTEXT_DEFAULT, CASE_STUDY_DEFAULT);
 
     final Date before = new Date();
-    final ImmutableSet<ScoredProject> scoredProjects = projectGenerator.generateManyScoredProjects(scenario, 20, new DurationScoringFunction(),
+    final ImmutableSet<ScoredProject> scoredProjects = projectGenerator.generateManyScoredProjects(scenario, 20,
+            new DurationScoringFunction(),
             new CostScoringFunction());
     final Date after = new Date();
     System.out.println("time (MS)" + (after.getTime() - before.getTime()));
@@ -52,7 +50,7 @@ public class Application {
     final SearchEngine searchEngine = novaControl.getSearchEngineForKey("strawman");
 
     final Path path = searchEngine.search(new MeanProjectScoreEvaluationFunction(projectGenerator,
-            100,  new CostScoringFunction()), scenario);
+            100, new CostScoringFunction()), scenario);
     System.out.println(path);
     System.out.println(path.getStates());
   }
