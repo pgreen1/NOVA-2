@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <artifactId>nova</artifactId>
+    <groupId>edu.wvu.lcsee.green</groupId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <groupId>edu.wvu.lcsee.green</groupId>
+  <artifactId>edu.wvu.lcsee.green.mymodel.experiments</artifactId>
+  <name>MyModel Experiments</name>
+  <version>0.0.1-SNAPSHOT</version>
+  <dependencies>
+    <!-- NOVA -->
+    <dependency>
+      <groupId>edu.wvu.lcsee.green</groupId>
+      <artifactId>nova-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>edu.wvu.lcsee.green</groupId>
+      <artifactId>nova-search-engines</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>edu.wvu.lcsee.green</groupId>
+      <artifactId>nova-clojure-impl</artifactId>
+    </dependency>
+    <!-- MyModel -->
+    <dependency>
+      <groupId>edu.wvu.lcsee.green.mymodel</groupId>
+      <artifactId>mymodel-model</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>edu.wvu.lcsee.green.mymodel</groupId>
+      <artifactId>mymodel-engine</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.codehaus.groovy.maven.runtime</groupId>
+      <artifactId>gmaven-runtime-1.6</artifactId>
+      <version>1.0</version>
+    </dependency>
+
+       
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.8.2</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.hamcrest</groupId>
+      <artifactId>hamcrest-core</artifactId>
+      <version>1.2</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.groovy.maven</groupId>
+        <artifactId>gmaven-plugin</artifactId>
+        <version>1.0</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>generateStubs</goal>
+              <goal>compile</goal>
+              <goal>generateTestStubs</goal>
+              <goal>testCompile</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>
