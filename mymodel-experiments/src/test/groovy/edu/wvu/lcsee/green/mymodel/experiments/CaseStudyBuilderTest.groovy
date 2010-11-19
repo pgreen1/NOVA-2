@@ -17,11 +17,10 @@ class CaseStudyBuilderTest {
     final CaseStudy companyX = new CaseStudyBuilder().caseStudy{
       name 'Company X'
       constraints (
-        (MEXP): [5, 6, 7, 8, 9, 10],
+        (MEXP): 5..10,
         (PSIZE): MEDIUM
       )
     }
-    println companyX
 
     assertThat(companyX.name, is('Company X'))
     assertThat(companyX.getAllAttributes().size(), is(2))
@@ -32,11 +31,10 @@ class CaseStudyBuilderTest {
   void aCaseStudyShouldBuildWithConstraints() {
     final CaseStudy caseStudy = new CaseStudyBuilder().caseStudy{
       constraints (
-        (MEXP): [5, 6, 9, 10],
-        (PSIZE): MEDIUM
+        (MEXP): 3..7,
+        (PSIZE): SMALL
       )
     }
-    println caseStudy
 
     assertThat(caseStudy.name, is(null))
     assertThat(caseStudy.getAllAttributes().size(), is(2))

@@ -34,11 +34,9 @@ class CaseStudyBuilder extends BuilderSupport {
   }
 
   protected Object createNode(Object name, Object value) {
-    switch (name) {
-      case "name":
+    if("name" == name) {
       this.name = value
-      break
-      default:
+    } else {
       throw new IllegalArgumentException("unexpected name-value: " + name +"-" + value )
     }
   }
