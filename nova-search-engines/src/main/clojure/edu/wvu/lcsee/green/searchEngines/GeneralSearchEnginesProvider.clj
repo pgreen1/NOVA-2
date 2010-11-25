@@ -5,14 +5,15 @@
       :constructors {[] []}
       :state state
       :prefix "sep-impl-")
-  (:require (edu.wvu.lcsee.green.searchEngines StrawManSearchEngine))
+  (:require (edu.wvu.lcsee.green.searchEngines StrawManSearchEngine IsampSearchEngine))
   ;(:use )
   (:import (com.google.common.collect ImmutableSet))
   )
 
 (defn sep-impl-init []
   [[] {:searchEngines (ImmutableSet/of
-                        (new edu.wvu.lcsee.green.searchEngines.StrawManSearchEngine))}])
+                        (new edu.wvu.lcsee.green.searchEngines.StrawManSearchEngine)
+                        (new edu.wvu.lcsee.green.searchEngines.IsampSearchEngine))}])
 
 (defn sep-impl-getSearchEngines [this]
   (get (.state this) :searchEngines))
