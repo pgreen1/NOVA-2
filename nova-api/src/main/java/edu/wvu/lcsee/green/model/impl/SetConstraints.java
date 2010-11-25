@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import edu.wvu.lcsee.green.model.Constraints;
+import edu.wvu.lcsee.green.model.ConstraintsEditor;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -38,7 +39,24 @@ public class SetConstraints<V extends Serializable> implements Constraints<V> {
 
   @Override
   public Constraints<V> mergeConstraints(@Nonnull final Constraints<V> constraintsToMerge) {
-    final Set<V> newValues = Sets.intersection(values, ((SetConstraints) constraintsToMerge).values);
-    return new SetConstraints(newValues);
+    final ConstraintsEditor<V> thisEditor = getEditor();
+    final ConstraintsEditor<V> thatEditor = constraintsToMerge.getEditor();
+
+    final Set<ConstraintsEditor.DiscreteValue<V>> discreteValues = Sets.intersection(thisEditor.getAllValues(), thatEditor.getAllValues());
+
+    //FIXME: used rawtype to get around generics
+    final ConstraintsEditor<V> newEditor = new SetConstraintsEditor(discreteValues);
+
+    return newEditor.generateConstraints();
+  }
+
+  @Override
+  public boolean isFullyConstrained() {
+    return values.size() == 1;
+  }
+
+  @Override
+  public ConstraintsEditor<V> getEditor() {
+    return SetConstraintsEditor.newInstanceWithValues(values);
   }
 }

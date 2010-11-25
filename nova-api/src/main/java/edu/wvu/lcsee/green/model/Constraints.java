@@ -14,4 +14,10 @@ public interface Constraints<V extends Serializable> extends Serializable {
 
   @Nonnull
   Constraints<V> mergeConstraints(@Nonnull Constraints<V> constraintsToMerge);
+
+  @Nonnull
+  ConstraintsEditor<V> getEditor();
+
+  @Nonnull
+  boolean isFullyConstrained();
 }
