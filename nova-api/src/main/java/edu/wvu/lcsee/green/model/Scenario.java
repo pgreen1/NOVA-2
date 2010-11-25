@@ -11,8 +11,10 @@ import javax.annotation.Nonnull;
  */
 public interface Scenario {
 
+  @Nonnull
   ImmutableSet<Attribute<? extends Serializable>> getAllAttributes();
 
+  @Nonnull
   ImmutableSet<Attribute<? extends Serializable>> getModifiableAttributes();
 
   @Nonnull
@@ -20,4 +22,7 @@ public interface Scenario {
 
   @Nonnull
   Scenario applyTreatment(@Nonnull Treatment treatment);
+
+  @Nonnull
+  ImmutableMap<Attribute<? extends Serializable>, Constraints<? extends Serializable>> asMap();
 }
