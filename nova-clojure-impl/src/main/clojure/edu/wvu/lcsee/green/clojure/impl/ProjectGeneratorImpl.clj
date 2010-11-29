@@ -6,10 +6,12 @@
     :state state
     :prefix "pg-impl-")
  (:import
-    (com.google.common.collect ImmutableSet ImmutableMap))
+     (edu.wvu.lcsee.green.model.impl ProjectIterable ScoredProjectIterable)
+     (com.google.common.collect ImmutableSet ImmutableMap))
   )
 
 (defn pg-impl-init [scoringFunctionRegistry]
+  ;;FIXME is the registry still being used?
   [[] {:scoringFunctionRegistry (ImmutableMap/copyOf scoringFunctionRegistry)}])
 
 
@@ -46,16 +48,7 @@
       (scoreProject project scoringFunctions))))
 
 (defn pg-impl-generateManyProjects [this scenario numberOfProjectsToGenerate]
-  (. ImmutableSet copyOf
-    (map (fn [n]
-          (.generateProject this scenario))
-      (range numberOfProjectsToGenerate))))
+  (new ProjectIterable this scenario numberOfProjectsToGenerate))
 
 (defn pg-impl-generateManyScoredProjects [this scenario numberOfProjectsToGenerate scoringFunctions]
-  (. ImmutableSet copyOf
-    (map (fn [n]
-           (let [project (.generateProject this scenario)]
-             (new edu.wvu.lcsee.green.model.impl.ScoredProjectImpl
-               project
-               (scoreProject project scoringFunctions))))
-      (range numberOfProjectsToGenerate))))
+  (new ScoredProjectIterable this scoringFunctions scenario numberOfProjectsToGenerate))

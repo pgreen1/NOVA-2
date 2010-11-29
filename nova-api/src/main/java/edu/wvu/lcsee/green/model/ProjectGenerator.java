@@ -31,13 +31,13 @@ public interface ProjectGenerator {
   ScoredProject generateScoredProject(@Nonnull Scenario scenario, @Nonnull ScoringFunction... scoringFunctions);
 
   /**
-   * Generates a set of projects based upon the given {@link Scenario}.
+   * Generates an Iterable of projects based upon the given {@link Scenario}.
    * @param scenario the source Scenario
    * @param numberOfProjectsToCreate the number of projects to create
    * @return a set of projects
    */
   @Nonnull
-  ImmutableSet<Project> generateManyProjects(@Nonnull Scenario scenario,
+  Iterable<Project> generateManyProjects(@Nonnull Scenario scenario,
           @Nonnegative int numberOfProjectsToCreate);
 
   /**
@@ -48,6 +48,6 @@ public interface ProjectGenerator {
    * @return a scored project
    */
   @Nonnull
-  ImmutableSet<ScoredProject> generateManyScoredProjects(@Nonnull Scenario scenario,
+  Iterable<ScoredProject> generateManyScoredProjects(@Nonnull Scenario scenario,
           @Nonnegative int numberOfScoredProjectsToCreate, @Nonnull ScoringFunction... scoringFunctions);
 }

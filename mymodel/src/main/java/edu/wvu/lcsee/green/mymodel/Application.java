@@ -32,9 +32,9 @@ public class Application {
     final Scenario scenario = MY_MODEL_CONFIGURATION.generateScenario(ATTRIBUTE_CONTEXT_DEFAULT, CASE_STUDY_DEFAULT);
 
     final Date before = new Date();
-    final ImmutableSet<ScoredProject> scoredProjects = projectGenerator.generateManyScoredProjects(scenario, 20,
+    final ImmutableSet<ScoredProject> scoredProjects = ImmutableSet.copyOf(projectGenerator.generateManyScoredProjects(scenario, 20,
             new DurationScoringFunction(),
-            new CostScoringFunction());
+            new CostScoringFunction()));
     final Date after = new Date();
     System.out.println("time (MS)" + (after.getTime() - before.getTime()));
     System.out.println(scoredProjects);
