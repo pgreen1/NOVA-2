@@ -1,4 +1,3 @@
-
 package edu.wvu.lcsee.green.model.impl;
 
 import edu.wvu.lcsee.green.model.ConstraintsEditor;
@@ -9,6 +8,7 @@ import javax.annotation.Nonnull;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
+ * Implementation of {@link Constraints} when there is only one value.
  *
  * @author pdgreen
  */
@@ -35,9 +35,8 @@ public class SingletonConstraints<V extends Serializable> implements Constraints
     return true;
   }
 
-   @Override
+  @Override
   public ConstraintsEditor<V> getEditor() {
     return SetConstraintsEditor.newInstanceWithValues(Collections.singleton(value));
   }
-
 }

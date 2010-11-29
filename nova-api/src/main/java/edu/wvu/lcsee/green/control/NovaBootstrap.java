@@ -10,6 +10,12 @@ import java.util.ServiceLoader;
  */
 public class NovaBootstrap {
 
+  /**
+   * Loads the NovaControlFactory using SPI.
+   * @return Implementation of NovaControlFactory
+   * @throws IllegalStateException if there is zero or more than one
+   * implementation of NovaControlFactory found via SPI.
+   */
   public static NovaControlFactory loadFactory() {
     final ServiceLoader<NovaControlFactory> serviceLoader = ServiceLoader.load(NovaControlFactory.class);
 

@@ -5,32 +5,39 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 
 /**
- *
+ * {@link Constraints} are immutable.  In situations when a mutable version is required,
+ * ConstraintsEditor should be used.
+ * ConstraintsEditor allows for values to added and removed.
  * @author pdgreen
  */
 public interface ConstraintsEditor<V extends Serializable> {
 
   /**
    * Generates Constraints from the editor.
-   * @return
+   * @return Constraints with values of ConstraintEditor
+   * @throws IllegalStateException when there is no current values associated with the ConstraintsEditor.
    */
   @Nonnull
   Constraints<V> generateConstraints();
 
   /**
    * Returns discrete values for any extremes.  If there are not values that are "extreme", then this should return the same as getAllValues().
-   * @return
+   * @return the set of values which would be considered the extremes if the values of some kind of ordering.
    */
   @Nonnull
   Set<DiscreteValue<V>> getExtremesValues();
 
   /**
    * Return all values.
-   * @return
+   * @return a set of all values currently in the ConstraintsEditor
    */
   @Nonnull
   Set<DiscreteValue<V>> getAllValues();
 
+  /**
+   * Returns whether or not there is only one single value associated with this ConstraintsEditor.
+   * @return whether or not there is only one single value associated
+   */
   @Nonnull
   boolean isSingletonValue();
 

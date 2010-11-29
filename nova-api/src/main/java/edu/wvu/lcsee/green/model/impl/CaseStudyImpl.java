@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.Map;
 
 /**
+ * Standard implementation of {@link CaseStudy}.
  *
  * @author pdgreen
  */

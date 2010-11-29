@@ -7,6 +7,7 @@ import edu.wvu.lcsee.green.model.spi.ScoringFunction;
 import edu.wvu.lcsee.green.search.SearchEngine;
 
 /**
+ * NovaControl is the central object for using NOVA.  All tasks is handled through this class.
  *
  * @author pdgreen
  */

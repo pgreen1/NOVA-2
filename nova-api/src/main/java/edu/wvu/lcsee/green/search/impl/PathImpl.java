@@ -1,16 +1,16 @@
 package edu.wvu.lcsee.green.search.impl;
 
+import edu.wvu.lcsee.green.search.State;
 import com.google.common.base.Objects;
 import java.util.List;
 import javax.annotation.Nonnull;
-import edu.wvu.lcsee.green.search.*;
 import com.google.common.collect.ImmutableList;
 import java.util.Date;
 import edu.wvu.lcsee.green.search.Path;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
- *
+ * Standard implementation {@link Path}.
  * @author pdgreen
  */
 public class PathImpl implements Path {
@@ -48,26 +48,15 @@ public class PathImpl implements Path {
     if (getClass() != obj.getClass()) {
       return false;
     }
-    final PathImpl other = (PathImpl) obj;
-    if (this.timeStarted != other.timeStarted && (this.timeStarted == null || !this.timeStarted.equals(other.timeStarted))) {
-      return false;
-    }
-    if (this.timeEnded != other.timeEnded && (this.timeEnded == null || !this.timeEnded.equals(other.timeEnded))) {
-      return false;
-    }
-    if (this.states != other.states && (this.states == null || !this.states.equals(other.states))) {
-      return false;
-    }
-    return true;
+    final PathImpl that = (PathImpl) obj;
+
+    return Objects.equal(this.timeStarted, that.timeStarted) && Objects.equal(this.timeEnded, that.timeEnded) && Objects.
+            equal(this.states, that.states);
   }
 
   @Override
   public int hashCode() {
-    int hash = 5;
-    hash = 61 * hash + (this.timeStarted != null ? this.timeStarted.hashCode() : 0);
-    hash = 61 * hash + (this.timeEnded != null ? this.timeEnded.hashCode() : 0);
-    hash = 61 * hash + (this.states != null ? this.states.hashCode() : 0);
-    return hash;
+    return Objects.hashCode(timeStarted, timeEnded, states);
   }
 
   @Override
@@ -75,5 +64,4 @@ public class PathImpl implements Path {
     return Objects.toStringHelper(this).add("started", timeStarted).add("ended", timeEnded).add("stateCount", states.
             size()).toString();
   }
-  //TODO overRide toString
 }

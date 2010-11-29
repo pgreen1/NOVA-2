@@ -15,6 +15,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.base.Preconditions.checkArgument;
 
 /**
+ * The Standard implementation of {@link Scenario}.
  *
  * @author pdgreen
  */
@@ -38,6 +39,7 @@ public class ScenarioImpl implements Scenario {
   @Override
   public <V extends Serializable> Constraints<V> getConstraintsFor(@Nonnull final Attribute<V> attribute) {
     checkNotNull(attribute);
+    checkArgument(attributeConstraints.containsKey(attribute), "Argument not in this scenario: " + attribute);
     return (Constraints<V>) attributeConstraints.get(attribute);
   }
 

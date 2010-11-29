@@ -14,6 +14,7 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 
 /**
+ * Implementation of {@link Constraints} when the values are stored as a Set.
  *
  * @author pdgreen
  */

@@ -7,6 +7,11 @@ import edu.wvu.lcsee.green.model.Project;
 import java.io.Serializable;
 import java.util.Map;
 
+/**
+ * Standard implementation of {@link Project}.
+ *
+ * @author pdgreen
+ */
 public class ProjectImpl implements Project {
 
   private final ImmutableMap<Attribute<? extends Serializable>, ? extends Serializable> values;
@@ -32,8 +37,6 @@ public class ProjectImpl implements Project {
 
   @Override
   public String toString() {
-   return values.toString();
+    return values.toString();
   }
-
-
 }

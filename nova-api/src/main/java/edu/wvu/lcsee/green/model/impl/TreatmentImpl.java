@@ -10,8 +10,10 @@ import edu.wvu.lcsee.green.model.Treatment;
 import java.io.Serializable;
 
 import static com.google.common.base.Preconditions.checkNotNull;
+import static com.google.common.base.Preconditions.checkArgument;
 
 /**
+ * The Standard implementation of {@link Treatment}.
  *
  * @author pdgreen
  */
@@ -32,14 +34,22 @@ public class TreatmentImpl implements Treatment {
   @Override
   public <V extends Serializable> Constraints<V> getConstraintsFor(@Nonnull final Attribute<V> attribute) {
     checkNotNull(attribute);
+    checkArgument(attributeConstraints.containsKey(attribute), "Argument not in this Treatment: " + attribute);
     return (Constraints<V>) attributeConstraints.get(attribute);
   }
 
-  public static <T extends Serializable> Treatment newSingletonTreatment(@Nonnull final Attribute<T> attribute,
-          @Nonnull final Constraints<T> attributeConstraints) {
+  /**
+   * Creates a Treatment where there is only a single Attribute being constrained.
+   * @param <V> Value type of the Attribute and Constraints
+   * @param attribute Attribute being constrained
+   * @param constraints Constraints for the Attribute
+   * @return A Treatment
+   */
+  public static <V extends Serializable> Treatment newSingletonTreatment(@Nonnull final Attribute<V> attribute,
+          @Nonnull final Constraints<V> constraints) {
     checkNotNull(attribute);
-    checkNotNull(attributeConstraints);
+    checkNotNull(constraints);
     return new TreatmentImpl(ImmutableMap.<Attribute<? extends Serializable>, Constraints<? extends Serializable>>of(
-            attribute, attributeConstraints));
+            attribute, constraints));
   }
 }

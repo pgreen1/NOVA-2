@@ -35,6 +35,8 @@ public class SetConstraintsEditor<V extends Serializable> implements Constraints
 
   @Override
   public Constraints<V> generateConstraints() {
+    checkState(!discreteValues.isEmpty(), "Before a Constraints can be generated, atleast one value must be added.");
+
     final List<V> values = Lists.newArrayListWithCapacity(discreteValues.size());
     for (final SetDiscreteValue<V> discreteValue : discreteValues) {
       values.add(discreteValue.getValue());
