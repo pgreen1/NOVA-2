@@ -1,5 +1,6 @@
 package edu.wvu.lcsee.green.model.impl;
 
+import java.util.NoSuchElementException;
 import edu.wvu.lcsee.green.model.spi.ScoringFunction;
 import edu.wvu.lcsee.green.model.ScoredProject;
 import javax.annotation.Nonnull;
@@ -54,6 +55,9 @@ public class ScoredProjectIterable implements Iterable<ScoredProject> {
 
     @Override
     public ScoredProject next() {
+      if(!hasNext()) {
+        throw new NoSuchElementException();
+      }
       final ScoredProject scoredProject = projectGenerator.generateScoredProject(scenario, scoringFunctions);
       currentIteration++;
       return scoredProject;

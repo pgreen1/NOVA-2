@@ -5,6 +5,7 @@ import edu.wvu.lcsee.green.model.Scenario;
 import edu.wvu.lcsee.green.model.Project;
 import edu.wvu.lcsee.green.model.ProjectGenerator;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 import javax.annotation.Nonnegative;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -49,6 +50,9 @@ public class ProjectIterable implements Iterable<Project> {
 
     @Override
     public Project next() {
+      if(!hasNext()) {
+        throw new NoSuchElementException();
+      }
       final Project project = projectGenerator.generateProject(scenario);
       currentIteration++;
       return project;
