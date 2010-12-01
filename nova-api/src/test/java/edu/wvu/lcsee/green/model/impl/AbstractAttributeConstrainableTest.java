@@ -14,7 +14,7 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.mockito.Mockito.*;
 
 /**
- * Tests for AbstractAttributeConstrainable.
+ * Tests for {@link AbstractAttributeConstrainable}.
  * 
  * @author pdgreen
  */

@@ -10,7 +10,7 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.mockito.Mockito.*;
 
 /**
- * Tests for ProjectIterator.
+ * Tests for {@link ProjectIterator}.
  * @author pdgreen
  */
 public class ProjectIteratorTest {

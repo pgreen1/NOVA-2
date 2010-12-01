@@ -16,7 +16,7 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.mockito.Mockito.*;
 
 /**
- * Tests for ScenarioImpl.
+ * Tests for {@link ScenarioImpl}.
  * @author pdgreen
  */
 public class ScenarioImplTest {
