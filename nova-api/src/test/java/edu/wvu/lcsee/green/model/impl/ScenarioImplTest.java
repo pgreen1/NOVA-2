@@ -12,7 +12,6 @@ import edu.wvu.lcsee.green.model.Treatment;
 import edu.wvu.lcsee.green.model.Scenario;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import static org.junit.matchers.JUnitMatchers.*;
 import static org.hamcrest.CoreMatchers.*;
 import static org.mockito.Mockito.*;
 
@@ -23,67 +22,7 @@ import static org.mockito.Mockito.*;
 public class ScenarioImplTest {
 
   @Test
-  public void aScenarioImplShouldReturnAllAttributes() {
-    final Attribute<? extends Serializable> mockAttribute1 = mock(Attribute.class);
-    final Constraints<? extends Serializable> mockConstraints1 = mock(Constraints.class);
-    final Attribute<? extends Serializable> mockAttribute2 = mock(Attribute.class);
-    final Constraints<? extends Serializable> mockConstraints2 = mock(Constraints.class);
-    final Map<Attribute<? extends Serializable>, Constraints<? extends Serializable>> attributeConstraints = ImmutableMap.
-            of(mockAttribute1, mockConstraints1, mockAttribute2, mockConstraints2);
-    final Set<Attribute<? extends Serializable>> modifiableAttributes = ImmutableSet.<Attribute<? extends Serializable>>
-            of(mockAttribute1);
-
-
-    final ScenarioImpl instance = new ScenarioImpl(attributeConstraints, modifiableAttributes);
-
-
-    ImmutableSet<Attribute<? extends Serializable>> expResult = ImmutableSet.<Attribute<? extends Serializable>>of(
-            mockAttribute1, mockAttribute2);
-    ImmutableSet<Attribute<? extends Serializable>> result = instance.getAllAttributes();
-    assertThat(result, is(expResult));
-  }
-
-  @Test
-  public void aScenarioImplShouldReturnTheCorrectConstraintsForGetConstraintsFor() {
-    final Attribute<? extends Serializable> mockAttribute1 = mock(Attribute.class);
-    final Constraints<? extends Serializable> mockConstraints1 = mock(Constraints.class);
-    final Attribute<? extends Serializable> mockAttribute2 = mock(Attribute.class);
-    final Constraints<? extends Serializable> mockConstraints2 = mock(Constraints.class);
-    final Map<Attribute<? extends Serializable>, Constraints<? extends Serializable>> attributeConstraints = ImmutableMap.
-            of(mockAttribute1, mockConstraints1, mockAttribute2, mockConstraints2);
-    final Set<Attribute<? extends Serializable>> modifiableAttributes = ImmutableSet.<Attribute<? extends Serializable>>
-            of(mockAttribute1);
-
-
-    final ScenarioImpl instance = new ScenarioImpl(attributeConstraints, modifiableAttributes);
-
-
-    Constraints result = instance.getConstraintsFor(mockAttribute1);
-    assertThat(result, is((Constraints) mockConstraints1));
-  }
-
-  @Test(expected = IllegalArgumentException.class)
-  public void aScenarioImplShouldThrowIllegalArgumentExceptionForGetConstraintsForWhenAttributeNotInGetAllAttributes() {
-    final Attribute<? extends Serializable> mockAttribute1 = mock(Attribute.class);
-    final Constraints<? extends Serializable> mockConstraints1 = mock(Constraints.class);
-    final Attribute<? extends Serializable> mockAttribute2 = mock(Attribute.class);
-    final Constraints<? extends Serializable> mockConstraints2 = mock(Constraints.class);
-    final Map<Attribute<? extends Serializable>, Constraints<? extends Serializable>> attributeConstraints = ImmutableMap.
-            of(mockAttribute1, mockConstraints1, mockAttribute2, mockConstraints2);
-    final Set<Attribute<? extends Serializable>> modifiableAttributes = ImmutableSet.<Attribute<? extends Serializable>>
-            of(mockAttribute1);
-
-    final Attribute<? extends Serializable> mockOtherAttribute = mock(Attribute.class);
-
-    final ScenarioImpl instance = new ScenarioImpl(attributeConstraints, modifiableAttributes);
-
-    assertThat(instance.getAllAttributes().contains(mockOtherAttribute), is(false));
-
-    instance.getConstraintsFor(mockOtherAttribute);
-  }
-
-  @Test
-  public void aScenarioImplShouldReturnModifableAttributes() {
+  public void aScenarioImplOnGetModifiableAttributesShouldReturnOnlyModifableAttributes() {
     final Attribute<? extends Serializable> mockAttribute1 = mock(Attribute.class);
     final Constraints<? extends Serializable> mockConstraints1 = mock(Constraints.class);
     final Attribute<? extends Serializable> mockAttribute2 = mock(Attribute.class);
@@ -104,25 +43,7 @@ public class ScenarioImplTest {
   }
 
   @Test
-  public void aScenarioImplShouldReturnAMapEqualToInputAttributeConstraintsForAsMap() {
-    final Attribute<? extends Serializable> mockAttribute1 = mock(Attribute.class);
-    final Constraints<? extends Serializable> mockConstraints1 = mock(Constraints.class);
-    final Attribute<? extends Serializable> mockAttribute2 = mock(Attribute.class);
-    final Constraints<? extends Serializable> mockConstraints2 = mock(Constraints.class);
-    final Map<Attribute<? extends Serializable>, Constraints<? extends Serializable>> attributeConstraints = ImmutableMap.
-            of(mockAttribute1, mockConstraints1, mockAttribute2, mockConstraints2);
-    final Set<Attribute<? extends Serializable>> modifiableAttributes = ImmutableSet.<Attribute<? extends Serializable>>
-            of(mockAttribute1);
-
-    final ScenarioImpl instance = new ScenarioImpl(attributeConstraints, modifiableAttributes);
-
-
-    Map<Attribute<? extends Serializable>, Constraints<? extends Serializable>> result = instance.asMap();
-    assertThat(result, is(attributeConstraints));
-  }
-
-  @Test
-  public void aScenarioImplShouldMergeOnlyAttributeConstraintsInTheTreatmentForApplyTreatment() {
+  public void aScenarioImplOnApplyTreatmentShouldMergeOnlyAttributeConstraintsInTheTreatment() {
     final Attribute<? extends Serializable> mockAttribute1 = mock(Attribute.class);
     final Constraints<? extends Serializable> mockConstraints1 = mock(Constraints.class);
     final Attribute<? extends Serializable> mockAttribute2 = mock(Attribute.class);
@@ -158,7 +79,7 @@ public class ScenarioImplTest {
   }
 
   @Test(expected = IllegalArgumentException.class)
-  public void aScenarioImplShouldThrowIllegalArgumentExceptionIfAnAttributeOfATreatmentIsNotInModifiableAttributesForApplyTreatment() {
+  public void aScenarioImplOnApplyTreamentShouldThrowIllegalArgumentExceptionIfAnAttributeOfATreatmentIsNotInModifiableAttributes() {
     final Attribute<? extends Serializable> mockAttribute1 = mock(Attribute.class);
     final Constraints<? extends Serializable> mockConstraints1 = mock(Constraints.class);
     final Attribute<? extends Serializable> mockAttribute2 = mock(Attribute.class);

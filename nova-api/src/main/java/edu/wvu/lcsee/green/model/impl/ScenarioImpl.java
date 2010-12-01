@@ -19,44 +19,30 @@ import static com.google.common.base.Preconditions.checkArgument;
  *
  * @author pdgreen
  */
-public class ScenarioImpl implements Scenario {
+public class ScenarioImpl extends AbstractAttributeConstrainable implements Scenario {
 
-  private final ImmutableMap<Attribute<? extends Serializable>, Constraints<? extends Serializable>> attributeConstraints;
   private final ImmutableSet<Attribute<? extends Serializable>> modifiableConstraints;
 
   public ScenarioImpl(
           @Nonnull final Map<Attribute<? extends Serializable>, Constraints<? extends Serializable>> attributeConstraints,
           Set<Attribute<? extends Serializable>> modifiableConstraints) {
-    this.attributeConstraints = ImmutableMap.copyOf(attributeConstraints);
+    super(attributeConstraints);
     this.modifiableConstraints = ImmutableSet.copyOf(modifiableConstraints);
   }
 
-  @Override
-  public ImmutableSet<Attribute<? extends Serializable>> getAllAttributes() {
-    return attributeConstraints.keySet();
-  }
-
-  @Override
-  public <V extends Serializable> Constraints<V> getConstraintsFor(@Nonnull final Attribute<V> attribute) {
-    checkNotNull(attribute);
-    checkArgument(attributeConstraints.containsKey(attribute), "Argument not in this scenario: " + attribute);
-    return (Constraints<V>) attributeConstraints.get(attribute);
-  }
+ 
 
   @Override
   public ImmutableSet<Attribute<? extends Serializable>> getModifiableAttributes() {
     return modifiableConstraints;
   }
 
-  @Override
-  public ImmutableMap<Attribute<? extends Serializable>, Constraints<? extends Serializable>> asMap() {
-    return attributeConstraints;
-  }
+
 
   @Override
   public Scenario applyTreatment(@Nonnull final Treatment treatment) {
     final Map<Attribute<? extends Serializable>, Constraints<? extends Serializable>> mutableAttributeConstraints = Maps.
-            newHashMap(attributeConstraints);
+            newHashMap(asMap());
 
     for (final Attribute<?> attribute : treatment.getAllAttributes()) {
       checkArgument(modifiableConstraints.contains(attribute), "unable to apply treatment for " + attribute.getName());

@@ -14,14 +14,8 @@ import javax.annotation.Nonnull;
  * @see Constraints
  * @see Treatment
  */
-public interface Scenario {
+public interface Scenario extends AttributeConstrainable{
 
-  /**
-   * Returns all {@link Attribute}s associated with this Scenario.
-   * @return all attributes associated with this Scenario
-   */
-  @Nonnull
-  ImmutableSet<Attribute<? extends Serializable>> getAllAttributes();
 
   /**
    * Returns modifiable {@link Attribute}s associated with this Scenario.
@@ -30,15 +24,6 @@ public interface Scenario {
   @Nonnull
   ImmutableSet<Attribute<? extends Serializable>> getModifiableAttributes();
 
-  /**
-   * Returns the {@link Constraints} for the specified {@link Attribute}.
-   * @param <V> Value type of the Attribute and resulting Constraints
-   * @param attribute the Attribute for which the Constraints is desired
-   * @return the Constraints of the Attribute
-   * @throws IllegalArgumentException when an Attribute is not contained in this Scenario
-   */
-  @Nonnull
-  <V extends Serializable> Constraints<V> getConstraintsFor(@Nonnull Attribute<V> attribute);
 
   /**
    * Creates a new Scenario based on the original Scenario but with the {@link Treatment} applied.
@@ -50,11 +35,4 @@ public interface Scenario {
   @Nonnull
   Scenario applyTreatment(@Nonnull Treatment treatment);
 
-  /**
-   * Returns the Scenario as an ImmutableMap of {@link Attribute} to {@link Constraints}.
-   * Since the Map is immutable, no distinction is made between modifiable and unmodifiable attributes.
-   * @return the Scenario as an ImmutableMap of Attribute to Constraints.
-   */
-  @Nonnull
-  ImmutableMap<Attribute<? extends Serializable>, Constraints<? extends Serializable>> asMap();
 }
