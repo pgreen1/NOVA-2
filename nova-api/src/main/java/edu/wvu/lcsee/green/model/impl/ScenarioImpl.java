@@ -21,20 +21,20 @@ import static com.google.common.base.Preconditions.checkArgument;
  */
 public class ScenarioImpl extends AbstractAttributeConstrainable implements Scenario {
 
-  private final ImmutableSet<Attribute<? extends Serializable>> modifiableConstraints;
+  private final ImmutableSet<Attribute<? extends Serializable>> constrainableConstraints;
 
   public ScenarioImpl(
           @Nonnull final Map<Attribute<? extends Serializable>, Constraints<? extends Serializable>> attributeConstraints,
-          Set<Attribute<? extends Serializable>> modifiableConstraints) {
+          Set<Attribute<? extends Serializable>> constrainableConstraints) {
     super(attributeConstraints);
-    this.modifiableConstraints = ImmutableSet.copyOf(modifiableConstraints);
+    this.constrainableConstraints = ImmutableSet.copyOf(constrainableConstraints);
   }
 
  
 
   @Override
-  public ImmutableSet<Attribute<? extends Serializable>> getModifiableAttributes() {
-    return modifiableConstraints;
+  public ImmutableSet<Attribute<? extends Serializable>> getConstrainableAttributes() {
+    return constrainableConstraints;
   }
 
 
@@ -45,12 +45,12 @@ public class ScenarioImpl extends AbstractAttributeConstrainable implements Scen
             newHashMap(asMap());
 
     for (final Attribute<?> attribute : treatment.getAllAttributes()) {
-      checkArgument(modifiableConstraints.contains(attribute), "unable to apply treatment for " + attribute.getName());
+      checkArgument(constrainableConstraints.contains(attribute), "unable to apply treatment for " + attribute.getName());
       final Constraints currentConstraints = mutableAttributeConstraints.get(attribute);
       final Constraints treatmentConstraints = treatment.getConstraintsFor(attribute);
       mutableAttributeConstraints.put(attribute, currentConstraints.mergeConstraints(treatmentConstraints));
     }
 
-    return new ScenarioImpl(mutableAttributeConstraints, modifiableConstraints);
+    return new ScenarioImpl(mutableAttributeConstraints, constrainableConstraints);
   }
 }

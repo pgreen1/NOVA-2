@@ -25,8 +25,8 @@ class AttributeContextBuilderTest {
     }
 
     assertThat(all.name, is('Company X'))
-    assertThat(all.getModifiableAttibutes().size(), is(2))
-    assertThat(all.modifiableAttibutes, hasItems(MEXP,PSIZE))
+    assertThat(all.getConstrainableAttributes().size(), is(2))
+    assertThat(all.getConstrainableAttributes(), hasItems(MEXP,PSIZE))
   }
 
   @Test
@@ -36,8 +36,8 @@ class AttributeContextBuilderTest {
     }
 
     assertThat(some.name, is(null))
-    assertThat(some.getModifiableAttibutes().size(), is(1))
-    assertThat(some.modifiableAttibutes, hasItems(PSIZE))
+    assertThat(some.getConstrainableAttributes().size(), is(1))
+    assertThat(some.getConstrainableAttributes(), hasItems(PSIZE))
   }
 
 }

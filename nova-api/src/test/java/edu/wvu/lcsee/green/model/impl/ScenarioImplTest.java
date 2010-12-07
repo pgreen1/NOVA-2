@@ -22,23 +22,23 @@ import static org.mockito.Mockito.*;
 public class ScenarioImplTest {
 
   @Test
-  public void aScenarioImplOnGetModifiableAttributesShouldReturnOnlyModifableAttributes() {
+  public void aScenarioImplOnGetconstrainableAttributesShouldReturnOnlyModifableAttributes() {
     final Attribute<? extends Serializable> mockAttribute1 = mock(Attribute.class);
     final Constraints<? extends Serializable> mockConstraints1 = mock(Constraints.class);
     final Attribute<? extends Serializable> mockAttribute2 = mock(Attribute.class);
     final Constraints<? extends Serializable> mockConstraints2 = mock(Constraints.class);
     final Map<Attribute<? extends Serializable>, Constraints<? extends Serializable>> attributeConstraints = ImmutableMap.
             of(mockAttribute1, mockConstraints1, mockAttribute2, mockConstraints2);
-    final Set<Attribute<? extends Serializable>> modifiableAttributes = ImmutableSet.<Attribute<? extends Serializable>>
+    final Set<Attribute<? extends Serializable>> constrainableAttributes = ImmutableSet.<Attribute<? extends Serializable>>
             of(mockAttribute1);
 
 
-    final ScenarioImpl instance = new ScenarioImpl(attributeConstraints, modifiableAttributes);
+    final ScenarioImpl instance = new ScenarioImpl(attributeConstraints, constrainableAttributes);
 
 
     ImmutableSet<Attribute<? extends Serializable>> expResult = ImmutableSet.<Attribute<? extends Serializable>>of(
             mockAttribute1);
-    ImmutableSet<Attribute<? extends Serializable>> result = instance.getModifiableAttributes();
+    ImmutableSet<Attribute<? extends Serializable>> result = instance.getConstrainableAttributes();
     assertThat(result, is(expResult));
   }
 
@@ -50,7 +50,7 @@ public class ScenarioImplTest {
     final Constraints<? extends Serializable> mockConstraints2 = mock(Constraints.class);
     final Map<Attribute<? extends Serializable>, Constraints<? extends Serializable>> attributeConstraints = ImmutableMap.
             of(mockAttribute1, mockConstraints1, mockAttribute2, mockConstraints2);
-    final Set<Attribute<? extends Serializable>> modifiableAttributes = ImmutableSet.<Attribute<? extends Serializable>>
+    final Set<Attribute<? extends Serializable>> constrainableAttributes = ImmutableSet.<Attribute<? extends Serializable>>
             of(mockAttribute1);
 
 
@@ -63,7 +63,7 @@ public class ScenarioImplTest {
     when(mockConstraints1.mergeConstraints(mockConstraints3)).thenReturn(mockMergedConstraints);
 
 
-    final ScenarioImpl instance = new ScenarioImpl(attributeConstraints, modifiableAttributes);
+    final ScenarioImpl instance = new ScenarioImpl(attributeConstraints, constrainableAttributes);
 
 
     final Scenario result = instance.applyTreatment(mockTreatment);
@@ -73,20 +73,20 @@ public class ScenarioImplTest {
     verifyZeroInteractions(mockConstraints2);
 
     assertThat(result.getAllAttributes(), is(ImmutableSet.of(mockAttribute1, mockAttribute2)));
-    assertThat(result.getModifiableAttributes(), is(modifiableAttributes));
+    assertThat(result.getConstrainableAttributes(), is(constrainableAttributes));
     assertThat(result.getConstraintsFor(mockAttribute1), is(mockMergedConstraints));
     assertThat(result.getConstraintsFor(mockAttribute2), is((Constraints) mockConstraints2));
   }
 
   @Test(expected = IllegalArgumentException.class)
-  public void aScenarioImplOnApplyTreamentShouldThrowIllegalArgumentExceptionIfAnAttributeOfATreatmentIsNotInModifiableAttributes() {
+  public void aScenarioImplOnApplyTreamentShouldThrowIllegalArgumentExceptionIfAnAttributeOfATreatmentIsNotInconstrainableAttributes() {
     final Attribute<? extends Serializable> mockAttribute1 = mock(Attribute.class);
     final Constraints<? extends Serializable> mockConstraints1 = mock(Constraints.class);
     final Attribute<? extends Serializable> mockAttribute2 = mock(Attribute.class);
     final Constraints<? extends Serializable> mockConstraints2 = mock(Constraints.class);
     final Map<Attribute<? extends Serializable>, Constraints<? extends Serializable>> attributeConstraints = ImmutableMap.
             of(mockAttribute1, mockConstraints1, mockAttribute2, mockConstraints2);
-    final Set<Attribute<? extends Serializable>> modifiableAttributes = ImmutableSet.<Attribute<? extends Serializable>>
+    final Set<Attribute<? extends Serializable>> constrainableAttributes = ImmutableSet.<Attribute<? extends Serializable>>
             of(mockAttribute1);
 
     final Constraints mockConstraints3 = mock(Constraints.class);
@@ -98,7 +98,7 @@ public class ScenarioImplTest {
     when(mockConstraints1.mergeConstraints(mockConstraints3)).thenReturn(mockMergedConstraints);
 
 
-    final ScenarioImpl instance = new ScenarioImpl(attributeConstraints, modifiableAttributes);
+    final ScenarioImpl instance = new ScenarioImpl(attributeConstraints, constrainableAttributes);
 
     instance.applyTreatment(mockTreatment);
   }

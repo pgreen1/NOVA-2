@@ -17,7 +17,7 @@
 (defn filter-for-unconstrained-attributes [scenario]
   (filter (fn [attribute]
             (not (.isFullyConstrained (.getConstraintsFor scenario attribute))))
-      (.getModifiableAttributes scenario)))
+      (.getConstrainableAttributes scenario)))
 
 (defn createStateFrom [evaluationFunction scenario]
   (new StateImpl

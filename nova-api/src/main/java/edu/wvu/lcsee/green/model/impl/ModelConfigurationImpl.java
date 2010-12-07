@@ -54,7 +54,7 @@ public class ModelConfigurationImpl implements ModelConfiguration {
       attributeConstraints.put(attribute,
               attributeConstraints.get(attribute).mergeConstraints((Constraints) caseStudy.getConstraintsFor(attribute)));
     }
-    return new ScenarioImpl(attributeConstraints, attributeContext.getModifiableAttibutes());
+    return new ScenarioImpl(attributeConstraints, attributeContext.getConstrainableAttributes());
   }
 
   @Override

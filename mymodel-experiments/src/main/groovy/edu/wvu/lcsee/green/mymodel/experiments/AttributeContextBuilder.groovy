@@ -11,7 +11,7 @@ import edu.wvu.lcsee.green.model.impl.AttributeContextImpl
 class AttributeContextBuilder extends BuilderSupport {
 
   private String name
-  private Set<Attribute<? extends Serializable>> modifiableAttributes
+  private Set<Attribute<? extends Serializable>> constrainableAttributes
 
   private Object rootMarker = new Object();
 
@@ -28,7 +28,7 @@ class AttributeContextBuilder extends BuilderSupport {
 
   protected Object postNodeCompletion(Object parent, Object node) {
     if(rootMarker == node) {
-      return new AttributeContextImpl(name, modifiableAttributes)
+      return new AttributeContextImpl(name, constrainableAttributes)
     }
     return super.postNodeCompletion(parent,node)
   }
@@ -37,7 +37,7 @@ class AttributeContextBuilder extends BuilderSupport {
     if("name" == name) {
       this.name = value
     } else if ("attributes" == name) {
-      this.modifiableAttributes = new HashSet((Collection)value)
+      this.constrainableAttributes = new HashSet((Collection)value)
     } else {
       throw new IllegalArgumentException("unexpected name-value: " + name +"-" + value )
     }

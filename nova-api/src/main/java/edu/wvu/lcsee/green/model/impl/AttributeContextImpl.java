@@ -5,20 +5,27 @@ import edu.wvu.lcsee.green.model.Attribute;
 import edu.wvu.lcsee.green.model.AttributeContext;
 import java.io.Serializable;
 import java.util.Set;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
+ * Standard implementation of {@link AttributeContext}.
  *
  * @author pdgreen
  */
 public class AttributeContextImpl implements AttributeContext {
 
   private final String name;
-  private final ImmutableSet<Attribute<? extends Serializable>> modifiableAttributes;
+  private final ImmutableSet<Attribute<? extends Serializable>> constrainableAttributes;
 
-  public AttributeContextImpl(String name,
-          Set<Attribute<? extends Serializable>> modifiableAttributes) {
+  public AttributeContextImpl(@Nonnull final Set<Attribute<? extends Serializable>> constrainableAttributes) {
+    this(null, constrainableAttributes);
+  }
+
+  public AttributeContextImpl(@Nullable final String name,
+          @Nonnull final Set<Attribute<? extends Serializable>> constrainableAttributes) {
     this.name = name;
-    this.modifiableAttributes = ImmutableSet.copyOf(modifiableAttributes);
+    this.constrainableAttributes = ImmutableSet.copyOf(constrainableAttributes);
   }
 
   @Override
@@ -27,7 +34,7 @@ public class AttributeContextImpl implements AttributeContext {
   }
 
   @Override
-  public ImmutableSet<Attribute<? extends Serializable>> getModifiableAttibutes() {
-    return modifiableAttributes;
+  public ImmutableSet<Attribute<? extends Serializable>> getConstrainableAttributes() {
+    return constrainableAttributes;
   }
 }
