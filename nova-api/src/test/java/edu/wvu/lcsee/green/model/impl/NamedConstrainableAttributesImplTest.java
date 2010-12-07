@@ -12,11 +12,11 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * Tests for {@link AttributeContextImplTest}.
+ * Tests for {@link NamedConstrainableAttributesImpl}.
  *
  * @author pdgreen
  */
-public class AttributeContextImplTest {
+public class NamedConstrainableAttributesImplTest {
 
   @Test
   public void anAttributeContextImplConstructedWithNameShouldReturnTheSameName() {
@@ -26,7 +26,7 @@ public class AttributeContextImplTest {
     final Attribute<? extends Serializable> mockAttribute2 = mock(Attribute.class);
     final Set<Attribute<? extends Serializable>> constrainableAttributes = ImmutableSet.of(mockAttribute1, mockAttribute2);
 
-    final AttributeContextImpl instance = new AttributeContextImpl(testName, constrainableAttributes);
+    final NamedConstrainableAttributesImpl instance = new NamedConstrainableAttributesImpl(testName, constrainableAttributes);
 
     assertThat(instance.getName(), is(testName));
   }
@@ -37,7 +37,7 @@ public class AttributeContextImplTest {
     final Attribute<? extends Serializable> mockAttribute2 = mock(Attribute.class);
     final Set<Attribute<? extends Serializable>> constrainableAttributes = ImmutableSet.of(mockAttribute1, mockAttribute2);
 
-    final AttributeContextImpl instance = new AttributeContextImpl(constrainableAttributes);
+    final NamedConstrainableAttributesImpl instance = new NamedConstrainableAttributesImpl(constrainableAttributes);
 
     assertThat(instance.getName(), is(nullValue()));
   }
@@ -48,7 +48,7 @@ public class AttributeContextImplTest {
     final Attribute<? extends Serializable> mockAttribute2 = mock(Attribute.class);
     final Set<Attribute<? extends Serializable>> constrainableAttributes = ImmutableSet.of(mockAttribute1, mockAttribute2);
 
-    final AttributeContextImpl instance = new AttributeContextImpl(constrainableAttributes);
+    final NamedConstrainableAttributesImpl instance = new NamedConstrainableAttributesImpl(constrainableAttributes);
 
     assertThat(instance.getConstrainableAttributes(), is(constrainableAttributes));
   }

@@ -3,12 +3,12 @@ package edu.wvu.lcsee.green.mymodel.experiments
 
 
 import edu.wvu.lcsee.green.model.Attribute
-import edu.wvu.lcsee.green.model.impl.AttributeContextImpl
+import edu.wvu.lcsee.green.model.impl.NamedConstrainableAttributesImpl
 /**
  *
  * @author pdgreen
  */
-class AttributeContextBuilder extends BuilderSupport {
+class NamedConstrainableAttributesBuilder extends BuilderSupport {
 
   private String name
   private Set<Attribute<? extends Serializable>> constrainableAttributes
@@ -28,7 +28,7 @@ class AttributeContextBuilder extends BuilderSupport {
 
   protected Object postNodeCompletion(Object parent, Object node) {
     if(rootMarker == node) {
-      return new AttributeContextImpl(name, constrainableAttributes)
+      return new NamedConstrainableAttributesImpl(name, constrainableAttributes)
     }
     return super.postNodeCompletion(parent,node)
   }

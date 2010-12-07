@@ -8,7 +8,7 @@ import edu.wvu.lcsee.green.model.Attribute;
 import edu.wvu.lcsee.green.model.CaseStudy;
 import edu.wvu.lcsee.green.model.Constraints;
 import edu.wvu.lcsee.green.model.ModelConfiguration;
-import edu.wvu.lcsee.green.model.AttributeContext;
+import edu.wvu.lcsee.green.model.NamedConstrainableAttributes;
 import edu.wvu.lcsee.green.model.Scenario;
 import edu.wvu.lcsee.green.model.spi.ScoringFunction;
 import java.io.Serializable;
@@ -44,7 +44,7 @@ public class ModelConfigurationImpl implements ModelConfiguration {
   }
 
   @Override
-  public Scenario generateScenario(@Nonnull final AttributeContext attributeContext, @Nonnull final CaseStudy caseStudy) {
+  public Scenario generateScenario(@Nonnull final NamedConstrainableAttributes attributeContext, @Nonnull final CaseStudy caseStudy) {
     checkNotNull(attributeContext);
     checkNotNull(caseStudy);
     final Map<Attribute<? extends Serializable>, Constraints<? extends Serializable>> attributeConstraints = Maps.

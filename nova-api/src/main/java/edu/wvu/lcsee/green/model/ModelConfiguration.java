@@ -18,7 +18,7 @@ public interface ModelConfiguration {
   <V extends Serializable> Constraints<V> getDefaultConstraintsFor(@Nonnull Attribute<V> attribute);
 
   @Nonnull
-  Scenario generateScenario(@Nonnull AttributeContext attributeContext, @Nonnull CaseStudy caseStudy);
+  Scenario generateScenario(@Nonnull NamedConstrainableAttributes attributeContext, @Nonnull CaseStudy caseStudy);
 
   @Nonnull
   ImmutableSet<ScoringFunction> getAllScoringFunctions();

@@ -7,23 +7,22 @@ import javax.annotation.Nullable;
 
 /**
  * A set of attributes which can be constrained.
- * TODO need better name for attribute context
  *
  * @author pdgreen
  */
-public interface AttributeContext {
+public interface NamedConstrainableAttributes {
 
   /**
-   * The name of the AttributeContext.
-   * @return name of a the AttributeContext
+   * The name of the NamedConstrainableAttributes.
+   * @return name of a the NamedConstrainableAttributes
    */
   @Nullable
   String getName();
 
 
    /**
-   * Returns constrainable {@link Attribute}s associated with this AttributeContext.
-   * @return all constrainable attributes associated with this AttributeContext
+   * Returns constrainable {@link Attribute}s associated with this NamedConstrainableAttributes.
+   * @return all constrainable attributes associated with this NamedConstrainableAttributes
    */
   @Nonnull
   ImmutableSet<Attribute<? extends Serializable>> getConstrainableAttributes();

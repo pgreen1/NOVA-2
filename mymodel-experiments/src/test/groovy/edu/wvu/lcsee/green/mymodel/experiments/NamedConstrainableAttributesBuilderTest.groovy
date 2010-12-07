@@ -6,7 +6,7 @@ import org.junit.Test
 import static org.junit.Assert.*
 import static org.junit.matchers.JUnitMatchers.*
 import static org.hamcrest.CoreMatchers.*
-import edu.wvu.lcsee.green.model.AttributeContext
+import edu.wvu.lcsee.green.model.NamedConstrainableAttributes
 
 import static edu.wvu.lcsee.green.mymodel.model.MyModelAttribute.*
 import static edu.wvu.lcsee.green.mymodel.model.MyModelAttribute.ProjectSize.*
@@ -19,7 +19,7 @@ class AttributeContextBuilderTest {
 
   @Test
   void aAttributeContextShouldBuildWithNameAndAttributes() {
-    final AttributeContext all = new AttributeContextBuilder().attributeContext{
+    final NamedConstrainableAttributes all = new NamedConstrainableAttributesBuilder().attributeContext{
       name 'Company X'
       attributes( [MEXP, PSIZE])
     }
@@ -31,7 +31,7 @@ class AttributeContextBuilderTest {
 
   @Test
   void aAttributeContextShouldBuildWithAttributes() {
-    final AttributeContext some = new AttributeContextBuilder().attributeContext{
+    final NamedConstrainableAttributes some = new NamedConstrainableAttributesBuilder().attributeContext{
       attributes ([PSIZE])
     }
 
