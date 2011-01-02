@@ -53,7 +53,7 @@ class CaseStudyBuilder extends BuilderSupport {
     throw new IllegalArgumentException("unexpected name-attrs-value: " + name +"-" + attrs + "-" +value)
   }
 
-  protected Map<Attribute<? extends Serializable>, Constraints<? extends Serializable>> generateAttributeConstraints(Map<Attribute<? extends Serializable>, Object> attrs) {
+  protected Map<Attribute, Constraints> generateAttributeConstraints(Map<Attribute, Object> attrs) {
     
     final Map<Attribute<? extends Serializable>, Constraints<? extends Serializable>> attributeConstraints = [:]
     for(final Map.Entry<Attribute<? extends Serializable>, Object> entry : attrs.entrySet()) {
