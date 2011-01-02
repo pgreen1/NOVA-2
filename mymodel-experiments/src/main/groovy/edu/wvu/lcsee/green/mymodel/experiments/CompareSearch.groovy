@@ -4,6 +4,7 @@ package edu.wvu.lcsee.green.mymodel.experiments
 import edu.wvu.lcsee.green.mymodel.CostScoringFunction;
 import edu.wvu.lcsee.green.search.Path;
 import edu.wvu.lcsee.green.search.SearchEngine;
+import edu.wvu.lcsee.green.search.EvaluationFunction;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Maps;
@@ -26,16 +27,17 @@ final ProjectGenerator projectGenerator = novaControl.getProjectGenerator();
 
 final Scenario scenario = MY_MODEL_CONFIGURATION.generateScenario(ATTRIBUTE_CONTEXT_DEFAULT, CASE_STUDY_DEFAULT);
 
-final SearchEngine searchEngine = novaControl.getSearchEngineForKey("strawman");
+final EvaluationFunction evaluationFunction = new MeanProjectScoreEvaluationFunction(projectGenerator,    100, new CostScoringFunction());
 
-final Path path = searchEngine.search(new MeanProjectScoreEvaluationFunction(projectGenerator,
-    100, new CostScoringFunction()), scenario);
-System.out.println(path);
-System.out.println(path.getStates());
 
-final SearchEngine searchEngine2 = novaControl.getSearchEngineForKey("isamp");
+def runSearchEngine(searchEngine, evaluationFunction, scenario) {
+  final Path path = searchEngine.search(evaluationFunction, scenario);
+  System.out.println(searchEngine.getKey())
+  System.out.println(path);
+  System.out.println(path.getStates());
+}
 
-final Path path2 = searchEngine2.search(new MeanProjectScoreEvaluationFunction(projectGenerator,
-    100, new CostScoringFunction()), scenario);
-System.out.println(path2);
-System.out.println(path2.getStates());
+
+runSearchEngine(novaControl.getSearchEngineForKey("strawman"),evaluationFunction, scenario);
+runSearchEngine(novaControl.getSearchEngineForKey("isamp"),evaluationFunction,scenario);
+runSearchEngine(novaControl.getSearchEngineForKey("sa"),evaluationFunction,scenario);
