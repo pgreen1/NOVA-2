@@ -15,7 +15,7 @@ import javax.annotation.Nonnull;
  * @see Treatment
  */
 public interface Scenario extends AttributeConstrainable{
-
+//TODO rename to AttributeContext
 
   /**
    * Returns constrainable {@link Attribute}s associated with this Scenario.
