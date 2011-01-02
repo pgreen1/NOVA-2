@@ -1,5 +1,6 @@
 package edu.wvu.lcsee.green.model;
 
+import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import java.io.Serializable;
 import javax.annotation.Nonnull;
@@ -28,4 +29,11 @@ public interface AttributeConstrainable {
    */
   @Nonnull
   <V extends Serializable> Constraints<V> getConstraintsFor(@Nonnull Attribute<V> attribute);
+
+  /**
+   * Makes the {@link Attribute}s and {@link Constraints} available as an {@link ImmutableMap} for subclasses.
+   * @return Attributes and Constraints as an ImmutableMap of Attribute to Constraints.
+   */
+  @Nonnull
+  ImmutableMap<Attribute<? extends Serializable>, Constraints<? extends Serializable>> asMap();
 }

@@ -37,11 +37,8 @@ public abstract class AbstractAttributeConstrainable implements AttributeConstra
     return (Constraints<V>) attributeConstraints.get(attribute);
   }
 
-  /**
-   * Makes the {@link Attribute}s and {@link Constraints} available as an {@link ImmutableMap} for subclasses.
-   * @return Attributes and Constraints as an ImmutableMap of Attribute to Constraints.
-   */
-  protected ImmutableMap<Attribute<? extends Serializable>, Constraints<? extends Serializable>> asMap() {
+  @Override
+  public ImmutableMap<Attribute<? extends Serializable>, Constraints<? extends Serializable>> asMap() {
     return attributeConstraints;
   }
 }
