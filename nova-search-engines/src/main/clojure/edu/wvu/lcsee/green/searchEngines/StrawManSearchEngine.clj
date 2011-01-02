@@ -3,9 +3,9 @@
       :implements [edu.wvu.lcsee.green.search.SearchEngine]
       :prefix "se-impl-")
   ;(:require )
-  ;(:use )
+  (:use edu.wvu.lcsee.green.searchEngines.searchlib)
   (:import (com.google.common.collect ImmutableList)
-           (edu.wvu.lcsee.green.search.impl StateImpl PathImpl)
+           (edu.wvu.lcsee.green.search.impl PathImpl)
            (java.util Date))
   )
 
@@ -14,7 +14,6 @@
 
 (defn se-impl-search [this evaluationFunction initialScenario]
   (let [startTime (new Date)
-        states (ImmutableList/of (new StateImpl initialScenario
-                                                (.evaluate evaluationFunction initialScenario)))
+        states (ImmutableList/of (createStateFrom evaluationFunction initialScenario))
         endTime  (new Date)]
     (new PathImpl startTime endTime states)))
