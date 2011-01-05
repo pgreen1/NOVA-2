@@ -36,7 +36,7 @@
       <plugin>
         <groupId>com.theoryinpractise</groupId>
         <artifactId>clojure-maven-plugin</artifactId>
-        <version>1.3.2</version>
+        <version>1.3.7</version>
         <configuration>
           <sourceDirectories>
             <sourceDirectory>src/main/clojure</sourceDirectory>
@@ -49,6 +49,13 @@
             <phase>compile</phase>
             <goals>
               <goal>compile</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>test</id>
+            <phase>test</phase>
+            <goals>
+              <goal>test</goal>
             </goals>
           </execution>
         </executions>
@@ -82,10 +89,6 @@
     <dependency>
       <groupId>org.clojure</groupId>
       <artifactId>clojure-contrib</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>swank-clojure</groupId>
-      <artifactId>swank-clojure</artifactId>
     </dependency>
   </dependencies>
 </project>
