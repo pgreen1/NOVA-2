@@ -1,9 +1,9 @@
 package edu.wvu.lcsee.green.control;
 
 import com.google.common.collect.ImmutableSet;
+import edu.wvu.lcsee.green.model.ModelConfiguration;
 import javax.annotation.Nonnull;
 import edu.wvu.lcsee.green.model.ProjectGenerator;
-import edu.wvu.lcsee.green.model.ScoringFunction;
 import edu.wvu.lcsee.green.search.SearchEngine;
 
 /**
@@ -13,13 +13,15 @@ import edu.wvu.lcsee.green.search.SearchEngine;
  */
 public interface NovaControl {
 
+  @Nonnull
   ProjectGenerator getProjectGenerator();
 
-  ImmutableSet<ScoringFunction> getAllScoringFunctions();
+  @Nonnull
+  <M extends ModelConfiguration> M getModelConfigration(@Nonnull Class<M> modelConfigurationType);
 
-  ScoringFunction getScoringFunctionForKey(@Nonnull String key);
-
+  @Nonnull
   ImmutableSet<SearchEngine> getAllSearchEngines();
 
+  @Nonnull
   SearchEngine getSearchEngineForKey(@Nonnull String key);
 }

@@ -1,25 +1,11 @@
 (ns edu.wvu.lcsee.green.clojure.impl.ProjectGeneratorImpl
  (:gen-class
     :implements [edu.wvu.lcsee.green.model.ProjectGenerator]
-    :init init
-    :constructors {[java.util.Map] []}
-    :state state
     :prefix "pg-impl-")
  (:import
      (edu.wvu.lcsee.green.model.impl ProjectIterable ScoredProjectIterable)
      (com.google.common.collect ImmutableSet ImmutableMap))
   )
-
-(defn pg-impl-init [scoringFunctionRegistry]
-  ;;FIXME is the registry still being used?
-  [[] {:scoringFunctionRegistry (ImmutableMap/copyOf scoringFunctionRegistry)}])
-
-
-(defn getScoringFunctions [projectGenerator scoreFunctionKeys]
-  (let [scoringFunctionRegistry (get (.state projectGenerator) :scoringFunctionRegistry)]
-     (map (fn [key]
-            (.get scoringFunctionRegistry key))
-        scoreFunctionKeys)))
 
 (defn scoreProject [project scoreFunctions]
   (apply hash-map

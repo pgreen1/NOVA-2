@@ -1,5 +1,8 @@
 package edu.wvu.lcsee.green.model.impl;
 
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
+import com.google.common.collect.ImmutableBiMap;
 import java.util.Set;
 import com.google.common.collect.Maps;
 import com.google.common.collect.ImmutableMap;
@@ -22,14 +25,23 @@ import static com.google.common.base.Preconditions.checkNotNull;
  */
 public class ModelConfigurationImpl implements ModelConfiguration {
 
+  private static final String DEFAULT_CONSTRAINABLE_ATTRIBUTES_NAME = "DEFAULT";
   private final ImmutableMap<Attribute<? extends Serializable>, Constraints<? extends Serializable>> defaultAttributeConstraints;
-  private final ImmutableSet<ScoringFunction> allScoringFunctions;
+  private final NamedConstrainableAttributes defaultConstrainableAttributes;
+  private final ImmutableBiMap<String, ScoringFunction> scoringFunctionsRegistry;
 
   public ModelConfigurationImpl(
           @Nonnull final Map<Attribute<? extends Serializable>, Constraints<? extends Serializable>> defaultAttributeConstraints,
+          @Nonnull final Set<Attribute<? extends Serializable>> defaultConstrainableAttributes,
           @Nonnull final Set<ScoringFunction> allScoringFunctions) {
     this.defaultAttributeConstraints = ImmutableMap.copyOf(defaultAttributeConstraints);
-    this.allScoringFunctions = ImmutableSet.copyOf(allScoringFunctions);
+    this.defaultConstrainableAttributes = new NamedConstrainableAttributesImpl(DEFAULT_CONSTRAINABLE_ATTRIBUTES_NAME,
+            defaultConstrainableAttributes);
+    final BiMap<String, ScoringFunction> sfr = HashBiMap.create(allScoringFunctions.size());
+    for (final ScoringFunction scoringFunction : allScoringFunctions) {
+      sfr.put(scoringFunction.getKey(), scoringFunction);
+    }
+    this.scoringFunctionsRegistry = ImmutableBiMap.copyOf(sfr);
   }
 
   @Override
@@ -44,7 +56,13 @@ public class ModelConfigurationImpl implements ModelConfiguration {
   }
 
   @Override
-  public Scenario generateScenario(@Nonnull final NamedConstrainableAttributes attributeContext, @Nonnull final CaseStudy caseStudy) {
+  public NamedConstrainableAttributes getDefaultConstrainableAttributes() {
+    return defaultConstrainableAttributes;
+  }
+
+  @Override
+  public Scenario generateScenario(@Nonnull final NamedConstrainableAttributes attributeContext,
+          @Nonnull final CaseStudy caseStudy) {
     checkNotNull(attributeContext);
     checkNotNull(caseStudy);
     final Map<Attribute<? extends Serializable>, Constraints<? extends Serializable>> attributeConstraints = Maps.
@@ -58,7 +76,17 @@ public class ModelConfigurationImpl implements ModelConfiguration {
   }
 
   @Override
+  public Scenario generateDefaultScenario() {
+    return generateScenario(getDefaultConstrainableAttributes(), new CaseStudyImpl(defaultAttributeConstraints));
+  }
+
+  @Override
   public ImmutableSet<ScoringFunction> getAllScoringFunctions() {
-    return allScoringFunctions;
+    return scoringFunctionsRegistry.values();
+  }
+
+  @Override
+  public ScoringFunction getScoringFunctionForKey(@Nonnull final String key) {
+    return scoringFunctionsRegistry.get(key);
   }
 }

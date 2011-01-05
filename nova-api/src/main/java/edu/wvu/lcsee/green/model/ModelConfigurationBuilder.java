@@ -5,7 +5,6 @@ import com.google.common.collect.Sets;
 import java.util.Set;
 import com.google.common.collect.Maps;
 import edu.wvu.lcsee.green.model.impl.ModelConfigurationImpl;
-import edu.wvu.lcsee.green.model.ScoringFunction;
 import java.io.Serializable;
 import java.util.Map;
 import static com.google.common.base.Preconditions.checkState;
@@ -19,6 +18,7 @@ public class ModelConfigurationBuilder {
 
   private final Map<Attribute<? extends Serializable>, Constraints<? extends Serializable>> defaultAttributeConstraints = Maps.
           newHashMap();
+  private final Set<Attribute<? extends Serializable>> constrainableAttributes = Sets.newHashSet();
   private final Set<ScoringFunction> scoringFunctions = Sets.newHashSet();
 
   private ModelConfigurationBuilder() {
@@ -28,7 +28,8 @@ public class ModelConfigurationBuilder {
     return new ModelConfigurationBuilder();
   }
 
-  public <V extends Serializable> ModelConfigurationBuilder addAttribute(@Nonnull final Attribute<V> attribute,
+  public <V extends Serializable> ModelConfigurationBuilder addUnconstrainableAttribute(
+          @Nonnull final Attribute<V> attribute,
           @Nonnull final Constraints<V> defaultConstraints,
           @Nonnull final Attribute... dependents) {
     checkNotNull(attribute);
@@ -39,6 +40,15 @@ public class ModelConfigurationBuilder {
     return this;
   }
 
+  public <V extends Serializable> ModelConfigurationBuilder addConstrainableAttribute(
+          @Nonnull final Attribute<V> attribute,
+          @Nonnull final Constraints<V> defaultConstraints,
+          @Nonnull final Attribute... dependents) {
+    addUnconstrainableAttribute(attribute, defaultConstraints, dependents);
+    constrainableAttributes.add(attribute);
+    return this;
+  }
+
   public ModelConfigurationBuilder addScoringFunction(@Nonnull final ScoringFunction scoringFunction) {
     checkNotNull(scoringFunction);
     scoringFunctions.add(scoringFunction);
@@ -46,6 +56,6 @@ public class ModelConfigurationBuilder {
   }
 
   public ModelConfiguration build() {
-    return new ModelConfigurationImpl(defaultAttributeConstraints, scoringFunctions);
+    return new ModelConfigurationImpl(defaultAttributeConstraints, constrainableAttributes, scoringFunctions);
   }
 }
