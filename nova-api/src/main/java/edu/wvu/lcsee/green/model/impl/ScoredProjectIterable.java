@@ -1,7 +1,7 @@
 package edu.wvu.lcsee.green.model.impl;
 
 import java.util.NoSuchElementException;
-import edu.wvu.lcsee.green.model.spi.ScoringFunction;
+import edu.wvu.lcsee.green.model.ScoringFunction;
 import edu.wvu.lcsee.green.model.ScoredProject;
 import javax.annotation.Nonnull;
 import edu.wvu.lcsee.green.model.Scenario;

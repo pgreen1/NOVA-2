@@ -1,7 +1,7 @@
 package edu.wvu.lcsee.green.model;
 
 import com.google.common.collect.ImmutableSet;
-import edu.wvu.lcsee.green.model.spi.ScoringFunction;
+import edu.wvu.lcsee.green.model.ScoringFunction;
 import java.io.Serializable;
 import javax.annotation.Nonnull;
 

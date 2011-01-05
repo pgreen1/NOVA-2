@@ -3,7 +3,7 @@
              (java.lang Math))
 	;(:require )
     (:gen-class
-      :implements [edu.wvu.lcsee.green.model.spi.ScoringFunction]
+      :implements [edu.wvu.lcsee.green.model.ScoringFunction]
       :prefix "duration-"))
 
 (defn duration-getKey [this]

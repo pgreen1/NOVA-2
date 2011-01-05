@@ -1,7 +1,5 @@
 package edu.wvu.lcsee.green.model;
 
-import com.google.common.collect.ImmutableSet;
-import edu.wvu.lcsee.green.model.spi.ScoringFunction;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 

@@ -3,7 +3,7 @@ package edu.wvu.lcsee.green.search.impl;
 import edu.wvu.lcsee.green.model.ProjectGenerator;
 import edu.wvu.lcsee.green.model.Scenario;
 import edu.wvu.lcsee.green.model.ScoredProject;
-import edu.wvu.lcsee.green.model.spi.ScoringFunction;
+import edu.wvu.lcsee.green.model.ScoringFunction;
 import edu.wvu.lcsee.green.search.EvaluationFunction;
 import java.math.BigDecimal;
 import javax.annotation.Nonnull;

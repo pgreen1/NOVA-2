@@ -5,7 +5,7 @@ import com.google.common.collect.Sets;
 import java.util.Set;
 import com.google.common.collect.Maps;
 import edu.wvu.lcsee.green.model.impl.ModelConfigurationImpl;
-import edu.wvu.lcsee.green.model.spi.ScoringFunction;
+import edu.wvu.lcsee.green.model.ScoringFunction;
 import java.io.Serializable;
 import java.util.Map;
 import static com.google.common.base.Preconditions.checkState;

@@ -1,7 +1,6 @@
 package edu.wvu.lcsee.green.model;
 
 import com.google.common.collect.ImmutableMap;
-import edu.wvu.lcsee.green.model.spi.ScoringFunction;
 import javax.annotation.Nonnull;
 
 /**

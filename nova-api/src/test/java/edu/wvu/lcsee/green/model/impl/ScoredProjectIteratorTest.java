@@ -5,7 +5,7 @@ import edu.wvu.lcsee.green.model.impl.ScoredProjectIterable.ScoredProjectIterato
 
 import edu.wvu.lcsee.green.model.Scenario;
 import edu.wvu.lcsee.green.model.ProjectGenerator;
-import edu.wvu.lcsee.green.model.spi.ScoringFunction;
+import edu.wvu.lcsee.green.model.ScoringFunction;
 import java.util.NoSuchElementException;
 import org.junit.Test;
 import static org.junit.Assert.*;

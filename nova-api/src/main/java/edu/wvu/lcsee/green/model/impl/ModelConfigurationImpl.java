@@ -10,7 +10,7 @@ import edu.wvu.lcsee.green.model.Constraints;
 import edu.wvu.lcsee.green.model.ModelConfiguration;
 import edu.wvu.lcsee.green.model.NamedConstrainableAttributes;
 import edu.wvu.lcsee.green.model.Scenario;
-import edu.wvu.lcsee.green.model.spi.ScoringFunction;
+import edu.wvu.lcsee.green.model.ScoringFunction;
 import java.io.Serializable;
 import java.util.Map;
 import javax.annotation.Nonnull;

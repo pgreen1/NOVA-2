@@ -1,4 +1,4 @@
-package edu.wvu.lcsee.green.model.spi;
+package edu.wvu.lcsee.green.model;
 
 import edu.wvu.lcsee.green.model.ModelConfiguration;
 import edu.wvu.lcsee.green.model.Project;
