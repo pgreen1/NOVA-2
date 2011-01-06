@@ -1,13 +1,13 @@
-(ns edu.wvu.lcsee.green.searchEngines.KeysDeterministicSearchEngine
+(ns edu.wvu.lcsee.green.searchEngines.SeesawDeterministicSearchEngine
  (:gen-class
    :implements [edu.wvu.lcsee.green.search.SearchEngine]
-   :prefix "dkeys-impl-")
+   :prefix "dseesaw-impl-")
  (:use (edu.wvu.lcsee.green.searchEngines searchlib IsampSearchEngine))
  (:import (edu.wvu.lcsee.green.model.impl TreatmentImpl))
  )
 
-(defn dkeys-impl-getKey [this]
-  "keys-d")
+(defn dseesaw-impl-getKey [this]
+  "seesaw-d")
 
 (defn generateExtremeScenariosFor [scenario attribute]
   (let [originalAttributeConstrains (.getConstraintsFor scenario attribute)
@@ -26,12 +26,12 @@
            >
            scenarios)))
 
-(defn dkeys-constrainScenario [evaluationFunction scenario attributesLeftToConstrain]
+(defn dseesaw-constrainScenario [evaluationFunction scenario attributesLeftToConstrain]
   (determineBestScenario
     evaluationFunction
     (mapcat (partial generateExtremeScenariosFor scenario)
       attributesLeftToConstrain)))
 
 
-(defn dkeys-impl-search [this evaluationFunction initialScenario]
-  (statesGenerator2path (search evaluationFunction initialScenario dkeys-constrainScenario 1)))
+(defn dseesaw-impl-search [this evaluationFunction initialScenario]
+  (statesGenerator2path (search evaluationFunction initialScenario dseesaw-constrainScenario 1)))

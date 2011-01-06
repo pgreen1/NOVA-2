@@ -1,4 +1,4 @@
-(ns edu.wvu.lcsee.green.searchEngines.KeysRandomSearchEngineTest
+(ns edu.wvu.lcsee.green.searchEngines.SeesawDeterministicSearchEngineTest
  ;(:require)
  (:use
    clojure.test
@@ -7,13 +7,13 @@
  ;(:import)
  )
 
-(deftest RandomKeysSearchEngine-key-should-be-keys-r
-  (let [searchEngine (new edu.wvu.lcsee.green.searchEngines.KeysRandomSearchEngine)]
-    (is (= "keys-r" (.getKey searchEngine)))))
+(deftest RandomKeysSearchEngine-key-should-be-seesaw-r
+  (let [searchEngine (new edu.wvu.lcsee.green.searchEngines.SeesawDeterministicSearchEngine)]
+    (is (= "seesaw-d" (.getKey searchEngine)))))
 
 
 (deftest RandomKeysSearchEngine-should-search
-  (let [searchEngine (new edu.wvu.lcsee.green.searchEngines.KeysRandomSearchEngine)
+  (let [searchEngine (new edu.wvu.lcsee.green.searchEngines.SeesawDeterministicSearchEngine)
         evaluationFunction (generate-mock-evaluationFunction (fn [_] (rand 10)))
         initialScenario (generate-mock-scenario)
         result-path (.search searchEngine evaluationFunction initialScenario)]
