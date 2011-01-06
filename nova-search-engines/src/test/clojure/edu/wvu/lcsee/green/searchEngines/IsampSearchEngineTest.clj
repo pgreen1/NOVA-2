@@ -7,7 +7,7 @@
  ;(:import)
  )
 
-(deftest IsampSearchEngine-key-should-be-strawman
+(deftest IsampSearchEngine-key-should-be-isamp
   (let [searchEngine (new edu.wvu.lcsee.green.searchEngines.IsampSearchEngine)]
     (is (= "isamp" (.getKey searchEngine)))))
 

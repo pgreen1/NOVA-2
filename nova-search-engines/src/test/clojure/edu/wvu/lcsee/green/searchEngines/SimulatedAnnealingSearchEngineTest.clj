@@ -7,7 +7,7 @@
  ;(:import)
  )
 
-(deftest SimulatedAnnealingSearchEngine-key-should-be-strawman
+(deftest SimulatedAnnealingSearchEngine-key-should-be-sa
   (let [searchEngine (new edu.wvu.lcsee.green.searchEngines.SimulatedAnnealingSearchEngine 500 100000 0.3)]
     (is (= "sa" (.getKey searchEngine)))))
 
