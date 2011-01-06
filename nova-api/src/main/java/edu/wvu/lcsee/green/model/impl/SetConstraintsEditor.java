@@ -4,14 +4,18 @@ import com.google.common.base.Objects;
 import static com.google.common.base.Preconditions.*;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Ordering;
 import com.google.common.collect.Sets;
 import edu.wvu.lcsee.green.model.Constraints;
 import edu.wvu.lcsee.green.model.ConstraintsEditor;
 import edu.wvu.lcsee.green.model.ConstraintsEditor.DiscreteValue;
 import java.io.Serializable;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  *
@@ -19,26 +23,81 @@ import javax.annotation.Nonnull;
  */
 public class SetConstraintsEditor<V extends Serializable> implements ConstraintsEditor<V> {
 
-  private final Set<SetDiscreteValue<V>> discreteValues;
+  private final ImmutableSet<DiscreteValue<V>> allValues;
+  private final ImmutableSet<DiscreteValue<V>> extremeValues;
+  private final Set<SetDiscreteValue<V>> currentDiscreteValues;
 
-  public SetConstraintsEditor(@Nonnull final Set<SetDiscreteValue<V>> discreteValues) {
-    this.discreteValues = Sets.newHashSet(discreteValues);
+  SetConstraintsEditor(@Nonnull final ImmutableSet<DiscreteValue<V>> allValues,
+          @Nonnull final ImmutableSet<DiscreteValue<V>> extremeValues,
+          @Nonnull final Set<SetDiscreteValue<V>> currentDiscreteValues) {
+    this.allValues = allValues;
+    this.extremeValues = extremeValues;
+    this.currentDiscreteValues = currentDiscreteValues;
+  }
+
+  @Nonnull
+  static <V extends Serializable> Set<V> determineExtremeValues(
+          @Nonnull final Set<V> allValues,
+          @Nullable final Comparator<V> optionalComparator) {
+    @Nullable
+    final Ordering<V> ordering;
+    if (optionalComparator != null) {
+      ordering = Ordering.from(optionalComparator);
+    } else if (allValues.iterator().next() instanceof Comparable) {//FIXME should be better way of determing if V is Comparable
+      //FIXME casting with rawtype is bad, but i'm not sure how to handle the situation where V is comparable and when it isn't
+      ordering = (Ordering) Ordering.natural();
+    } else {
+      ordering = null;
+    }
+
+    final Set<V> extremeValues;
+    if (ordering == null) {
+      extremeValues = allValues;
+    } else {
+      extremeValues = ImmutableSet.of(ordering.min(allValues), ordering.max(allValues));
+    }
+    return extremeValues;
   }
 
   public static <V extends Serializable> SetConstraintsEditor<V> newInstanceWithValues(@Nonnull final Set<V> values) {
+    final Set<V> extremeValues = determineExtremeValues(values, null);//TODO support optional comparator,
+
     final Set<SetDiscreteValue<V>> discreteValues = Sets.newHashSet();
+
+    final Set<SetDiscreteValue<V>> extremeDiscreteValues = Sets.newHashSet();
     for (final V value : values) {
-      discreteValues.add(new SetDiscreteValue<V>(value));
+      final SetDiscreteValue<V> discreteValue = new SetDiscreteValue<V>(value);
+      discreteValues.add(discreteValue);
+      if (extremeValues.contains(value)) {
+        extremeDiscreteValues.add(discreteValue);
+      }
     }
-    return new SetConstraintsEditor<V>(discreteValues);
+    return new SetConstraintsEditor<V>(ImmutableSet.<DiscreteValue<V>>copyOf(discreteValues),
+            ImmutableSet.<DiscreteValue<V>>copyOf(extremeDiscreteValues),
+            Sets.newHashSet(discreteValues));
+  }
+//FIXME may want to consider storing an ordering for DiscreteValue that can be used to clean up the following code; yucky to convert back and forth between DiscreteValue and Value
+
+  public static <V extends Serializable> SetConstraintsEditor<V> newInstanceFromIntersection(
+          @Nonnull final SetConstraintsEditor<V> thisEditor, @Nonnull final SetConstraintsEditor<V> thatEditor) {
+
+    final Set<DiscreteValue<V>> discreteValues = Sets.intersection(thisEditor.getAllValues(), thatEditor.getAllValues());
+
+    final Set<V> values = Sets.newHashSetWithExpectedSize(discreteValues.size());
+    for (final DiscreteValue<V> discreteValue : discreteValues) {
+      values.add(((SetDiscreteValue<V>) discreteValue).getValue());
+    }
+
+    return newInstanceWithValues(values);//TODO support optional comparator,
   }
 
   @Override
   public Constraints<V> generateConstraints() {
-    checkState(!discreteValues.isEmpty(), "Before a Constraints can be generated, atleast one value must be added.");
+    checkState(!currentDiscreteValues.isEmpty(),
+            "Before a Constraints can be generated, atleast one value must be added.");
 
-    final List<V> values = Lists.newArrayListWithCapacity(discreteValues.size());
-    for (final SetDiscreteValue<V> discreteValue : discreteValues) {
+    final List<V> values = Lists.newArrayListWithCapacity(currentDiscreteValues.size());
+    for (final SetDiscreteValue<V> discreteValue : currentDiscreteValues) {
       values.add(discreteValue.getValue());
     }
 
@@ -50,30 +109,40 @@ public class SetConstraintsEditor<V extends Serializable> implements Constraints
   }
 
   @Override
-  public Set<DiscreteValue<V>> getExtremesValues() {
-    throw new UnsupportedOperationException("Not supported yet.");
+  public ImmutableSet<DiscreteValue<V>> getAllValues() {
+    return allValues;
   }
 
   @Override
-  public Set<DiscreteValue<V>> getAllValues() {
-    return ImmutableSet.<DiscreteValue<V>>copyOf(discreteValues);
+  public ImmutableSet<DiscreteValue<V>> getExtremesValues() {
+    return extremeValues;
+  }
+
+  @Override
+  public Set<DiscreteValue<V>> getCurrentValues() {
+    return Collections.<DiscreteValue<V>>unmodifiableSet(currentDiscreteValues);
   }
 
   @Override
   public boolean isSingletonValue() {
-    return discreteValues.size() == 1;
+    return currentDiscreteValues.size() == 1;
   }
 
   @Override
   public boolean addValue(@Nonnull final DiscreteValue<V> value) {
     checkArgument(value instanceof SetDiscreteValue,
             "unsupported DiscreteValue: " + value + " should be " + SetDiscreteValue.class);
-    return discreteValues.add((SetDiscreteValue<V>) value);
+    return currentDiscreteValues.add((SetDiscreteValue<V>) value);
   }
 
   @Override
   public boolean removeValue(@Nonnull final DiscreteValue<V> value) {
-    return discreteValues.remove(value);
+    return currentDiscreteValues.remove(value);
+  }
+
+  @Override
+  public void removeAllValues() {
+    currentDiscreteValues.clear();
   }
 
   static class SetDiscreteValue<DV extends Serializable> implements DiscreteValue<DV> {

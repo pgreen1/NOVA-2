@@ -1,8 +1,8 @@
 package edu.wvu.lcsee.green.model.impl;
 
+import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 import edu.wvu.lcsee.green.model.Constraints;
 import edu.wvu.lcsee.green.model.ConstraintsEditor;
 import java.io.Serializable;
@@ -35,18 +35,25 @@ public class SetConstraints<V extends Serializable> implements Constraints<V> {
 
   @Override
   public V generateValue() {
-    return valuesAsList.get(random.nextInt(valuesAsList.size()));
+    final V value;
+    if (isFullyConstrained()) {
+      value = valuesAsList.get(0);
+    } else {
+      value = valuesAsList.get(random.nextInt(valuesAsList.size()));
+    }
+    return value;
   }
 
   @Override
   public Constraints<V> mergeConstraints(@Nonnull final Constraints<V> constraintsToMerge) {
-    final ConstraintsEditor<V> thisEditor = getEditor();
-    final ConstraintsEditor<V> thatEditor = constraintsToMerge.getEditor();
+    Preconditions.checkArgument(constraintsToMerge instanceof SetConstraints,
+            "Only merging of " + SetConstraints.class + " is supported: " + constraintsToMerge);
+    @SuppressWarnings("cast")
+    final SetConstraintsEditor<V> thisEditor = (SetConstraintsEditor<V>) getEditor();
+    @SuppressWarnings("cast")
+    final SetConstraintsEditor<V> thatEditor = (SetConstraintsEditor<V>) constraintsToMerge.getEditor();
 
-    final Set<ConstraintsEditor.DiscreteValue<V>> discreteValues = Sets.intersection(thisEditor.getAllValues(), thatEditor.getAllValues());
-
-    //FIXME: used rawtype to get around generics
-    final ConstraintsEditor<V> newEditor = new SetConstraintsEditor(discreteValues);
+    final SetConstraintsEditor<V> newEditor = SetConstraintsEditor.newInstanceFromIntersection(thisEditor, thatEditor);
 
     return newEditor.generateConstraints();
   }
