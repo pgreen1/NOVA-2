@@ -4,10 +4,7 @@
    :prefix "se-impl-")
  ;(:require )
  (:use edu.wvu.lcsee.green.searchEngines.searchlib)
- (:import (com.google.common.collect ImmutableList Maps)
-   (edu.wvu.lcsee.green.model.impl ScenarioImpl TreatmentImpl)
-   (edu.wvu.lcsee.green.search.impl PathImpl)
-   (java.util Date))
+ (:import (edu.wvu.lcsee.green.model.impl TreatmentImpl))
  )
 
 (defn se-impl-getKey [this]
@@ -47,9 +44,4 @@
     states))
 
 (defn se-impl-search [this evaluationFunction initialScenario]
-  (let [startTime (new Date)
-        states (ImmutableList/copyOf (search evaluationFunction initialScenario 25));TODO make 25 a parameter
-        endTime  (new Date)]
-    (new PathImpl startTime endTime states)))
-
-
+  (statesGenerator2path (search evaluationFunction initialScenario 25)));TODO make 25 a parameter

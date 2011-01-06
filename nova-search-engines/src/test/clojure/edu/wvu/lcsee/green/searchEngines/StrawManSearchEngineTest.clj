@@ -14,5 +14,5 @@
   (let [searchEngine (new edu.wvu.lcsee.green.searchEngines.StrawManSearchEngine)
         evaluationFunction (generate-mock-evaluationFunction (fn [_] 10))
         initialScenario (generate-mock-scenario)
-        result (.search searchEngine evaluationFunction initialScenario)]
-    (is result)))
+        result-path (.search searchEngine evaluationFunction initialScenario)]
+    (is result-path)))

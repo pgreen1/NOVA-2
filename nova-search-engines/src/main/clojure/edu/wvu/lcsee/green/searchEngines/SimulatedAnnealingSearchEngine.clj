@@ -8,10 +8,7 @@
  ;(:require )
  (:use clojure.contrib.generic.math-functions
    edu.wvu.lcsee.green.searchEngines.searchlib)
- (:import (com.google.common.collect ImmutableList Maps)
-   (edu.wvu.lcsee.green.model.impl ScenarioImpl TreatmentImpl)
-   (edu.wvu.lcsee.green.search.impl PathImpl)
-   (java.util Date))
+ (:import (edu.wvu.lcsee.green.model.impl ScenarioImpl))
  )
 
 
@@ -85,9 +82,8 @@
       (search-recur [initialState] initialEnergy initialState initialEnergy 1))))
 
 (defn se-impl-search [this evaluationFunction initialScenario]
-  (let [startTime (new Date)
-        states (ImmutableList/copyOf (search evaluationFunction initialScenario (get (.parameters this) :kmax) (get (.parameters this) :emax) (get (.parameters this) :neighborChangeProbability)))
-        endTime  (new Date)]
-    (new PathImpl startTime endTime states)))
-
-
+ (statesGenerator2path
+   (search evaluationFunction initialScenario
+     (get (.parameters this) :kmax)
+     (get (.parameters this) :emax)
+     (get (.parameters this) :neighborChangeProbability))))
