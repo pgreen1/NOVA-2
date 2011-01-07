@@ -5,7 +5,7 @@ import edu.wvu.lcsee.green.model.Constraints
 import edu.wvu.lcsee.green.model.Attribute
 import edu.wvu.lcsee.green.model.impl.CaseStudyImpl
 import edu.wvu.lcsee.green.model.impl.SetConstraints
-import edu.wvu.lcsee.green.model.impl.SingletonConstraints
+import com.google.common.collect.ImmutableSet
 import groovy.util.BuilderSupport
 
 class CaseStudyBuilder extends BuilderSupport {
@@ -60,9 +60,9 @@ class CaseStudyBuilder extends BuilderSupport {
       final Object values = entry.value
       final Constraints<? extends Serializable> constraints;
       if(values instanceof Collection) {
-        constraints = new SetConstraints(new HashSet((Collection)values))
+        constraints = new SetConstraints(ImmutableSet.copyOf((Collection)values))
       } else {
-        constraints = new SingletonConstraints(values)
+        constraints = new SetConstraints(ImmutableSet.of(values))
       }
 
       attributeConstraints.put(entry.key,constraints)

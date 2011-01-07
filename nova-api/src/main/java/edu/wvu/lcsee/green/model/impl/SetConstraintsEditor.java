@@ -126,11 +126,7 @@ public class SetConstraintsEditor<V extends Serializable> implements Constraints
       values.add(discreteValue.getValue());
     }
 
-    if (isSingletonValue()) {
-      return new SingletonConstraints<V>(values.get(0));
-    } else {
-      return new SetConstraints<V>(Sets.newHashSet(values));
-    }
+    return new SetConstraints<V>(Sets.newHashSet(values));
   }
 
   @Override
