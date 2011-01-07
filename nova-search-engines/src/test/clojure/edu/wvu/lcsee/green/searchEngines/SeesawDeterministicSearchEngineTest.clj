@@ -17,6 +17,4 @@
         evaluationFunction (generate-mock-evaluationFunction (fn [_] (rand 10)))
         initialScenario (generate-mock-scenario)
         result-path (.search searchEngine evaluationFunction initialScenario)]
-    (is (states-sorted-by-score? result-path))
-    (is result-path)
-    (is (.before (.getTimeStarted result-path) (.getTimeEnded result-path)))))
+    (is-proper-path? result-path)))

@@ -1,6 +1,6 @@
 (ns edu.wvu.lcsee.green.searchEngines.StrawManSearchEngineTest
   ;(:require)
-  (:use clojure.test edu.wvu.lcsee.green.searchEngines.mockobjects)
+  (:use clojure.test (edu.wvu.lcsee.green.searchEngines testlib mockobjects))
   ;(:import)
   )
 
@@ -15,4 +15,4 @@
         evaluationFunction (generate-mock-evaluationFunction (fn [_] 10))
         initialScenario (generate-mock-scenario)
         result-path (.search searchEngine evaluationFunction initialScenario)]
-    (is result-path)))
+    (is-proper-path? result-path)))
