@@ -26,69 +26,94 @@ public class SetConstraintsEditor<V extends Serializable> implements Constraints
   private final ImmutableSet<DiscreteValue<V>> allValues;
   private final ImmutableSet<DiscreteValue<V>> extremeValues;
   private final Set<SetDiscreteValue<V>> currentDiscreteValues;
+  private final ExtremeValueExtractor<V> extremeValueExtractor;
 
-  SetConstraintsEditor(@Nonnull final ImmutableSet<DiscreteValue<V>> allValues,
-          @Nonnull final ImmutableSet<DiscreteValue<V>> extremeValues,
-          @Nonnull final Set<SetDiscreteValue<V>> currentDiscreteValues) {
-    this.allValues = allValues;
-    this.extremeValues = extremeValues;
-    this.currentDiscreteValues = currentDiscreteValues;
+  SetConstraintsEditor(@Nonnull final Set<SetDiscreteValue<V>> discreteValues,
+          @Nonnull final ExtremeValueExtractor<V> extremeValueExtractor) {
+    this.allValues = ImmutableSet.<DiscreteValue<V>>copyOf(discreteValues);
+    this.extremeValues = ImmutableSet.<DiscreteValue<V>>copyOf(extremeValueExtractor.extractExtremeDiscreteValues(
+            discreteValues));
+    this.currentDiscreteValues = Sets.newHashSet(discreteValues);
+    this.extremeValueExtractor = extremeValueExtractor;
   }
 
-  @Nonnull
-  static <V extends Serializable> Set<V> determineExtremeValues(
-          @Nonnull final Set<V> allValues,
-          @Nullable final Comparator<V> optionalComparator) {
-    @Nullable
-    final Ordering<V> ordering;
-    if (optionalComparator != null) {
-      ordering = Ordering.from(optionalComparator);
-    } else if (allValues.iterator().next() instanceof Comparable) {//FIXME should be better way of determing if V is Comparable
-      //FIXME casting with rawtype is bad, but i'm not sure how to handle the situation where V is comparable and when it isn't
-      ordering = (Ordering) Ordering.natural();
-    } else {
-      ordering = null;
+  static class ExtremeValueExtractor<V extends Serializable> {
+
+    private final Ordering<SetDiscreteValue<V>> discreteValueOrdering;
+
+    ExtremeValueExtractor(@Nullable final Ordering<V> valueOrdering) {
+      if (valueOrdering == null) {
+        this.discreteValueOrdering = null;
+      } else {
+        this.discreteValueOrdering = new Ordering<SetDiscreteValue<V>>() {
+
+          @Override
+          public int compare(final SetDiscreteValue<V> left,
+                  final SetDiscreteValue<V> right) {
+            return valueOrdering.compare(left.getValue(), right.getValue());
+          }
+        };
+      }
     }
 
-    final Set<V> extremeValues;
-    if (ordering == null) {
-      extremeValues = allValues;
-    } else {
-      extremeValues = ImmutableSet.of(ordering.min(allValues), ordering.max(allValues));
+    @Nonnull
+    ImmutableSet<SetDiscreteValue<V>> extractExtremeDiscreteValues(
+            @Nonnull final Set<SetDiscreteValue<V>> discreteValues) {
+      if (discreteValueOrdering == null) {
+        return ImmutableSet.copyOf(discreteValues);
+      } else {
+        return ImmutableSet.of(discreteValueOrdering.min(discreteValues), discreteValueOrdering.max(discreteValues));
+      }
     }
-    return extremeValues;
+
+    @Nullable
+    static <V extends Serializable> ExtremeValueExtractor newInstance(
+            @Nonnull final Class<V> valueType,
+            @Nullable final Comparator<V> optionalComparator) {
+      @Nullable
+      final Ordering<V> ordering;
+      if (optionalComparator != null) {
+        ordering = Ordering.from(optionalComparator);
+      } else if (Comparable.class.isAssignableFrom(valueType)) {
+        //FIXME casting with rawtype is bad, but i'm not sure how to handle the situation where V is comparable and when it isn't
+        ordering = (Ordering) Ordering.natural();
+      } else {
+        ordering = null;
+      }
+      return new ExtremeValueExtractor(ordering);
+    }
+  }
+
+  static <V extends Serializable> Set<SetDiscreteValue<V>> generateExtremeDiscreteValues(
+          Set<SetDiscreteValue<V>> discreteValues, Ordering<SetDiscreteValue<V>> discreteValueOrdering) {
+    final Set<SetDiscreteValue<V>> extremeDiscreteValues;
+    if (discreteValueOrdering == null) {
+      extremeDiscreteValues = discreteValues;
+    } else {
+      extremeDiscreteValues = ImmutableSet.of(discreteValueOrdering.min(discreteValues), discreteValueOrdering.max(
+              discreteValues));
+    }
+    return extremeDiscreteValues;
   }
 
   public static <V extends Serializable> SetConstraintsEditor<V> newInstanceWithValues(@Nonnull final Set<V> values) {
-    final Set<V> extremeValues = determineExtremeValues(values, null);//TODO support optional comparator,
+    @SuppressWarnings("cast")//if this doesn't work, there is bigger problems.
+    final Class<V> valueType = (Class<V>) values.iterator().next().getClass();
 
-    final Set<SetDiscreteValue<V>> discreteValues = Sets.newHashSet();
-
-    final Set<SetDiscreteValue<V>> extremeDiscreteValues = Sets.newHashSet();
+    final ExtremeValueExtractor<V> extremeValueExtractor = ExtremeValueExtractor.newInstance(valueType, null);//TODO support optional comparator,
+    final Set<SetDiscreteValue<V>> discreteValues = Sets.newHashSetWithExpectedSize(values.size());
     for (final V value : values) {
-      final SetDiscreteValue<V> discreteValue = new SetDiscreteValue<V>(value);
-      discreteValues.add(discreteValue);
-      if (extremeValues.contains(value)) {
-        extremeDiscreteValues.add(discreteValue);
-      }
+      discreteValues.add(new SetDiscreteValue<V>(value));
     }
-    return new SetConstraintsEditor<V>(ImmutableSet.<DiscreteValue<V>>copyOf(discreteValues),
-            ImmutableSet.<DiscreteValue<V>>copyOf(extremeDiscreteValues),
-            Sets.newHashSet(discreteValues));
+    return new SetConstraintsEditor<V>(discreteValues, extremeValueExtractor);
   }
-//FIXME may want to consider storing an ordering for DiscreteValue that can be used to clean up the following code; yucky to convert back and forth between DiscreteValue and Value
 
   public static <V extends Serializable> SetConstraintsEditor<V> newInstanceFromIntersection(
           @Nonnull final SetConstraintsEditor<V> thisEditor, @Nonnull final SetConstraintsEditor<V> thatEditor) {
-
-    final Set<DiscreteValue<V>> discreteValues = Sets.intersection(thisEditor.getAllValues(), thatEditor.getAllValues());
-
-    final Set<V> values = Sets.newHashSetWithExpectedSize(discreteValues.size());
-    for (final DiscreteValue<V> discreteValue : discreteValues) {
-      values.add(((SetDiscreteValue<V>) discreteValue).getValue());
-    }
-
-    return newInstanceWithValues(values);//TODO support optional comparator,
+    final ExtremeValueExtractor<V> extremeValueExtractor = thisEditor.extremeValueExtractor;
+    final Set<SetDiscreteValue<V>> discreteValues = Sets.intersection(thisEditor.currentDiscreteValues,
+            thatEditor.currentDiscreteValues);
+    return new SetConstraintsEditor<V>(discreteValues, extremeValueExtractor);
   }
 
   @Override
