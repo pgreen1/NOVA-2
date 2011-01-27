@@ -87,6 +87,7 @@
     <module>mymodel-model</module>
     <module>mymodel-engine</module>
     <module>xomo-model</module>
+    <module>xomo-engine</module>
   </modules>
   <repositories>
     <repository>
