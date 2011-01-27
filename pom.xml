@@ -86,6 +86,7 @@
     <module>nova-groovy-support</module>
     <module>mymodel-model</module>
     <module>mymodel-engine</module>
+    <module>xomo-model</module>
   </modules>
   <repositories>
     <repository>
