@@ -7,9 +7,9 @@
     <groupId>edu.wvu.lcsee.green</groupId>
     <version>2.0.0-SNAPSHOT</version>
   </parent>
-  <groupId>edu.wvu.lcsee.green</groupId>
-  <artifactId>edu.wvu.lcsee.green.mymodel.experiments</artifactId>
-  <name>MyModel Experiments</name>
+  <groupId>edu.wvu.lcsee.green.nova</groupId>
+  <artifactId>nova-experiments</artifactId>
+  <name>NOVA Experiments</name>
   <version>2.0.0-SNAPSHOT</version>
   <dependencies>
     <!-- NOVA -->
