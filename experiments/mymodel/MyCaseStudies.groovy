@@ -1,6 +1,4 @@
 
-package edu.wvu.lcsee.green.mymodel.experiments
-
 import edu.wvu.lcsee.green.model.CaseStudy
 
 

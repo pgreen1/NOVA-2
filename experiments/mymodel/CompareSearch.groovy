@@ -1,4 +1,10 @@
-package edu.wvu.lcsee.green.mymodel.experiments
+
+@GrabResolver(name='local_m2', root='file:${user.home}/.m2/repository/', m2Compatible=true)
+@Grab(group='edu.wvu.lcsee.green', module='nova-api', version='2.0.0-SNAPSHOT')
+@Grab(group='edu.wvu.lcsee.green', module='nova-clojure-impl', version='2.0.0-SNAPSHOT')
+@Grab(group='edu.wvu.lcsee.green', module='nova-search-engines', version='2.0.0-SNAPSHOT')
+@Grab(group='edu.wvu.lcsee.green.mymodel', module='mymodel-model', version='2.0.0-SNAPSHOT')
+@Grab(group='edu.wvu.lcsee.green.mymodel', module='mymodel-engine', version='2.0.0-SNAPSHOT')
 
 import edu.wvu.lcsee.green.search.Path;
 import edu.wvu.lcsee.green.search.State;
