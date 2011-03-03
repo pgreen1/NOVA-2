@@ -83,9 +83,9 @@
     <module>nova-api</module>
     <module>nova-clojure-impl</module>
     <module>nova-search-engines</module>
+    <module>nova-groovy-support</module>
     <module>mymodel-model</module>
     <module>mymodel-engine</module>
-    <module>mymodel-experiments</module>
   </modules>
   <repositories>
     <repository>
