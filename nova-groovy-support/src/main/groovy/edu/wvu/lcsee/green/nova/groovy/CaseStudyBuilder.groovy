@@ -1,5 +1,5 @@
 
-package edu.wvu.lcsee.green.mymodel.experiments
+package edu.wvu.lcsee.green.nova.groovy
 
 import edu.wvu.lcsee.green.model.Constraints
 import edu.wvu.lcsee.green.model.Attribute

@@ -1,12 +1,12 @@
 
-package edu.wvu.lcsee.green.mymodel.experiments
+package edu.wvu.lcsee.green.nova.groovy
 
 import org.junit.Test
 import static org.junit.Assert.*
 import static org.junit.matchers.JUnitMatchers.*
 import static org.hamcrest.CoreMatchers.*
 import edu.wvu.lcsee.green.model.CaseStudy
-import static edu.wvu.lcsee.green.mymodel.experiments.FakeAttributes.*;
+import static edu.wvu.lcsee.green.nova.groovy.FakeAttributes.*;
 
 class CaseStudyBuilderTest {
 
