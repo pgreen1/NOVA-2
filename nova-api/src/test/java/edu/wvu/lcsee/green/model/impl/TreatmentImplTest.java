@@ -25,7 +25,7 @@ public class TreatmentImplTest {
     final Treatment result = TreatmentImpl.newSingletonTreatment(mockAttribute, mockConstraints);
 
     assertThat(result.getAllAttributes().size(), is(1));
-    assertThat(result.getAllAttributes().contains(mockAttribute),is(true));
+    assertThat(result.getAllAttributes().contains(mockAttribute), is(true));
 
     assertThat(result.getConstraintsFor(mockAttribute), is(mockConstraints));
 

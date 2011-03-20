@@ -50,7 +50,7 @@ public class ProjectIterable implements Iterable<Project> {
 
     @Override
     public Project next() {
-      if(!hasNext()) {
+      if (!hasNext()) {
         throw new NoSuchElementException();
       }
       final Project project = projectGenerator.generateProject(scenario);

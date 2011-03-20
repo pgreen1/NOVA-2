@@ -1,7 +1,5 @@
 package edu.wvu.lcsee.green.model;
 
-import edu.wvu.lcsee.green.model.ModelConfiguration;
-import edu.wvu.lcsee.green.model.Project;
 import javax.annotation.Nonnull;
 
 /**
@@ -22,7 +20,7 @@ public interface ScoringFunction {
 
   /**
    * Scores a project.
-   * 
+   *
    * @param project the project to be scored
    * @return score of the project
    * @throws IllegalArgumentException when the project doesn't have the Attributes required for the scoring to occur.

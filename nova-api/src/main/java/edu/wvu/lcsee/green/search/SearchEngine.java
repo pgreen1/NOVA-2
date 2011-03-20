@@ -1,9 +1,7 @@
 package edu.wvu.lcsee.green.search;
 
-import com.google.common.collect.ImmutableList;
+import edu.wvu.lcsee.green.control.NovaControl;
 import edu.wvu.lcsee.green.model.Scenario;
-import edu.wvu.lcsee.green.model.ScoringFunction;
-import edu.wvu.lcsee.green.search.State;
 import javax.annotation.Nonnull;
 
 /**

@@ -85,7 +85,7 @@ public class SetConstraintsEditor<V extends Serializable> implements Constraints
   }
 
   static <V extends Serializable> Set<SetDiscreteValue<V>> generateExtremeDiscreteValues(
-          Set<SetDiscreteValue<V>> discreteValues, Ordering<SetDiscreteValue<V>> discreteValueOrdering) {
+          final Set<SetDiscreteValue<V>> discreteValues, final Ordering<SetDiscreteValue<V>> discreteValueOrdering) {
     final Set<SetDiscreteValue<V>> extremeDiscreteValues;
     if (discreteValueOrdering == null) {
       extremeDiscreteValues = discreteValues;
@@ -168,9 +168,9 @@ public class SetConstraintsEditor<V extends Serializable> implements Constraints
 
   static class SetDiscreteValue<DV extends Serializable> implements DiscreteValue<DV> {
 
-    final DV value;
+    private final DV value;
 
-    public SetDiscreteValue(@Nonnull DV value) {
+    public SetDiscreteValue(@Nonnull final DV value) {
       this.value = checkNotNull(value);
     }
 
@@ -179,7 +179,7 @@ public class SetConstraintsEditor<V extends Serializable> implements Constraints
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
       if (obj == null) {
         return false;
       }
@@ -193,9 +193,7 @@ public class SetConstraintsEditor<V extends Serializable> implements Constraints
 
     @Override
     public int hashCode() {
-      int hash = 3;
-      hash = 19 * hash + (this.value != null ? this.value.hashCode() : super.hashCode());
-      return hash;
+      return Objects.hashCode(value);
     }
   }
 }

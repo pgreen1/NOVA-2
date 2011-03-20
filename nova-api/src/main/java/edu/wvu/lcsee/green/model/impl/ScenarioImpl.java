@@ -2,7 +2,6 @@ package edu.wvu.lcsee.green.model.impl;
 
 import com.google.common.collect.Maps;
 import java.util.Set;
-import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import edu.wvu.lcsee.green.model.Attribute;
 import edu.wvu.lcsee.green.model.Constraints;
@@ -11,7 +10,6 @@ import edu.wvu.lcsee.green.model.Treatment;
 import java.io.Serializable;
 import java.util.Map;
 import javax.annotation.Nonnull;
-import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.base.Preconditions.checkArgument;
 
 /**
@@ -25,19 +23,15 @@ public class ScenarioImpl extends AbstractAttributeConstrainable implements Scen
 
   public ScenarioImpl(
           @Nonnull final Map<Attribute<? extends Serializable>, Constraints<? extends Serializable>> attributeConstraints,
-          Set<Attribute<? extends Serializable>> constrainableConstraints) {
+          @Nonnull final Set<Attribute<? extends Serializable>> constrainableConstraints) {
     super(attributeConstraints);
     this.constrainableConstraints = ImmutableSet.copyOf(constrainableConstraints);
   }
-
- 
 
   @Override
   public ImmutableSet<Attribute<? extends Serializable>> getConstrainableAttributes() {
     return constrainableConstraints;
   }
-
-
 
   @Override
   public Scenario applyTreatment(@Nonnull final Treatment treatment) {

@@ -14,7 +14,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
  *
  * @author pdgreen
  */
-public class ModelConfigurationBuilder {
+public final class ModelConfigurationBuilder {
 
   private final Map<Attribute<? extends Serializable>, Constraints<? extends Serializable>> defaultAttributeConstraints = Maps.
           newHashMap();

@@ -55,7 +55,7 @@ public class ScoredProjectIterable implements Iterable<ScoredProject> {
 
     @Override
     public ScoredProject next() {
-      if(!hasNext()) {
+      if (!hasNext()) {
         throw new NoSuchElementException();
       }
       final ScoredProject scoredProject = projectGenerator.generateScoredProject(scenario, scoringFunctions);

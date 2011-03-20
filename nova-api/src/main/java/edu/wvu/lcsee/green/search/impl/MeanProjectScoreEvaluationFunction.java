@@ -7,6 +7,7 @@ import edu.wvu.lcsee.green.model.ScoringFunction;
 import edu.wvu.lcsee.green.search.EvaluationFunction;
 import java.math.BigDecimal;
 import javax.annotation.Nonnull;
+import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  *
@@ -21,11 +22,12 @@ public class MeanProjectScoreEvaluationFunction implements EvaluationFunction {
   @Nonnull
   private final ScoringFunction scoringFunction;
 
-  public MeanProjectScoreEvaluationFunction(ProjectGenerator projectGenerator, int numberOfProjectsToGenerate,
-          ScoringFunction scoringFunction) {
-    this.projectGenerator = projectGenerator;
+  public MeanProjectScoreEvaluationFunction(@Nonnull final ProjectGenerator projectGenerator,
+          @Nonnull final int numberOfProjectsToGenerate,
+          @Nonnull final ScoringFunction scoringFunction) {
+    this.projectGenerator = checkNotNull(projectGenerator);
     this.numberOfProjectsToGenerate = numberOfProjectsToGenerate;
-    this.scoringFunction = scoringFunction;
+    this.scoringFunction = checkNotNull(scoringFunction);
   }
 
   @Override

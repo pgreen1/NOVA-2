@@ -4,7 +4,7 @@ import com.google.common.collect.ImmutableList;
 import java.util.Date;
 
 /**
- * Represents a path of {@link State} instances that a 
+ * Represents a path of {@link State} instances that a
  * {@link SearchEngine} transversed to find the best {@link Scenario}.
  *
  * @author pdgreen
@@ -16,7 +16,6 @@ public interface Path {
    * @return time instance the path search was started
    */
   Date getTimeStarted();
-
 
   /**
    * The instance of time where the {@SearchEngine} ended searching for this Path.

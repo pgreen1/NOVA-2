@@ -11,8 +11,8 @@ import javax.annotation.Nonnull;
  */
 public interface MyModelConfiguration extends ModelConfiguration {
 
-  public static String SCORING_FUNCTION_KEY_COST = "cost";
-  public static String SCORING_FUNCTION_KEY_DURATION = "duration";
+  String SCORING_FUNCTION_KEY_COST = "cost";
+  String SCORING_FUNCTION_KEY_DURATION = "duration";
 
   @Nonnull
   ScoringFunction getCostScoringFunction();

@@ -12,7 +12,9 @@ import javax.annotation.Nonnull;
  */
 public class RangeConstraints implements Constraints<Number> {
 
-  private static final Random random = new Random();
+  public final static int DEFAULT_SPLITS = 4;
+  public final static int DEFAULT_SPLIT_FACTOR = 2;
+  private static final Random RANDOM = new Random();
   private final Number mininumValue;
   private final Number maximumValue;
   private final int splits;
@@ -21,15 +23,15 @@ public class RangeConstraints implements Constraints<Number> {
   public RangeConstraints(@Nonnull final Number value) {
     this.mininumValue = value;
     this.maximumValue = value;
-    this.splits = 4;
-    this.splitFactor = 2;
+    this.splits = DEFAULT_SPLITS;
+    this.splitFactor = DEFAULT_SPLIT_FACTOR;
   }
 
   public RangeConstraints(@Nonnull final Number minimumValue, @Nonnull final Number maximumValue) {
     this.mininumValue = minimumValue;
     this.maximumValue = maximumValue;
-    this.splits = 4;
-    this.splitFactor = 2;
+    this.splits = DEFAULT_SPLITS;
+    this.splitFactor = DEFAULT_SPLIT_FACTOR;
   }
 
   @Override
@@ -37,11 +39,11 @@ public class RangeConstraints implements Constraints<Number> {
     final double minVal = mininumValue.doubleValue();
     final double maxVal = maximumValue.doubleValue();
 
-    return BigDecimal.valueOf(random.nextDouble() * (maxVal - minVal) + minVal);
+    return BigDecimal.valueOf(RANDOM.nextDouble() * (maxVal - minVal) + minVal);
   }
 
   @Override
-  public Constraints<Number> mergeConstraints(Constraints<Number> constraintsToMerge) {
+  public Constraints<Number> mergeConstraints(final Constraints<Number> constraintsToMerge) {
     throw new UnsupportedOperationException("Not supported yet.");
   }
 

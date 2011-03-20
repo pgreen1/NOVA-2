@@ -37,7 +37,7 @@ public class ScoredProjectIteratorTest {
     }
     assertThat(instance.hasNext(), is(false));
 
-    verify(mockProjectGenerator, times((int) testIterations)).generateScoredProject(mockScenario,scoringFunctions);
+    verify(mockProjectGenerator, times((int) testIterations)).generateScoredProject(mockScenario, scoringFunctions);
     verifyZeroInteractions(mockScenario);
   }
 

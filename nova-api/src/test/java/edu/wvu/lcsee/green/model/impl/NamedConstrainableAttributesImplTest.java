@@ -4,7 +4,6 @@ import java.util.Set;
 import com.google.common.collect.ImmutableSet;
 import java.io.Serializable;
 import edu.wvu.lcsee.green.model.Attribute;
-import edu.wvu.lcsee.green.model.Constraints;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.mockito.Mockito.*;

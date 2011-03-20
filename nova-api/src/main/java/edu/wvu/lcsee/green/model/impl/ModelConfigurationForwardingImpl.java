@@ -11,7 +11,7 @@ import edu.wvu.lcsee.green.model.ScoringFunction;
 import java.io.Serializable;
 
 /**
- * Implementation for {@link ModelConfiguration} where all methods delegate to the 
+ * Implementation for {@link ModelConfiguration} where all methods delegate to the
  * ModelConfiguration returned by {@link ModelConfigurationForwardingImpl#delegate()}.
  *
  * @author pdgreen
@@ -31,7 +31,7 @@ public abstract class ModelConfigurationForwardingImpl implements ModelConfigura
   }
 
   @Override
-  public <V extends Serializable> Constraints<V> getDefaultConstraintsFor(Attribute<V> attribute) {
+  public <V extends Serializable> Constraints<V> getDefaultConstraintsFor(final Attribute<V> attribute) {
     return delegate().getDefaultConstraintsFor(attribute);
   }
 

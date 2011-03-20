@@ -8,7 +8,10 @@ import java.util.ServiceLoader;
  * Loads the NovaControlFactory by using SPI.
  * @author pdgreen
  */
-public class NovaBootstrap {
+public final class NovaBootstrap {
+
+  private NovaBootstrap() {
+  }
 
   /**
    * Loads the NovaControlFactory using SPI.

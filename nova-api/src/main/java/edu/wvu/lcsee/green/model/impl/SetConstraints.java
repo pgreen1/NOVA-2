@@ -20,7 +20,7 @@ import javax.annotation.Nonnull;
  */
 public class SetConstraints<V extends Serializable> implements Constraints<V> {
 
-  private static final Random random = new Random();
+  private static final Random RANDOM = new Random();
   private final ImmutableSet<V> values;
   private final List<V> valuesAsList;
 
@@ -28,7 +28,7 @@ public class SetConstraints<V extends Serializable> implements Constraints<V> {
     this(new HashSet<V>(Arrays.asList(values)));
   }
 
-  public SetConstraints(final @Nonnull Set<V> values) {
+  public SetConstraints(@Nonnull final Set<V> values) {
     this.values = ImmutableSet.copyOf(values);
     this.valuesAsList = Lists.newArrayList(this.values);
   }
@@ -39,7 +39,7 @@ public class SetConstraints<V extends Serializable> implements Constraints<V> {
     if (isFullyConstrained()) {
       value = valuesAsList.get(0);
     } else {
-      value = valuesAsList.get(random.nextInt(valuesAsList.size()));
+      value = valuesAsList.get(RANDOM.nextInt(valuesAsList.size()));
     }
     return value;
   }

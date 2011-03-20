@@ -13,7 +13,7 @@ import static com.google.common.base.Preconditions.*;
 
 /**
  * Standard implementation of {@link ScoredProject}.
- * 
+ *
  * @author pdgreen
  */
 public class ScoredProjectImpl implements ScoredProject {
@@ -38,7 +38,7 @@ public class ScoredProjectImpl implements ScoredProject {
   }
 
   @Override
-  public <V extends Serializable> V getValueFor(Attribute<V> attribute) {
+  public <V extends Serializable> V getValueFor(final Attribute<V> attribute) {
     return project.getValueFor(attribute);
   }
 
@@ -49,8 +49,6 @@ public class ScoredProjectImpl implements ScoredProject {
 
   @Override
   public String toString() {
-    return Objects.toStringHelper(this).add("project",project).add("scores",scores).toString();
+    return Objects.toStringHelper(this).add("project", project).add("scores", scores).toString();
   }
-
-
 }

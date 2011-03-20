@@ -15,7 +15,7 @@ import static org.mockito.Mockito.*;
 
 /**
  * Tests for {@link AbstractAttributeConstrainable}.
- * 
+ *
  * @author pdgreen
  */
 public class AbstractAttributeConstrainableTest {

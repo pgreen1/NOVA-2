@@ -16,7 +16,7 @@ public class ProjectImpl implements Project {
 
   private final ImmutableMap<Attribute<? extends Serializable>, ? extends Serializable> values;
 
-  public ProjectImpl(Map<Attribute<? extends Serializable>, ? extends Serializable> values) {
+  public ProjectImpl(final Map<Attribute<? extends Serializable>, ? extends Serializable> values) {
     this.values = ImmutableMap.copyOf(values);
   }
 
