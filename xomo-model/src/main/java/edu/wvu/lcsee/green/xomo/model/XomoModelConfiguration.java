@@ -16,7 +16,7 @@ public interface XomoModelConfiguration extends ModelConfiguration {
   public static String SCORING_FUNCTION_KEY_COQUALMO_DEFECTS = "defects";
 
   @Nonnull
-  ScoringFunction getEfforttScoringFunction();
+  ScoringFunction getEffortScoringFunction();
 
   @Nonnull
   ScoringFunction getScheduleScoringFunction();
