@@ -1,6 +1,7 @@
+package mymodel
 
 import edu.wvu.lcsee.green.model.CaseStudy
-
+import edu.wvu.lcsee.green.nova.groovy.CaseStudyBuilder
 
 import static edu.wvu.lcsee.green.mymodel.model.MyModelAttribute.*
 import static edu.wvu.lcsee.green.mymodel.model.MyModelAttribute.ProjectSize.*
