@@ -16,7 +16,7 @@
         kloc  (.getValueFor project CocomoParameters/KLOC)
         sf-sum (reduce +
                  (map (fn [attribute]
-                        (.getEffortCoefficent (.getValueFor project attribute)))
+                        (.getEffortCoefficient (.getValueFor project attribute)))
                    (ScaleFactorAttribute/values)))
         em-product (reduce *
                      (map (fn [attribute]
