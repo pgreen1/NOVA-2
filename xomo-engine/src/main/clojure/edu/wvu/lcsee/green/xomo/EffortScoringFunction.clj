@@ -10,7 +10,7 @@
 (defn effort-getKey [this]
   XomoModelConfiguration/SCORING_FUNCTION_KEY_COCOMO_EFFORT)
 
-(defn effort-score [this project]
+(defn calculate-effort-score [project]
   (let [a (.getValueFor project CocomoParameters/A)
         b  (.getValueFor project CocomoParameters/B)
         kloc  (.getValueFor project CocomoParameters/KLOC)
@@ -26,3 +26,7 @@
     (* a
       (Math/pow kloc e)
       em-product)))
+
+
+(defn effort-score [this project]
+  (calculate-effort-score project))

@@ -23,10 +23,10 @@
         d  (.getValueFor project CocomoParameters/D)
         sced (.getValueFor project EffortMultiplierAttribute/SCED)
         sced-percent (calculate-sced-percent sced)
-        pm-no-sced (/ (effort-score project) (.getEffortCoefficient sced))
+        pm-no-sced (/ (calculate-effort-score project) (.getEffortCoefficient sced))
         sf-sum (reduce +
                  (map (fn [attribute]
-                        (.getEffortCoefficent (.getValueFor project attribute)))
+                        (.getEffortCoefficient (.getValueFor project attribute)))
                    (ScaleFactorAttribute/values)))
         e-no-b (* 0.01 1)
         f (+ d (* 0.2 e-no-b))]
