@@ -1,5 +1,6 @@
 package edu.wvu.lcsee.green.model.impl;
 
+import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import edu.wvu.lcsee.green.model.Attribute;
@@ -27,6 +28,7 @@ public class ProjectImpl implements Project {
 
   @Override
   public <V extends Serializable> V getValueFor(final Attribute<V> attribute) {
+    Preconditions.checkArgument(values.containsKey(attribute), "attribute (%s) not in project (%s)", attribute, values.keySet());
     return (V) values.get(attribute);
   }
 
