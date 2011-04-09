@@ -1,5 +1,5 @@
 (ns edu.wvu.lcsee.green.mymodel.CostScoringFunction
-	(:import (edu.wvu.lcsee.green.mymodel.model MyModelAttribute MyModelAttribute$ProjectSize)
+	(:import (edu.wvu.lcsee.green.mymodel.model MyModelAttribute MyModelAttribute$ProjectSize MyModelConfiguration)
              (java.lang Math))
 	;(:require )
   (:gen-class
@@ -7,7 +7,7 @@
     :prefix "cost-"))
 
 (defn cost-getKey [this]
-  "cost")
+  MyModelConfiguration/SCORING_FUNCTION_KEY_COST)
 
 (defn cost-score [this project]
   (*  (Math/pow 2 (.getValueFor project MyModelAttribute/FF))
