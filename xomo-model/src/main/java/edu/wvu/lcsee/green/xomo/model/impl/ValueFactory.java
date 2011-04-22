@@ -2,9 +2,10 @@ package edu.wvu.lcsee.green.xomo.model.impl;
 
 import edu.wvu.lcsee.green.xomo.model.CocomoLevel;
 import edu.wvu.lcsee.green.xomo.model.DefectRemovalValue;
+import edu.wvu.lcsee.green.xomo.model.DefectsIntroducedSlopesValue;
+import edu.wvu.lcsee.green.xomo.model.DefectsRemovedSlopesValue;
 import edu.wvu.lcsee.green.xomo.model.EffortMultiplierValue;
 import edu.wvu.lcsee.green.xomo.model.ScaleFactorValue;
-import edu.wvu.lcsee.green.xomo.model.XomoSlopesValue;
 import javax.annotation.Nonnull;
 
 /**
@@ -26,30 +27,40 @@ public final class ValueFactory {
   }
 
   public static EffortMultiplierValue newEffortMuliplierValue(@Nonnull final CocomoLevel level,
-          @Nonnull final XomoSlopesValue slopes) {
+          @Nonnull final double effortCoefficentSlope,
+          @Nonnull final DefectsIntroducedSlopesValue emDefectsIntroducedSlopes) {
     return new EffortMultiplierValueImpl(
             level,
-            calcValueFromPivotedLine(level.getNumericValue(), slopes.getEffortCoefficentSlope()),
-            calcValueFromPivotedLine(level.getNumericValue(), slopes.getEmRequirmentsDefectsIntroducedSlope()),
-            calcValueFromPivotedLine(level.getNumericValue(), slopes.getEmDesignDefectsIntroducedSlope()),
-            calcValueFromPivotedLine(level.getNumericValue(), slopes.getEmCodingDefectsIntroducedSlope()));
+            calcValueFromPivotedLine(level.getNumericValue(), effortCoefficentSlope),
+            calcValueFromPivotedLine(level.getNumericValue(), emDefectsIntroducedSlopes.
+            getRequirmentsDefectsIntroducedSlope()),
+            calcValueFromPivotedLine(level.getNumericValue(),
+            emDefectsIntroducedSlopes.getDesignDefectsIntroducedSlope()),
+            calcValueFromPivotedLine(level.getNumericValue(),
+            emDefectsIntroducedSlopes.getCodingDefectsIntroducedSlope()));
   }
 
   public static ScaleFactorValue newScaleFactorValue(@Nonnull final CocomoLevel level,
-          @Nonnull final XomoSlopesValue slopes) {
+          @Nonnull final double effortCoefficentSlope,
+          @Nonnull final DefectsIntroducedSlopesValue sfDefectsIntroducedSlopes) {
     return new ScaleFactorValueImpl(
             level,
-            calcValueFromHingedLine(level.getNumericValue(), slopes.getEffortCoefficentSlope()),
-            calcValueFromPivotedLine(level.getNumericValue(), slopes.getSfRequirmentsDefectsIntroducedSlope()),
-            calcValueFromPivotedLine(level.getNumericValue(), slopes.getSfDesignDefectsIntroducedSlope()),
-            calcValueFromPivotedLine(level.getNumericValue(), slopes.getSfCodingDefectsIntroducedSlope()));
+            calcValueFromHingedLine(level.getNumericValue(), effortCoefficentSlope),
+            calcValueFromPivotedLine(level.getNumericValue(), sfDefectsIntroducedSlopes.
+            getRequirmentsDefectsIntroducedSlope()),
+            calcValueFromPivotedLine(level.getNumericValue(),
+            sfDefectsIntroducedSlopes.getDesignDefectsIntroducedSlope()),
+            calcValueFromPivotedLine(level.getNumericValue(),
+            sfDefectsIntroducedSlopes.getCodingDefectsIntroducedSlope()));
   }
 
   public static DefectRemovalValue newDefectRemoval(@Nonnull final CocomoLevel level,
-          @Nonnull final XomoSlopesValue slopes) {
+          @Nonnull final DefectsRemovedSlopesValue defectsRemovedSlopes) {
     return new DefectRemovalValueImpl(
-            calcValueFromCoqualmoHingedLine(level.getNumericValue(), slopes.getRequirmentsDefectsRemovedSlope()),
-            calcValueFromCoqualmoHingedLine(level.getNumericValue(), slopes.getDesignDefectsRemovedSlope()),
-            calcValueFromCoqualmoHingedLine(level.getNumericValue(), slopes.getCodingDefectsRemovedSlope()));
+            level,
+            calcValueFromCoqualmoHingedLine(level.getNumericValue(), defectsRemovedSlopes.
+            getRequirmentsDefectsRemovedSlope()),
+            calcValueFromCoqualmoHingedLine(level.getNumericValue(), defectsRemovedSlopes.getDesignDefectsRemovedSlope()),
+            calcValueFromCoqualmoHingedLine(level.getNumericValue(), defectsRemovedSlopes.getCodingDefectsRemovedSlope()));
   }
 }

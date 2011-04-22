@@ -4,7 +4,7 @@ import edu.wvu.lcsee.green.model.Attribute;
 import edu.wvu.lcsee.green.model.impl.DefaultAttribute;
 
 /**
- *
+ * COCOMO Parameters contains the non-attribute inputs for COCOMO.
  * @author pdgreen
  */
 public class CocomoParameters {

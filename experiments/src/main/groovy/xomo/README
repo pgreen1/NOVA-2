@@ -1,0 +1,2 @@
+command to run, --debug gives full stack trace
+rm  -r ~/.groovy/grapes/edu.wvu.lcsee.green*; groovy --debug XomoModelDemo.groovy

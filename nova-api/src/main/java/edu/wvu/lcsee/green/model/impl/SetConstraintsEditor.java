@@ -9,6 +9,7 @@ import com.google.common.collect.Sets;
 import edu.wvu.lcsee.green.model.Constraints;
 import edu.wvu.lcsee.green.model.ConstraintsEditor;
 import edu.wvu.lcsee.green.model.ConstraintsEditor.DiscreteValue;
+import edu.wvu.lcsee.green.model.impl.SetConstraintsEditor.SetDiscreteValue;
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.Comparator;
@@ -21,17 +22,17 @@ import javax.annotation.Nullable;
  *
  * @author pdgreen
  */
-public class SetConstraintsEditor<V extends Serializable> implements ConstraintsEditor<V> {
+public class SetConstraintsEditor<V extends Serializable> implements ConstraintsEditor<V, SetDiscreteValue<V>> {
 
-  private final ImmutableSet<DiscreteValue<V>> allValues;
-  private final ImmutableSet<DiscreteValue<V>> extremeValues;
+  private final ImmutableSet<SetDiscreteValue<V>> allValues;
+  private final ImmutableSet<SetDiscreteValue<V>> extremeValues;
   private final Set<SetDiscreteValue<V>> currentDiscreteValues;
   private final ExtremeValueExtractor<V> extremeValueExtractor;
 
   SetConstraintsEditor(@Nonnull final Set<SetDiscreteValue<V>> discreteValues,
           @Nonnull final ExtremeValueExtractor<V> extremeValueExtractor) {
-    this.allValues = ImmutableSet.<DiscreteValue<V>>copyOf(discreteValues);
-    this.extremeValues = ImmutableSet.<DiscreteValue<V>>copyOf(extremeValueExtractor.extractExtremeDiscreteValues(
+    this.allValues = ImmutableSet.copyOf(discreteValues);
+    this.extremeValues = ImmutableSet.copyOf(extremeValueExtractor.extractExtremeDiscreteValues(
             discreteValues));
     this.currentDiscreteValues = Sets.newHashSet(discreteValues);
     this.extremeValueExtractor = extremeValueExtractor;
@@ -130,34 +131,38 @@ public class SetConstraintsEditor<V extends Serializable> implements Constraints
   }
 
   @Override
-  public ImmutableSet<DiscreteValue<V>> getAllValues() {
+  public ImmutableSet<SetDiscreteValue<V>> getAllValues() {
     return allValues;
   }
 
   @Override
-  public ImmutableSet<DiscreteValue<V>> getExtremesValues() {
+  public ImmutableSet<SetDiscreteValue<V>> getExtremesValues() {
     return extremeValues;
   }
 
   @Override
-  public Set<DiscreteValue<V>> getCurrentValues() {
-    return Collections.<DiscreteValue<V>>unmodifiableSet(currentDiscreteValues);
+  public Set<SetDiscreteValue<V>> getCurrentValues() {
+    return Collections.unmodifiableSet(currentDiscreteValues);
+  }
+
+  @Override
+  public ImmutableSet<SetDiscreteValue<V>> getRemovableValues() {
+    return ImmutableSet.copyOf(getCurrentValues());
   }
 
   @Override
   public boolean isSingletonValue() {
-    return currentDiscreteValues.size() == 1;
+    return allValues.size() == 1;
   }
 
   @Override
-  public boolean addValue(@Nonnull final DiscreteValue<V> value) {
-    checkArgument(value instanceof SetDiscreteValue,
-            "unsupported DiscreteValue: " + value + " should be " + SetDiscreteValue.class);
-    return currentDiscreteValues.add((SetDiscreteValue<V>) value);
+  public boolean addValue(@Nonnull final SetDiscreteValue<V> value) {
+    checkArgument(allValues.contains(value), "{} not in {}", value, allValues);
+    return currentDiscreteValues.add(value);
   }
 
   @Override
-  public boolean removeValue(@Nonnull final DiscreteValue<V> value) {
+  public boolean removeValue(@Nonnull final SetDiscreteValue<V> value) {
     return currentDiscreteValues.remove(value);
   }
 
@@ -166,7 +171,8 @@ public class SetConstraintsEditor<V extends Serializable> implements Constraints
     currentDiscreteValues.clear();
   }
 
-  static class SetDiscreteValue<DV extends Serializable> implements DiscreteValue<DV> {
+  //FIXME this shouldn't be public
+ public static class SetDiscreteValue<DV extends Serializable> implements DiscreteValue<DV> {
 
     private final DV value;
 

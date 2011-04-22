@@ -11,12 +11,13 @@ import javax.annotation.Nonnull;
  * ConstraintsEditor allows for values to added and removed.
  * @author pdgreen
  */
-public interface ConstraintsEditor<V extends Serializable> {
+public interface ConstraintsEditor<V extends Serializable, DV extends ConstraintsEditor.DiscreteValue<V>> {
 
   /**
    * Generates Constraints from the editor.
    * @return Constraints with values of ConstraintEditor
-   * @throws IllegalStateException when there is no current values associated with the ConstraintsEditor.
+   * @throws IllegalStateException when there is no current values associated 
+   * with the ConstraintsEditor or if the remaining values are invalid.
    */
   @Nonnull
   Constraints<V> generateConstraints();
@@ -26,14 +27,14 @@ public interface ConstraintsEditor<V extends Serializable> {
    * @return a set of all possible values in the ConstraintsEditor
    */
   @Nonnull
-  ImmutableSet<DiscreteValue<V>> getAllValues();
+  ImmutableSet<DV> getAllValues();
 
   /**
    * Returns discrete values for any extremes.  If there are not values that are "extreme", then this should return the same as getAllValues().
    * @return the set of values which would be considered the extremes if the values of some kind of ordering.
    */
   @Nonnull
-  ImmutableSet<DiscreteValue<V>> getExtremesValues();
+  ImmutableSet<DV> getExtremesValues();
 
   /**
    * Return the current values on the ConstraintsEditor.  The set returned by getCurrentValues() should not be modified directly.
@@ -42,8 +43,17 @@ public interface ConstraintsEditor<V extends Serializable> {
    * {@link ConstraintsEditor#removeAllValues()}
    * @return a set of values currently in the ConstraintsEditor
    */
+  //TODO why isn't this an immutable set?
   @Nonnull
-  Set<DiscreteValue<V>> getCurrentValues();
+  Set<DV> getCurrentValues();
+
+  /**
+   * Returns discrete current values that can be removed without an IllegalStateException being thrown
+   * from {@link #generateConstraints()}.
+   * @return the set of current values which can be removed without leaving the editor in an illegal state
+   */
+  @Nonnull
+  ImmutableSet<DV> getRemovableValues();
 
   /**
    * Returns whether or not there is only one single value associated with this ConstraintsEditor.
@@ -58,7 +68,7 @@ public interface ConstraintsEditor<V extends Serializable> {
    * @return whether or not the value was added
    */
   @Nonnull
-  boolean addValue(@Nonnull DiscreteValue<V> value);
+  boolean addValue(@Nonnull DV value);
 
   /**
    * Remove a value.
@@ -66,7 +76,7 @@ public interface ConstraintsEditor<V extends Serializable> {
    * @return whether or not anything was removed.
    */
   @Nonnull
-  boolean removeValue(@Nonnull DiscreteValue<V> value);
+  boolean removeValue(@Nonnull DV value);
 
   /**
    * Removea all values.

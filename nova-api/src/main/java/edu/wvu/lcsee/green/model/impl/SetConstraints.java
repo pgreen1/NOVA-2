@@ -64,7 +64,7 @@ public class SetConstraints<V extends Serializable> implements Constraints<V> {
   }
 
   @Override
-  public ConstraintsEditor<V> getEditor() {
+  public ConstraintsEditor<V, ? extends SetConstraintsEditor.DiscreteValue<V>> getEditor() {
     return SetConstraintsEditor.newInstanceWithValues(values);
   }
 }

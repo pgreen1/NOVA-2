@@ -79,6 +79,10 @@
     <dependency>
       <groupId>edu.wvu.lcsee.green.xomo</groupId>
       <artifactId>xomo-model</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>edu.wvu.lcsee.green</groupId>
+      <artifactId>nova-clojure-impl</artifactId>
       <version>${project.version}</version>
     </dependency>
 

@@ -33,13 +33,13 @@ public interface Constraints<V extends Serializable> extends Serializable {
    */
   @Nonnull
   Constraints<V> mergeConstraints(@Nonnull Constraints<V> constraintsToMerge);
-
+  //TODO consider moving getEditor and isFullyCOnstrained into a different interface.  this interface would imply that a constraint is editable.  this interface could be use when building up a modelconfiguration.
   /**
    * Generates an {@link ConstraintsEditor} with the same Values as the Constraints.
    * @return a ConstraintsEditor with the same Values as the Constraints
    */
   @Nonnull
-  ConstraintsEditor<V> getEditor();
+  ConstraintsEditor<V, ? extends ConstraintsEditor.DiscreteValue<V>> getEditor();
 
   /**
    * Returns whether or not the Constraints is fully constrained or not.  Fully Constrained is defined as not being able to be constrained any further.
