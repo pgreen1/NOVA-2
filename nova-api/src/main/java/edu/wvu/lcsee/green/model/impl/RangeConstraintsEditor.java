@@ -19,17 +19,17 @@ import static com.google.common.base.Preconditions.*;
  *
  * @author pdgreen
  */
-public class RangeConstraintsEditor implements ConstraintsEditor<Number, RangeConstraintsEditor.RangeDiscreteValue> {
+public class RangeConstraintsEditor implements ConstraintsEditor<Number> {
 
-  private final ImmutableSet<RangeDiscreteValue> allValues;
-  private final ImmutableSet<RangeDiscreteValue> extremeValues;
+  private final ImmutableSet<DiscreteValue> allValues;
+  private final ImmutableSet<DiscreteValue> extremeValues;
   private final Set<RangeDiscreteValue> currentValues;
   private final Number discretizeSize;
 
   public RangeConstraintsEditor(@Nonnull final Set<RangeDiscreteValue> allValues,
           @Nonnull final Set<RangeDiscreteValue> currentValues, @Nonnull final Number discretizeSize) {
-    this.allValues = ImmutableSet.copyOf(allValues);
-    this.extremeValues = ImmutableSet.of(Collections.min(allValues), Collections.max(allValues));
+    this.allValues = ImmutableSet.<DiscreteValue>copyOf(allValues);
+    this.extremeValues = ImmutableSet.<DiscreteValue>of(Collections.min(allValues), Collections.max(allValues));
     this.currentValues = Sets.newHashSet(currentValues);
     this.discretizeSize = checkNotNull(discretizeSize);
   }
@@ -57,23 +57,23 @@ public class RangeConstraintsEditor implements ConstraintsEditor<Number, RangeCo
   }
 
   @Override
-  public ImmutableSet<RangeDiscreteValue> getAllValues() {
+  public ImmutableSet<DiscreteValue> getAllValues() {
     return allValues;
   }
 
   @Override
-  public ImmutableSet<RangeDiscreteValue> getExtremesValues() {
+  public ImmutableSet<DiscreteValue> getExtremesValues() {
     return extremeValues;
   }
 
   @Override
-  public Set<RangeDiscreteValue> getCurrentValues() {
-    return Collections.unmodifiableSet(currentValues);
+  public Set<DiscreteValue> getCurrentValues() {
+    return Collections.<DiscreteValue>unmodifiableSet(currentValues);
   }
 
   @Override
-  public ImmutableSet<RangeDiscreteValue> getRemovableValues() {
-    return ImmutableSet.of(Collections.min(currentValues), Collections.max(currentValues));
+  public ImmutableSet<DiscreteValue> getRemovableValues() {
+    return ImmutableSet.<DiscreteValue>of(Collections.min(currentValues), Collections.max(currentValues));
   }
 
   @Override
@@ -82,13 +82,14 @@ public class RangeConstraintsEditor implements ConstraintsEditor<Number, RangeCo
   }
 
   @Override
-  public boolean addValue(final RangeDiscreteValue value) {
+  public boolean addValue(final DiscreteValue value) {
+    checkArgument(value instanceof RangeDiscreteValue, "{} not instance of {}", value, RangeDiscreteValue.class);
     checkArgument(allValues.contains(value), "{} not in {}", value, allValues);
-    return currentValues.add(value);
+    return currentValues.add((RangeDiscreteValue) value);
   }
 
   @Override
-  public boolean removeValue(final RangeDiscreteValue value) {
+  public boolean removeValue(final DiscreteValue value) {
     return currentValues.remove(value);
   }
 
@@ -124,7 +125,7 @@ public class RangeConstraintsEditor implements ConstraintsEditor<Number, RangeCo
     return values;
   }
 
-  static class RangeDiscreteValue implements DiscreteValue<Number>, Comparable<RangeDiscreteValue> {
+  static class RangeDiscreteValue implements DiscreteValue, Comparable<RangeDiscreteValue> {
 
     private final Number minValue;
     private final Number meanValue;

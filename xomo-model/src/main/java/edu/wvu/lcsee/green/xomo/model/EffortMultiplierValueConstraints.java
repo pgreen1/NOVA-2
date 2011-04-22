@@ -63,7 +63,7 @@ public class EffortMultiplierValueConstraints implements Constraints<EffortMulti
   }
 
   @Override
-  public ConstraintsEditor<EffortMultiplierValue, ? extends DiscreteValue<EffortMultiplierValue>> getEditor() {
+  public ConstraintsEditor<EffortMultiplierValue> getEditor() {
     throw new UnsupportedOperationException("Not supported yet.");
   }
 

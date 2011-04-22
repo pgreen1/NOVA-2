@@ -22,17 +22,17 @@ import javax.annotation.Nullable;
  *
  * @author pdgreen
  */
-public class SetConstraintsEditor<V extends Serializable> implements ConstraintsEditor<V, SetDiscreteValue<V>> {
+public class SetConstraintsEditor<V extends Serializable> implements ConstraintsEditor<V> {
 
-  private final ImmutableSet<SetDiscreteValue<V>> allValues;
-  private final ImmutableSet<SetDiscreteValue<V>> extremeValues;
+  private final ImmutableSet<DiscreteValue> allValues;
+  private final ImmutableSet<DiscreteValue> extremeValues;
   private final Set<SetDiscreteValue<V>> currentDiscreteValues;
   private final ExtremeValueExtractor<V> extremeValueExtractor;
 
   SetConstraintsEditor(@Nonnull final Set<SetDiscreteValue<V>> discreteValues,
           @Nonnull final ExtremeValueExtractor<V> extremeValueExtractor) {
-    this.allValues = ImmutableSet.copyOf(discreteValues);
-    this.extremeValues = ImmutableSet.copyOf(extremeValueExtractor.extractExtremeDiscreteValues(
+    this.allValues = ImmutableSet.<DiscreteValue>copyOf(discreteValues);
+    this.extremeValues = ImmutableSet.<DiscreteValue>copyOf(extremeValueExtractor.extractExtremeDiscreteValues(
             discreteValues));
     this.currentDiscreteValues = Sets.newHashSet(discreteValues);
     this.extremeValueExtractor = extremeValueExtractor;
@@ -131,23 +131,23 @@ public class SetConstraintsEditor<V extends Serializable> implements Constraints
   }
 
   @Override
-  public ImmutableSet<SetDiscreteValue<V>> getAllValues() {
+  public ImmutableSet<DiscreteValue> getAllValues() {
     return allValues;
   }
 
   @Override
-  public ImmutableSet<SetDiscreteValue<V>> getExtremesValues() {
+  public ImmutableSet<DiscreteValue> getExtremesValues() {
     return extremeValues;
   }
 
   @Override
-  public Set<SetDiscreteValue<V>> getCurrentValues() {
-    return Collections.unmodifiableSet(currentDiscreteValues);
+  public Set<DiscreteValue> getCurrentValues() {
+    return Collections.<DiscreteValue>unmodifiableSet(currentDiscreteValues);
   }
 
   @Override
-  public ImmutableSet<SetDiscreteValue<V>> getRemovableValues() {
-    return ImmutableSet.copyOf(getCurrentValues());
+  public ImmutableSet<DiscreteValue> getRemovableValues() {
+    return ImmutableSet.<DiscreteValue>copyOf(getCurrentValues());
   }
 
   @Override
@@ -156,13 +156,14 @@ public class SetConstraintsEditor<V extends Serializable> implements Constraints
   }
 
   @Override
-  public boolean addValue(@Nonnull final SetDiscreteValue<V> value) {
+  public boolean addValue(@Nonnull final DiscreteValue value) {
+    checkArgument(value instanceof SetDiscreteValue, "{} not instance of {}", value, SetDiscreteValue.class);
     checkArgument(allValues.contains(value), "{} not in {}", value, allValues);
-    return currentDiscreteValues.add(value);
+    return currentDiscreteValues.add((SetDiscreteValue) value);
   }
 
   @Override
-  public boolean removeValue(@Nonnull final SetDiscreteValue<V> value) {
+  public boolean removeValue(@Nonnull final DiscreteValue value) {
     return currentDiscreteValues.remove(value);
   }
 
@@ -171,8 +172,7 @@ public class SetConstraintsEditor<V extends Serializable> implements Constraints
     currentDiscreteValues.clear();
   }
 
-  //FIXME this shouldn't be public
- public static class SetDiscreteValue<DV extends Serializable> implements DiscreteValue<DV> {
+  static class SetDiscreteValue<DV extends Serializable> implements DiscreteValue {
 
     private final DV value;
 
@@ -200,6 +200,11 @@ public class SetConstraintsEditor<V extends Serializable> implements Constraints
     @Override
     public int hashCode() {
       return Objects.hashCode(value);
+    }
+
+    @Override
+    public String toString() {
+      return value.toString();
     }
   }
 }

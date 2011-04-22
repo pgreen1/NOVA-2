@@ -3,7 +3,6 @@ package edu.wvu.lcsee.green.model.impl;
 import com.google.common.base.Preconditions;
 import edu.wvu.lcsee.green.model.Constraints;
 import edu.wvu.lcsee.green.model.ConstraintsEditor;
-import edu.wvu.lcsee.green.model.ConstraintsEditor.DiscreteValue;
 import java.math.BigDecimal;
 import java.util.Random;
 import javax.annotation.Nonnull;
@@ -89,7 +88,7 @@ public class RangeConstraints implements Constraints<Number> {
   }
 
   @Override
-  public ConstraintsEditor<Number, ? extends DiscreteValue<Number>> getEditor() {
+  public ConstraintsEditor<Number> getEditor() {
     return RangeConstraintsEditor.newInstanceFrom(this);
   }
 

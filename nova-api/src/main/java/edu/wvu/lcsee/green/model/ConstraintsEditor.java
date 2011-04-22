@@ -11,7 +11,7 @@ import javax.annotation.Nonnull;
  * ConstraintsEditor allows for values to added and removed.
  * @author pdgreen
  */
-public interface ConstraintsEditor<V extends Serializable, DV extends ConstraintsEditor.DiscreteValue<V>> {
+public interface ConstraintsEditor<V extends Serializable> {
 
   /**
    * Generates Constraints from the editor.
@@ -27,14 +27,14 @@ public interface ConstraintsEditor<V extends Serializable, DV extends Constraint
    * @return a set of all possible values in the ConstraintsEditor
    */
   @Nonnull
-  ImmutableSet<DV> getAllValues();
+  ImmutableSet<DiscreteValue> getAllValues();
 
   /**
    * Returns discrete values for any extremes.  If there are not values that are "extreme", then this should return the same as getAllValues().
    * @return the set of values which would be considered the extremes if the values of some kind of ordering.
    */
   @Nonnull
-  ImmutableSet<DV> getExtremesValues();
+  ImmutableSet<DiscreteValue> getExtremesValues();
 
   /**
    * Return the current values on the ConstraintsEditor.  The set returned by getCurrentValues() should not be modified directly.
@@ -45,7 +45,7 @@ public interface ConstraintsEditor<V extends Serializable, DV extends Constraint
    */
   //TODO why isn't this an immutable set?
   @Nonnull
-  Set<DV> getCurrentValues();
+  Set<DiscreteValue> getCurrentValues();
 
   /**
    * Returns discrete current values that can be removed without an IllegalStateException being thrown
@@ -53,7 +53,7 @@ public interface ConstraintsEditor<V extends Serializable, DV extends Constraint
    * @return the set of current values which can be removed without leaving the editor in an illegal state
    */
   @Nonnull
-  ImmutableSet<DV> getRemovableValues();
+  ImmutableSet<DiscreteValue> getRemovableValues();
 
   /**
    * Returns whether or not there is only one single value associated with this ConstraintsEditor.
@@ -68,7 +68,7 @@ public interface ConstraintsEditor<V extends Serializable, DV extends Constraint
    * @return whether or not the value was added
    */
   @Nonnull
-  boolean addValue(@Nonnull DV value);
+  boolean addValue(@Nonnull DiscreteValue value);
 
   /**
    * Remove a value.
@@ -76,7 +76,7 @@ public interface ConstraintsEditor<V extends Serializable, DV extends Constraint
    * @return whether or not anything was removed.
    */
   @Nonnull
-  boolean removeValue(@Nonnull DV value);
+  boolean removeValue(@Nonnull DiscreteValue value);
 
   /**
    * Removea all values.
@@ -85,9 +85,10 @@ public interface ConstraintsEditor<V extends Serializable, DV extends Constraint
   void removeAllValues();
 
   /**
-   * This represents a disscrete value from the constraint.  The reason values can't be returned is because there could be an infinite amount of the constraint was over a range of double.
-   * @param <V>
+   * This represents a discrete value from the constraint. <br>
+   * The reason values can't be returned is because there could be an
+   * infinite amount of the constraint was over a range of double.
    */
-  public interface DiscreteValue<V extends Serializable> {
+  public interface DiscreteValue {
   }
 }

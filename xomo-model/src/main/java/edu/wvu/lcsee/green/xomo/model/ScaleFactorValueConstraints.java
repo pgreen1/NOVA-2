@@ -63,7 +63,7 @@ public class ScaleFactorValueConstraints implements Constraints<ScaleFactorValue
   }
 
   @Override
-  public ConstraintsEditor<ScaleFactorValue, ? extends DiscreteValue<ScaleFactorValue>> getEditor() {
+  public ConstraintsEditor<ScaleFactorValue> getEditor() {
     throw new UnsupportedOperationException("Not supported yet.");
   }
 

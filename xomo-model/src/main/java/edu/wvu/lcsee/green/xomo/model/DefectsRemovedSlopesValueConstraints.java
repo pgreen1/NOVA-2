@@ -56,7 +56,7 @@ public class DefectsRemovedSlopesValueConstraints implements Constraints<Defects
   }
 
   @Override
-  public ConstraintsEditor<DefectsRemovedSlopesValue, ? extends DiscreteValue<DefectsRemovedSlopesValue>> getEditor() {
+  public ConstraintsEditor<DefectsRemovedSlopesValue> getEditor() {
     throw new UnsupportedOperationException("Not supported yet.");
   }
 

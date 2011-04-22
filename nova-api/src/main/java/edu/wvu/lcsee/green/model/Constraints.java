@@ -39,7 +39,7 @@ public interface Constraints<V extends Serializable> extends Serializable {
    * @return a ConstraintsEditor with the same Values as the Constraints
    */
   @Nonnull
-  ConstraintsEditor<V, ? extends ConstraintsEditor.DiscreteValue<V>> getEditor();
+  ConstraintsEditor<V> getEditor();
 
   /**
    * Returns whether or not the Constraints is fully constrained or not.  Fully Constrained is defined as not being able to be constrained any further.

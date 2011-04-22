@@ -1,39 +1,41 @@
 package edu.wvu.lcsee.green.xomo.model;
 
+import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableSet;
 import edu.wvu.lcsee.green.model.ConstraintsEditor;
 import edu.wvu.lcsee.green.model.ConstraintsEditor.DiscreteValue;
 import java.util.Set;
+import javax.annotation.Nonnull;
 
 /**
  *
  * @author pdgreen
  */
-public abstract class CocomoValueConstraintsEditor<C extends CocomoValue> implements ConstraintsEditor<C, DiscreteValue<C>> {
+public abstract class CocomoValueConstraintsEditor<C extends CocomoValue> implements ConstraintsEditor<C> {
 
-  protected final ConstraintsEditor<C, ConstraintsEditor.DiscreteValue<C>> delegate;
+  protected final ConstraintsEditor<CocomoLevel> delegate;
 
-  public CocomoValueConstraintsEditor(ConstraintsEditor<C, ? extends ConstraintsEditor.DiscreteValue<C>> delegateEditor) {
-    this.delegate = (ConstraintsEditor<C, ConstraintsEditor.DiscreteValue<C>>) delegateEditor;
+  public CocomoValueConstraintsEditor(@Nonnull final ConstraintsEditor<CocomoLevel> delegateEditor) {
+    this.delegate = Preconditions.checkNotNull(delegateEditor);
   }
 
   @Override
-  public ImmutableSet<DiscreteValue<C>> getAllValues() {
+  public ImmutableSet<DiscreteValue> getAllValues() {
     return delegate.getAllValues();
   }
 
   @Override
-  public ImmutableSet<DiscreteValue<C>> getExtremesValues() {
+  public ImmutableSet<DiscreteValue> getExtremesValues() {
     return delegate.getExtremesValues();
   }
 
   @Override
-  public Set<DiscreteValue<C>> getCurrentValues() {
+  public Set<DiscreteValue> getCurrentValues() {
     return delegate.getCurrentValues();
   }
 
   @Override
-  public ImmutableSet<DiscreteValue<C>> getRemovableValues() {
+  public ImmutableSet<DiscreteValue> getRemovableValues() {
     return delegate.getRemovableValues();
   }
 
@@ -43,12 +45,12 @@ public abstract class CocomoValueConstraintsEditor<C extends CocomoValue> implem
   }
 
   @Override
-  public boolean addValue(final DiscreteValue<C> value) {
+  public boolean addValue(final DiscreteValue value) {
     return delegate.addValue(value);
   }
 
   @Override
-  public boolean removeValue(final DiscreteValue<C> value) {
+  public boolean removeValue(final DiscreteValue value) {
     return delegate.removeValue(value);
   }
 
