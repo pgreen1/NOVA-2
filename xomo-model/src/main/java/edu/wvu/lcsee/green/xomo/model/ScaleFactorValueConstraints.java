@@ -64,7 +64,7 @@ public class ScaleFactorValueConstraints implements Constraints<ScaleFactorValue
 
   @Override
   public ConstraintsEditor<ScaleFactorValue> getEditor() {
-    throw new UnsupportedOperationException("Not supported yet.");
+    return new ScaleFactorValueConstraintsEditor(levelConstraints.getEditor());
   }
 
   @Override

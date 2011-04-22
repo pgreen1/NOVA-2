@@ -63,7 +63,7 @@ public class DefectRemovalValueConstraints implements Constraints<DefectRemovalV
 
   @Override
   public ConstraintsEditor<DefectRemovalValue> getEditor() {
-    throw new UnsupportedOperationException("Not supported yet.");
+    return new DefectRemovalValueConstraintsEditor(levelConstraints.getEditor());
   }
 
   @Override

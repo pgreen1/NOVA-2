@@ -64,7 +64,7 @@ public class EffortMultiplierValueConstraints implements Constraints<EffortMulti
 
   @Override
   public ConstraintsEditor<EffortMultiplierValue> getEditor() {
-    throw new UnsupportedOperationException("Not supported yet.");
+    return new EffortMultiplierValueConstraintsEditor(levelConstraints.getEditor());
   }
 
   @Override
