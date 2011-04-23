@@ -1,6 +1,7 @@
 package edu.wvu.lcsee.green.model;
 
 import java.io.Serializable;
+import java.util.Map;
 import javax.annotation.Nonnull;
 
 /**
@@ -23,7 +24,7 @@ public interface Constraints<V extends Serializable> extends Serializable {
    * @return a value allowable by the Constraints
    */
   @Nonnull
-  V generateValue();
+  V generateValue(@Nonnull ConstraintsContext currentContext);
 
   /**
    * Merges the current constraints and the specified constraints into a new Constraints.

@@ -1,9 +1,9 @@
 package edu.wvu.lcsee.green.xomo.model;
 
+import edu.wvu.lcsee.green.model.ConstraintsContext;
 import com.google.common.base.Preconditions;
 import edu.wvu.lcsee.green.model.Constraints;
 import edu.wvu.lcsee.green.model.ConstraintsEditor;
-import edu.wvu.lcsee.green.model.ConstraintsEditor.DiscreteValue;
 import javax.annotation.Nonnull;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -21,7 +21,7 @@ public class EffortMultiplierValueConstraints implements Constraints<EffortMulti
   }
 
   @Override
-  public EffortMultiplierValue generateValue() {
+  public EffortMultiplierValue generateValue(final ConstraintsContext currentContext) {
     //FIXME EffortMultiplierValue should generate random value, but it needs to be passed dependent attributes
     return new EffortMultiplierValue() {
 

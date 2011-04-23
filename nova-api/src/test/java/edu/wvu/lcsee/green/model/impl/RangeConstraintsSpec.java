@@ -1,7 +1,9 @@
 package edu.wvu.lcsee.green.model.impl;
 
+import edu.wvu.lcsee.green.model.ConstraintsContext;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 import static org.hamcrest.CoreMatchers.*;
 
 /**
@@ -14,9 +16,11 @@ public class RangeConstraintsSpec {
   public void itShouldGenerateValueThatIsValidWhenNonSingleValue() {
     final int min = 5;
     final int max = 10;
+    final ConstraintsContext constraintsContext = mock(ConstraintsContext.class);
+
     final RangeConstraints instance = new RangeConstraints(min, max, 1);
 
-    final Number result = instance.generateValue();
+    final Number result = instance.generateValue(constraintsContext);
 
     assertTrue(result.doubleValue() <= max);
     assertTrue(result.doubleValue() >= min);
@@ -25,9 +29,11 @@ public class RangeConstraintsSpec {
   @Test
   public void itShouldGenerateValueThatIsValidWhenSingleValue() {
     final int value = 10;
+    final ConstraintsContext constraintsContext = mock(ConstraintsContext.class);
+
     final RangeConstraints instance = new RangeConstraints(value);
 
-    final Number result = instance.generateValue();
+    final Number result = instance.generateValue(constraintsContext);
 
     assertEquals(value, result.doubleValue(), 0.0000001);
   }

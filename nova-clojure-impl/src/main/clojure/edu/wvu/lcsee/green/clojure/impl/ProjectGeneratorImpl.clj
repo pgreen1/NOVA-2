@@ -3,6 +3,7 @@
     :implements [edu.wvu.lcsee.green.model.ProjectGenerator]
     :prefix "pg-impl-")
  (:import
+     (edu.wvu.lcsee.green.model ConstraintsContextBuilder)
      (edu.wvu.lcsee.green.model.impl ProjectIterable ScoredProjectIterable)
      (com.google.common.collect ImmutableSet ImmutableMap))
   )
@@ -19,13 +20,12 @@
 
 (defn pg-impl-generateProject [this scenario]
   (new edu.wvu.lcsee.green.model.impl.ProjectImpl
-    (apply hash-map
-      (flatten
-        (map (fn [attribute]
-               (list
-                 attribute
-                 (.. scenario (getConstraintsFor attribute) (generateValue))))
-          (. scenario getAllAttributes))))))
+    (let [builder (new ConstraintsContextBuilder)]
+      (doseq [attribute (seq (. scenario getAllAttributes))]
+        (.addValue builder
+          attribute
+          (.. scenario (getConstraintsFor attribute) (generateValue (.build builder)))))
+      (.buildMap builder))))
 
 (defn pg-impl-generateScoredProject [this scenario scoringFunctions]
   (let [project (.generateProject this scenario)]

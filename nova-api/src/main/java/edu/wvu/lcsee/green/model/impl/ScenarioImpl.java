@@ -1,5 +1,6 @@
 package edu.wvu.lcsee.green.model.impl;
 
+import com.google.common.base.Objects;
 import com.google.common.collect.Maps;
 import java.util.Set;
 import com.google.common.collect.ImmutableSet;
@@ -19,18 +20,18 @@ import static com.google.common.base.Preconditions.checkArgument;
  */
 public class ScenarioImpl extends AbstractAttributeConstrainable implements Scenario {
 
-  private final ImmutableSet<Attribute<? extends Serializable>> constrainableConstraints;
+  private final ImmutableSet<Attribute<? extends Serializable>> constrainableAttributes;
 
   public ScenarioImpl(
           @Nonnull final Map<Attribute<? extends Serializable>, Constraints<? extends Serializable>> attributeConstraints,
           @Nonnull final Set<Attribute<? extends Serializable>> constrainableConstraints) {
     super(attributeConstraints);
-    this.constrainableConstraints = ImmutableSet.copyOf(constrainableConstraints);
+    this.constrainableAttributes = ImmutableSet.copyOf(constrainableConstraints);
   }
 
   @Override
   public ImmutableSet<Attribute<? extends Serializable>> getConstrainableAttributes() {
-    return constrainableConstraints;
+    return constrainableAttributes;
   }
 
   @Override
@@ -39,12 +40,18 @@ public class ScenarioImpl extends AbstractAttributeConstrainable implements Scen
             newHashMap(asMap());
 
     for (final Attribute<?> attribute : treatment.getAllAttributes()) {
-      checkArgument(constrainableConstraints.contains(attribute), "unable to apply treatment for " + attribute.getName());
+      checkArgument(constrainableAttributes.contains(attribute), "unable to apply treatment for " + attribute.getName());
       final Constraints currentConstraints = mutableAttributeConstraints.get(attribute);
       final Constraints treatmentConstraints = treatment.getConstraintsFor(attribute);
       mutableAttributeConstraints.put(attribute, currentConstraints.mergeConstraints(treatmentConstraints));
     }
 
-    return new ScenarioImpl(mutableAttributeConstraints, constrainableConstraints);
+    return new ScenarioImpl(mutableAttributeConstraints, constrainableAttributes);
+  }
+
+  @Override
+  public String toString() {
+    return Objects.toStringHelper(this).add("constraints", asMap()).add("constrainable-attributes",
+            constrainableAttributes).toString();
   }
 }

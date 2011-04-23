@@ -1,9 +1,11 @@
 package edu.wvu.lcsee.green.model.impl;
 
+import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
 import edu.wvu.lcsee.green.model.Constraints;
+import edu.wvu.lcsee.green.model.ConstraintsContext;
 import edu.wvu.lcsee.green.model.ConstraintsEditor;
 import java.io.Serializable;
 import java.util.Arrays;
@@ -34,7 +36,7 @@ public class SetConstraints<V extends Serializable> implements Constraints<V> {
   }
 
   @Override
-  public V generateValue() {
+  public V generateValue(final ConstraintsContext currentContext) {
     final V value;
     if (isFullyConstrained()) {
       value = valuesAsList.get(0);
@@ -66,5 +68,28 @@ public class SetConstraints<V extends Serializable> implements Constraints<V> {
   @Override
   public ConstraintsEditor<V> getEditor() {
     return SetConstraintsEditor.newInstanceWithValues(values);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hashCode(values);
+  }
+
+  @Override
+  public boolean equals(final Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (!(o instanceof SetConstraints)) {
+      return false;
+    }
+    final SetConstraints that = (SetConstraints) o;
+
+    return Objects.equal(this.values, that.values);
+  }
+
+  @Override
+  public String toString() {
+    return Objects.toStringHelper(this).addValue(values).toString();
   }
 }

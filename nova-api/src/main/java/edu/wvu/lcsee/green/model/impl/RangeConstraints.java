@@ -1,7 +1,9 @@
 package edu.wvu.lcsee.green.model.impl;
 
+import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 import edu.wvu.lcsee.green.model.Constraints;
+import edu.wvu.lcsee.green.model.ConstraintsContext;
 import edu.wvu.lcsee.green.model.ConstraintsEditor;
 import java.math.BigDecimal;
 import java.util.Random;
@@ -32,7 +34,7 @@ public class RangeConstraints implements Constraints<Number> {
   }
 
   @Override
-  public Number generateValue() {
+  public Number generateValue(final ConstraintsContext currentContext) {
     final double minVal = mininumValue.doubleValue();
     final double maxVal = maximumValue.doubleValue();
 
@@ -95,5 +97,34 @@ public class RangeConstraints implements Constraints<Number> {
   @Override
   public boolean isFullyConstrained() {
     return isSingleValued();
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hashCode(mininumValue, maximumValue, discretizeSize);
+  }
+
+  @Override
+  public boolean equals(final Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (!(o instanceof RangeConstraints)) {
+      return false;
+    }
+    final RangeConstraints that = (RangeConstraints) o;
+
+    return Objects.equal(this.mininumValue, that.mininumValue) && Objects.equal(this.maximumValue, that.maximumValue) && Objects.
+            equal(this.discretizeSize, that.discretizeSize);
+  }
+
+  @Override
+  public String toString() {
+    if (isSingleValued()) {
+      return Objects.toStringHelper(this).addValue(mininumValue).toString();
+    } else {
+      return Objects.toStringHelper(this).add("mininumValue", mininumValue).add("maximumValue", maximumValue).add(
+              "discretizeSize", discretizeSize).toString();
+    }
   }
 }

@@ -1,9 +1,9 @@
 package edu.wvu.lcsee.green.xomo.model;
 
+import edu.wvu.lcsee.green.model.ConstraintsContext;
 import com.google.common.base.Preconditions;
 import edu.wvu.lcsee.green.model.Constraints;
 import edu.wvu.lcsee.green.model.ConstraintsEditor;
-import edu.wvu.lcsee.green.model.ConstraintsEditor.DiscreteValue;
 import edu.wvu.lcsee.green.model.impl.RangeConstraints;
 import edu.wvu.lcsee.green.xomo.model.impl.DefectsIntroducedSlopesValueImpl;
 import javax.annotation.Nonnull;
@@ -31,11 +31,11 @@ public class DefectsIntroducedSlopesValueConstraints implements Constraints<Defe
   }
 
   @Override
-  public DefectsIntroducedSlopesValue generateValue() {
+  public DefectsIntroducedSlopesValue generateValue(final ConstraintsContext currentContext) {
     return new DefectsIntroducedSlopesValueImpl(
-            requirementsDefectsIntroducedSlopeRangeConstraints.generateValue().doubleValue(),
-            designDefectsIntroducedSlopeRangeConstraints.generateValue().doubleValue(),
-            codingDefectsIntroducedSlopeRangeConstraints.generateValue().doubleValue());
+            requirementsDefectsIntroducedSlopeRangeConstraints.generateValue(currentContext).doubleValue(),
+            designDefectsIntroducedSlopeRangeConstraints.generateValue(currentContext).doubleValue(),
+            codingDefectsIntroducedSlopeRangeConstraints.generateValue(currentContext).doubleValue());
   }
 
   @Override

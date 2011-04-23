@@ -1,10 +1,10 @@
 package edu.wvu.lcsee.green.xomo.model;
 
+import edu.wvu.lcsee.green.model.ConstraintsContext;
 import com.google.common.base.Preconditions;
 import javax.annotation.Nonnull;
 import edu.wvu.lcsee.green.model.Constraints;
 import edu.wvu.lcsee.green.model.ConstraintsEditor;
-import edu.wvu.lcsee.green.model.ConstraintsEditor.DiscreteValue;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -21,7 +21,7 @@ public class ScaleFactorValueConstraints implements Constraints<ScaleFactorValue
   }
 
   @Override
-  public ScaleFactorValue generateValue() {
+  public ScaleFactorValue generateValue(final ConstraintsContext currentContext) {
     //FIXME ScaleFactorValue should generate random value, but it needs to be passed dependent attributes
     return new ScaleFactorValue() {
 

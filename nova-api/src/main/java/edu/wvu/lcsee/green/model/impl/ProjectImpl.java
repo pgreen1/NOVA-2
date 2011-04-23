@@ -18,6 +18,7 @@ public class ProjectImpl implements Project {
   private final ImmutableMap<Attribute<? extends Serializable>, ? extends Serializable> values;
 
   public ProjectImpl(final Map<Attribute<? extends Serializable>, ? extends Serializable> values) {
+    Preconditions.checkArgument(!values.isEmpty(),"Project must contain atleast one attribute: %s", values);
     this.values = ImmutableMap.copyOf(values);
   }
 
