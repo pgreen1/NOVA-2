@@ -1,5 +1,6 @@
 package edu.wvu.lcsee.green.xomo.model;
 
+import edu.wvu.lcsee.green.xomo.model.impl.ValueFactory;
 import edu.wvu.lcsee.green.model.ConstraintsContext;
 import com.google.common.base.Preconditions;
 import edu.wvu.lcsee.green.model.Constraints;
@@ -22,34 +23,10 @@ public class EffortMultiplierValueConstraints implements Constraints<EffortMulti
 
   @Override
   public EffortMultiplierValue generateValue(final ConstraintsContext currentContext) {
-    //FIXME EffortMultiplierValue should generate random value, but it needs to be passed dependent attributes
-    return new EffortMultiplierValue() {
-
-      @Override
-      public CocomoLevel getLevel() {
-        return CocomoLevel.N;
-      }
-
-      @Override
-      public double getEffortCoefficient() {
-        return 0;
-      }
-
-      @Override
-      public double getRequirementsDefects() {
-        return 0;
-      }
-
-      @Override
-      public double getDesignDefects() {
-        return 0;
-      }
-
-      @Override
-      public double getCodingDefects() {
-        return 0;
-      }
-    };
+    //FIXME EffortMultiplierValueConstraints constructor needs to define the correct EM PLUS/MINUS slopes
+    return ValueFactory.newEffortMuliplierValue(levelConstraints.generateValue(currentContext),
+            currentContext.getValueFor(CocomoSlopesAttribute.EM_MINUS_EFFORT_COEFFICIENT_SLOPE),
+            currentContext.getValueFor(CoqualmoSlopesAttribute.EM_PLUS_DEFECTS_INTRODUCED_SLOPES));
   }
 
   @Override

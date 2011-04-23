@@ -4,6 +4,7 @@ import edu.wvu.lcsee.green.model.ConstraintsContext;
 import com.google.common.base.Preconditions;
 import edu.wvu.lcsee.green.model.Constraints;
 import edu.wvu.lcsee.green.model.ConstraintsEditor;
+import edu.wvu.lcsee.green.xomo.model.impl.ValueFactory;
 import javax.annotation.Nonnull;
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -21,34 +22,8 @@ public class DefectRemovalValueConstraints implements Constraints<DefectRemovalV
 
   @Override
   public DefectRemovalValue generateValue(final ConstraintsContext currentContext) {
-    //FIXME DefectRemovalValue should generate random value, but it needs to be passed dependent attributes
-    return new DefectRemovalValue() {
-
-      @Override
-      public double getRequirementsDefectsRemoved() {
-        return 0;
-      }
-
-      @Override
-      public double getDesignDefectsRemoved() {
-        return 0;
-      }
-
-      @Override
-      public double getCodingDefectsRemoved() {
-        return 0;
-      }
-
-      @Override
-      public CocomoLevel getLevel() {
-        return CocomoLevel.N;
-      }
-
-      @Override
-      public double getEffortCoefficient() {
-        throw new UnsupportedOperationException("Not supported yet.");
-      }
-    };
+    return ValueFactory.newDefectRemoval(levelConstraints.generateValue(currentContext), currentContext.getValueFor(
+            CoqualmoSlopesAttribute.DEFECT_REMOVAL_SLOPES));
   }
 
   @Override

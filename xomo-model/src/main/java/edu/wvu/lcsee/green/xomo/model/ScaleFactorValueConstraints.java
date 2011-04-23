@@ -5,6 +5,7 @@ import com.google.common.base.Preconditions;
 import javax.annotation.Nonnull;
 import edu.wvu.lcsee.green.model.Constraints;
 import edu.wvu.lcsee.green.model.ConstraintsEditor;
+import edu.wvu.lcsee.green.xomo.model.impl.ValueFactory;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -22,34 +23,9 @@ public class ScaleFactorValueConstraints implements Constraints<ScaleFactorValue
 
   @Override
   public ScaleFactorValue generateValue(final ConstraintsContext currentContext) {
-    //FIXME ScaleFactorValue should generate random value, but it needs to be passed dependent attributes
-    return new ScaleFactorValue() {
-
-      @Override
-      public CocomoLevel getLevel() {
-        return CocomoLevel.N;
-      }
-
-      @Override
-      public double getEffortCoefficient() {
-        return 0;
-      }
-
-      @Override
-      public double getRequirementsDefects() {
-        return 0;
-      }
-
-      @Override
-      public double getDesignDefects() {
-        return 0;
-      }
-
-      @Override
-      public double getCodingDefects() {
-        return 0;
-      }
-    };
+    return ValueFactory.newScaleFactorValue(levelConstraints.generateValue(currentContext),
+            currentContext.getValueFor(CocomoSlopesAttribute.SF_EFFORT_COEFFICIENT_SLOPE),
+            currentContext.getValueFor(CoqualmoSlopesAttribute.SF_DEFECTS_INTRODUCED_SLOPES));
   }
 
   @Override
