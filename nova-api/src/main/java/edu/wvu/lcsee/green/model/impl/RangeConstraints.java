@@ -2,6 +2,8 @@ package edu.wvu.lcsee.green.model.impl;
 
 import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
+import com.google.common.collect.ImmutableSet;
+import edu.wvu.lcsee.green.model.Attribute;
 import edu.wvu.lcsee.green.model.Constraints;
 import edu.wvu.lcsee.green.model.ConstraintsContext;
 import edu.wvu.lcsee.green.model.ConstraintsEditor;
@@ -31,6 +33,11 @@ public class RangeConstraints implements Constraints<Number> {
     this.mininumValue = minimumValue;
     this.maximumValue = maximumValue;
     this.discretizeSize = discretizeSize;
+  }
+
+  @Override
+  public ImmutableSet<Attribute<?>> getDependentAttributes() {
+    return ImmutableSet.of();
   }
 
   @Override

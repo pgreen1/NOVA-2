@@ -1,5 +1,7 @@
 package edu.wvu.lcsee.green.xomo.model;
 
+import com.google.common.collect.ImmutableSet;
+import edu.wvu.lcsee.green.model.Attribute;
 import edu.wvu.lcsee.green.xomo.model.impl.ValueFactory;
 import edu.wvu.lcsee.green.model.ConstraintsContext;
 import com.google.common.base.Preconditions;
@@ -15,18 +17,33 @@ import static com.google.common.base.Preconditions.checkNotNull;
  */
 public class EffortMultiplierValueConstraints implements Constraints<EffortMultiplierValue> {
 
-  final private Constraints<CocomoLevel> levelConstraints;
+  private final Attribute<Double> effortCoefficientSlopeAttribute;
+  private final Attribute<DefectsIntroducedSlopesValue> defectsIntroducedSlopeAttribute;
+  private final ImmutableSet<Attribute<?>> dependentAttributes;
+  private final Constraints<CocomoLevel> levelConstraints;
 
-  public EffortMultiplierValueConstraints(@Nonnull final Constraints<CocomoLevel> levelConstraints) {
+  public EffortMultiplierValueConstraints(
+          @Nonnull final Attribute<Double> effortCoefficientSlopeAttribute,
+          @Nonnull final Attribute<DefectsIntroducedSlopesValue> defectsIntroducedSlopeAttribute,
+          @Nonnull final Constraints<CocomoLevel> levelConstraints) {
+    this.effortCoefficientSlopeAttribute = checkNotNull(effortCoefficientSlopeAttribute);
+    this.defectsIntroducedSlopeAttribute = checkNotNull(defectsIntroducedSlopeAttribute);
+    this.dependentAttributes = ImmutableSet.<Attribute<?>>of(
+            effortCoefficientSlopeAttribute,
+            defectsIntroducedSlopeAttribute);
     this.levelConstraints = checkNotNull(levelConstraints);
   }
 
   @Override
+  public ImmutableSet<Attribute<?>> getDependentAttributes() {
+    return dependentAttributes;
+  }
+
+  @Override
   public EffortMultiplierValue generateValue(final ConstraintsContext currentContext) {
-    //FIXME EffortMultiplierValueConstraints constructor needs to define the correct EM PLUS/MINUS slopes
     return ValueFactory.newEffortMuliplierValue(levelConstraints.generateValue(currentContext),
-            currentContext.getValueFor(CocomoSlopesAttribute.EM_MINUS_EFFORT_COEFFICIENT_SLOPE),
-            currentContext.getValueFor(CoqualmoSlopesAttribute.EM_PLUS_DEFECTS_INTRODUCED_SLOPES));
+            currentContext.getValueFor(effortCoefficientSlopeAttribute),
+            currentContext.getValueFor(defectsIntroducedSlopeAttribute));
   }
 
   @Override
@@ -36,12 +53,13 @@ public class EffortMultiplierValueConstraints implements Constraints<EffortMulti
     @SuppressWarnings("cast")
     final EffortMultiplierValueConstraints that = (EffortMultiplierValueConstraints) constraintsToMerge;
 
-    return new EffortMultiplierValueConstraints(this.levelConstraints.mergeConstraints(that.levelConstraints));
+    return new EffortMultiplierValueConstraints(effortCoefficientSlopeAttribute, defectsIntroducedSlopeAttribute, this.levelConstraints.
+            mergeConstraints(that.levelConstraints));
   }
 
   @Override
   public ConstraintsEditor<EffortMultiplierValue> getEditor() {
-    return new EffortMultiplierValueConstraintsEditor(levelConstraints.getEditor());
+    return new EffortMultiplierValueConstraintsEditor(effortCoefficientSlopeAttribute, defectsIntroducedSlopeAttribute, levelConstraints.getEditor());
   }
 
   @Override

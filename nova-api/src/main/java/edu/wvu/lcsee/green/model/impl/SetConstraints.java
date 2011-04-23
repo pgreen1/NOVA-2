@@ -4,6 +4,7 @@ import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
+import edu.wvu.lcsee.green.model.Attribute;
 import edu.wvu.lcsee.green.model.Constraints;
 import edu.wvu.lcsee.green.model.ConstraintsContext;
 import edu.wvu.lcsee.green.model.ConstraintsEditor;
@@ -33,6 +34,11 @@ public class SetConstraints<V extends Serializable> implements Constraints<V> {
   public SetConstraints(@Nonnull final Set<V> values) {
     this.values = ImmutableSet.copyOf(values);
     this.valuesAsList = Lists.newArrayList(this.values);
+  }
+
+  @Override
+  public ImmutableSet<Attribute<?>> getDependentAttributes() {
+    return ImmutableSet.of();
   }
 
   @Override

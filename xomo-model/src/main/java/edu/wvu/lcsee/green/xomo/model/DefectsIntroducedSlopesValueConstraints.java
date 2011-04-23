@@ -1,5 +1,7 @@
 package edu.wvu.lcsee.green.xomo.model;
 
+import com.google.common.collect.ImmutableSet;
+import edu.wvu.lcsee.green.model.Attribute;
 import edu.wvu.lcsee.green.model.ConstraintsContext;
 import com.google.common.base.Preconditions;
 import edu.wvu.lcsee.green.model.Constraints;
@@ -28,6 +30,11 @@ public class DefectsIntroducedSlopesValueConstraints implements Constraints<Defe
             requirementsDefectsIntroducedSlopeRangeConstraints);
     this.designDefectsIntroducedSlopeRangeConstraints = checkNotNull(designDefectsIntroducedSlopeRangeConstraints);
     this.codingDefectsIntroducedSlopeRangeConstraints = checkNotNull(codingDefectsIntroducedSlopeRangeConstraints);
+  }
+
+  @Override
+  public ImmutableSet<Attribute<?>> getDependentAttributes() {
+    return ImmutableSet.of();
   }
 
   @Override

@@ -1,7 +1,7 @@
 package edu.wvu.lcsee.green.model;
 
+import com.google.common.collect.ImmutableSet;
 import java.io.Serializable;
-import java.util.Map;
 import javax.annotation.Nonnull;
 
 /**
@@ -18,6 +18,13 @@ import javax.annotation.Nonnull;
  */
 public interface Constraints<V extends Serializable> extends Serializable {
 
+  /**
+   * Returns attributes required to have values in {@link ConstraintsContext} for
+   * {@link #generateValue(edu.wvu.lcsee.green.model.ConstraintsContext)}.
+   * @return dependent attributes
+   */
+  @Nonnull
+  ImmutableSet<Attribute<?>> getDependentAttributes();
 
   /**
    * Returns any value allowable by the Constraints.
@@ -35,6 +42,7 @@ public interface Constraints<V extends Serializable> extends Serializable {
   @Nonnull
   Constraints<V> mergeConstraints(@Nonnull Constraints<V> constraintsToMerge);
   //TODO consider moving getEditor and isFullyCOnstrained into a different interface.  this interface would imply that a constraint is editable.  this interface could be use when building up a modelconfiguration.
+
   /**
    * Generates an {@link ConstraintsEditor} with the same Values as the Constraints.
    * @return a ConstraintsEditor with the same Values as the Constraints

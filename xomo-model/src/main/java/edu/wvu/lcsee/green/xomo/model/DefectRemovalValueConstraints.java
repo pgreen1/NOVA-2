@@ -1,5 +1,7 @@
 package edu.wvu.lcsee.green.xomo.model;
 
+import com.google.common.collect.ImmutableSet;
+import edu.wvu.lcsee.green.model.Attribute;
 import edu.wvu.lcsee.green.model.ConstraintsContext;
 import com.google.common.base.Preconditions;
 import edu.wvu.lcsee.green.model.Constraints;
@@ -14,10 +16,17 @@ import static com.google.common.base.Preconditions.checkNotNull;
  */
 public class DefectRemovalValueConstraints implements Constraints<DefectRemovalValue> {
 
-  final private Constraints<CocomoLevel> levelConstraints;
+  private final static ImmutableSet<Attribute<?>> DEPENDENT_ATTRIBUTES = ImmutableSet.<Attribute<?>>of(
+          CoqualmoSlopesAttribute.DEFECT_REMOVAL_SLOPES);
+  private final Constraints<CocomoLevel> levelConstraints;
 
   public DefectRemovalValueConstraints(@Nonnull final Constraints<CocomoLevel> levelConstraints) {
     this.levelConstraints = checkNotNull(levelConstraints);
+  }
+
+  @Override
+  public ImmutableSet<Attribute<?>> getDependentAttributes() {
+    return DEPENDENT_ATTRIBUTES;
   }
 
   @Override
