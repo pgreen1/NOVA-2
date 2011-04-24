@@ -1,10 +1,10 @@
-(ns edu.wvu.lcsee.green.searchEngines.mockobjects
+(ns edu.wvu.lcsee.green.clojure.impl.mockobjects
  (:import (com.google.common.collect ImmutableList)
    (edu.wvu.lcsee.green.model.impl SetConstraints)
    (edu.wvu.lcsee.green.model ModelConfigurationBuilder))
  (:use clojure.test)
  )
-;;FIXME duplicated in edu.wvu.lcsee.green.clojure.impl.mockobjects
+;;FIXME duplicated in edu.wvu.lcsee.green.searchEngines.mockobjects
 
 (defn generate-mock-evaluationFunction [eval-fn]
   (proxy [edu.wvu.lcsee.green.search.EvaluationFunction] []

@@ -17,6 +17,13 @@ public interface Scenario extends AttributeConstrainable {
 //TODO rename to AttributeContext
 
   /**
+   * Returns the origin ModelConfiguration.
+   * @return origin ModelConfiguration
+   */
+  @Nonnull
+  ModelConfiguration getModelConfiguration();
+
+  /**
    * Returns constrainable {@link Attribute}s associated with this Scenario.
    * @return all constrainable attributes associated with this Scenario
    */

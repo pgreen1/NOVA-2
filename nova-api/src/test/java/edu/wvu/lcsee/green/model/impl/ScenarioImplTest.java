@@ -7,6 +7,7 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import edu.wvu.lcsee.green.model.Attribute;
 import edu.wvu.lcsee.green.model.Constraints;
+import edu.wvu.lcsee.green.model.ModelConfiguration;
 import edu.wvu.lcsee.green.model.Treatment;
 
 import edu.wvu.lcsee.green.model.Scenario;
@@ -23,6 +24,7 @@ public class ScenarioImplTest {
 
   @Test
   public void aScenarioImplOnGetconstrainableAttributesShouldReturnOnlyModifableAttributes() {
+    final ModelConfiguration mockModelConfiguration = mock(ModelConfiguration.class);
     final Attribute<? extends Serializable> mockAttribute1 = mock(Attribute.class);
     final Constraints<? extends Serializable> mockConstraints1 = mock(Constraints.class);
     final Attribute<? extends Serializable> mockAttribute2 = mock(Attribute.class);
@@ -33,7 +35,7 @@ public class ScenarioImplTest {
             of(mockAttribute1);
 
 
-    final ScenarioImpl instance = new ScenarioImpl(attributeConstraints, constrainableAttributes);
+    final ScenarioImpl instance = new ScenarioImpl(mockModelConfiguration, attributeConstraints, constrainableAttributes);
 
 
     ImmutableSet<Attribute<? extends Serializable>> expResult = ImmutableSet.<Attribute<? extends Serializable>>of(
@@ -44,6 +46,7 @@ public class ScenarioImplTest {
 
   @Test
   public void aScenarioImplOnApplyTreatmentShouldMergeOnlyAttributeConstraintsInTheTreatment() {
+    final ModelConfiguration mockModelConfiguration = mock(ModelConfiguration.class);
     final Attribute<? extends Serializable> mockAttribute1 = mock(Attribute.class);
     final Constraints<? extends Serializable> mockConstraints1 = mock(Constraints.class);
     final Attribute<? extends Serializable> mockAttribute2 = mock(Attribute.class);
@@ -63,7 +66,7 @@ public class ScenarioImplTest {
     when(mockConstraints1.mergeConstraints(mockConstraints3)).thenReturn(mockMergedConstraints);
 
 
-    final ScenarioImpl instance = new ScenarioImpl(attributeConstraints, constrainableAttributes);
+    final ScenarioImpl instance = new ScenarioImpl(mockModelConfiguration, attributeConstraints, constrainableAttributes);
 
 
     final Scenario result = instance.applyTreatment(mockTreatment);
@@ -80,6 +83,7 @@ public class ScenarioImplTest {
 
   @Test(expected = IllegalArgumentException.class)
   public void aScenarioImplOnApplyTreamentShouldThrowIllegalArgumentExceptionIfAnAttributeOfATreatmentIsNotInconstrainableAttributes() {
+    final ModelConfiguration mockModelConfiguration = mock(ModelConfiguration.class);
     final Attribute<? extends Serializable> mockAttribute1 = mock(Attribute.class);
     final Constraints<? extends Serializable> mockConstraints1 = mock(Constraints.class);
     final Attribute<? extends Serializable> mockAttribute2 = mock(Attribute.class);
@@ -98,7 +102,7 @@ public class ScenarioImplTest {
     when(mockConstraints1.mergeConstraints(mockConstraints3)).thenReturn(mockMergedConstraints);
 
 
-    final ScenarioImpl instance = new ScenarioImpl(attributeConstraints, constrainableAttributes);
+    final ScenarioImpl instance = new ScenarioImpl(mockModelConfiguration, attributeConstraints, constrainableAttributes);
 
     instance.applyTreatment(mockTreatment);
   }

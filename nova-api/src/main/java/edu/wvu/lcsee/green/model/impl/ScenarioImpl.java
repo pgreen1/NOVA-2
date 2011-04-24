@@ -1,5 +1,6 @@
 package edu.wvu.lcsee.green.model.impl;
 
+import edu.wvu.lcsee.green.model.ModelConfiguration;
 import com.google.common.base.Objects;
 import com.google.common.collect.Maps;
 import java.util.Set;
@@ -20,13 +21,21 @@ import static com.google.common.base.Preconditions.checkArgument;
  */
 public class ScenarioImpl extends AbstractAttributeConstrainable implements Scenario {
 
+  private final ModelConfiguration modelConfiguration;
   private final ImmutableSet<Attribute<? extends Serializable>> constrainableAttributes;
 
   public ScenarioImpl(
+          @Nonnull final ModelConfiguration modelConfiguration,
           @Nonnull final Map<Attribute<? extends Serializable>, Constraints<? extends Serializable>> attributeConstraints,
           @Nonnull final Set<Attribute<? extends Serializable>> constrainableConstraints) {
     super(attributeConstraints);
     this.constrainableAttributes = ImmutableSet.copyOf(constrainableConstraints);
+    this.modelConfiguration = modelConfiguration;
+  }
+
+  @Override
+  public ModelConfiguration getModelConfiguration() {
+    return modelConfiguration;
   }
 
   @Override
@@ -46,7 +55,7 @@ public class ScenarioImpl extends AbstractAttributeConstrainable implements Scen
       mutableAttributeConstraints.put(attribute, currentConstraints.mergeConstraints(treatmentConstraints));
     }
 
-    return new ScenarioImpl(mutableAttributeConstraints, constrainableAttributes);
+    return new ScenarioImpl(modelConfiguration,mutableAttributeConstraints, constrainableAttributes);
   }
 
   @Override
