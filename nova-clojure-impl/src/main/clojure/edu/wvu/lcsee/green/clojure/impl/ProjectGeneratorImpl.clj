@@ -21,7 +21,7 @@
 (defn pg-impl-generateProject [this scenario]
   (new edu.wvu.lcsee.green.model.impl.ProjectImpl
     (let [builder (new ConstraintsContextBuilder)]
-      (doseq [attribute (seq (. scenario getAllAttributes))]
+      (doseq [attribute (seq (.. scenario getModelConfiguration getAllAttributes))]
         (.addValue builder
           attribute
           (.. scenario (getConstraintsFor attribute) (generateValue (.build builder)))))
