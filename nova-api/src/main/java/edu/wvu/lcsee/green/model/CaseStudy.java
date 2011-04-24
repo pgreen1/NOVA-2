@@ -5,7 +5,7 @@ import javax.annotation.Nullable;
 /**
  * A CaseStudy defines a particular organization with constraints.
  * While a Project has well defined values for each {@link Attribute}, a case study can have multiple values for an Attribute.
- * Because of this, they are modeled by CaseStudy and using {@link Constrains} for the allowable values of the case study.
+ * Because of this, they are modeled by CaseStudy and using {@link Constraints} for the allowable values of the case study.
  * @author pdgreen
  */
 public interface CaseStudy extends AttributeConstrainable {

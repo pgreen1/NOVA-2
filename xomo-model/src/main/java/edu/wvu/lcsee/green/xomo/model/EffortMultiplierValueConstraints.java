@@ -42,7 +42,7 @@ public class EffortMultiplierValueConstraints implements Constraints<EffortMulti
   @Override
   public EffortMultiplierValue generateValue(final ConstraintsContext currentContext) {
     return ValueFactory.newEffortMuliplierValue(levelConstraints.generateValue(currentContext),
-            currentContext.getValueFor(effortCoefficientSlopeAttribute),
+            currentContext.getValueFor(effortCoefficientSlopeAttribute).doubleValue(),
             currentContext.getValueFor(defectsIntroducedSlopeAttribute));
   }
 

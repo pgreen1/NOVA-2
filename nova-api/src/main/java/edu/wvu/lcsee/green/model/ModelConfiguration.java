@@ -1,6 +1,7 @@
 package edu.wvu.lcsee.green.model;
 
 import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.ImmutableSortedSet;
 import java.io.Serializable;
 import javax.annotation.Nonnull;
 
@@ -11,7 +12,7 @@ import javax.annotation.Nonnull;
 public interface ModelConfiguration {
 
   @Nonnull
-  ImmutableSet<Attribute<? extends Serializable>> getAllAttributes();
+  ImmutableSortedSet<Attribute<? extends Serializable>> getAllAttributes();
 
   @Nonnull
   <V extends Serializable> Constraints<V> getDefaultConstraintsFor(@Nonnull Attribute<V> attribute);

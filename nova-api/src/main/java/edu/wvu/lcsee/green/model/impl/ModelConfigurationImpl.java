@@ -1,12 +1,14 @@
 package edu.wvu.lcsee.green.model.impl;
 
+import java.util.SortedMap;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.google.common.collect.ImmutableBiMap;
 import java.util.Set;
 import com.google.common.collect.Maps;
-import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.ImmutableSortedMap;
+import com.google.common.collect.ImmutableSortedSet;
 import edu.wvu.lcsee.green.model.Attribute;
 import edu.wvu.lcsee.green.model.CaseStudy;
 import edu.wvu.lcsee.green.model.Constraints;
@@ -15,7 +17,6 @@ import edu.wvu.lcsee.green.model.NamedConstrainableAttributes;
 import edu.wvu.lcsee.green.model.Scenario;
 import edu.wvu.lcsee.green.model.ScoringFunction;
 import java.io.Serializable;
-import java.util.Map;
 import javax.annotation.Nonnull;
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -26,15 +27,15 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class ModelConfigurationImpl implements ModelConfiguration {
 
   private static final String DEFAULT_CONSTRAINABLE_ATTRIBUTES_NAME = "DEFAULT";
-  private final ImmutableMap<Attribute<? extends Serializable>, Constraints<? extends Serializable>> defaultAttributeConstraints;
+  private final ImmutableSortedMap<Attribute<? extends Serializable>, Constraints<? extends Serializable>> defaultAttributeConstraints;
   private final NamedConstrainableAttributes defaultConstrainableAttributes;
   private final ImmutableBiMap<String, ScoringFunction> scoringFunctionsRegistry;
 
   public ModelConfigurationImpl(
-          @Nonnull final Map<Attribute<? extends Serializable>, Constraints<? extends Serializable>> defaultAttributeConstraints,
+          @Nonnull final SortedMap<Attribute<? extends Serializable>, Constraints<? extends Serializable>> defaultAttributeConstraints,
           @Nonnull final Set<Attribute<? extends Serializable>> defaultConstrainableAttributes,
           @Nonnull final Set<ScoringFunction> allScoringFunctions) {
-    this.defaultAttributeConstraints = ImmutableMap.copyOf(defaultAttributeConstraints);
+    this.defaultAttributeConstraints = ImmutableSortedMap.copyOfSorted(defaultAttributeConstraints);
     this.defaultConstrainableAttributes = new NamedConstrainableAttributesImpl(DEFAULT_CONSTRAINABLE_ATTRIBUTES_NAME,
             defaultConstrainableAttributes);
     final BiMap<String, ScoringFunction> sfr = HashBiMap.create(allScoringFunctions.size());
@@ -45,7 +46,7 @@ public class ModelConfigurationImpl implements ModelConfiguration {
   }
 
   @Override
-  public ImmutableSet<Attribute<? extends Serializable>> getAllAttributes() {
+  public ImmutableSortedSet<Attribute<? extends Serializable>> getAllAttributes() {
     return defaultAttributeConstraints.keySet();
   }
 
@@ -65,8 +66,8 @@ public class ModelConfigurationImpl implements ModelConfiguration {
           @Nonnull final CaseStudy caseStudy) {
     checkNotNull(attributeContext);
     checkNotNull(caseStudy);
-    final Map<Attribute<? extends Serializable>, Constraints<? extends Serializable>> attributeConstraints = Maps.
-            newHashMap(defaultAttributeConstraints);
+    final SortedMap<Attribute<? extends Serializable>, Constraints<? extends Serializable>> attributeConstraints = Maps.
+            newTreeMap(defaultAttributeConstraints);
 
     for (final Attribute<? extends Serializable> attribute : caseStudy.getAllAttributes()) {
       attributeConstraints.put(attribute,

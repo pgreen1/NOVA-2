@@ -34,7 +34,7 @@ public class ScaleFactorValueConstraints implements Constraints<ScaleFactorValue
   @Override
   public ScaleFactorValue generateValue(final ConstraintsContext currentContext) {
     return ValueFactory.newScaleFactorValue(levelConstraints.generateValue(currentContext),
-            currentContext.getValueFor(CocomoSlopesAttribute.SF_EFFORT_COEFFICIENT_SLOPE),
+            currentContext.getValueFor(CocomoSlopesAttribute.SF_EFFORT_COEFFICIENT_SLOPE).doubleValue(),
             currentContext.getValueFor(CoqualmoSlopesAttribute.SF_DEFECTS_INTRODUCED_SLOPES));
   }
 

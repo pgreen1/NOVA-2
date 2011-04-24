@@ -35,7 +35,7 @@
 
 
 (defn generate-mock-scenario []
-  (let [attributes (map (fn [_] (generate-mock-attribute)) (range 2 (rand-int 8)))
+  (let [attributes  (repeatedly (+ 2 (rand-int 6)) generate-mock-attribute)
         constrainableAttributes (apply hash-set (take (/ (count attributes) 2) attributes))
         attributeConstraints (apply hash-map (mapcat (fn [attribute] (list attribute (generate-mock-constraints))) attributes))]
     (new edu.wvu.lcsee.green.model.impl.ScenarioImpl attributeConstraints constrainableAttributes)))

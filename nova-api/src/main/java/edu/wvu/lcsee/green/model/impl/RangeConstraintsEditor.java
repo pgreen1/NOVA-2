@@ -19,7 +19,7 @@ import static com.google.common.base.Preconditions.*;
  *
  * @author pdgreen
  */
-public class RangeConstraintsEditor implements ConstraintsEditor<Number> {
+public class RangeConstraintsEditor implements ConstraintsEditor<Double> {
 
   private final ImmutableSet<DiscreteValue> allValues;
   private final ImmutableSet<DiscreteValue> extremeValues;
@@ -35,7 +35,7 @@ public class RangeConstraintsEditor implements ConstraintsEditor<Number> {
   }
 
   @Override
-  public Constraints<Number> generateConstraints() {
+  public Constraints<Double> generateConstraints() {
     if (currentValues.size() == 1) {
       return new RangeConstraints(currentValues.iterator().next().minValue);
     } else {
@@ -44,8 +44,8 @@ public class RangeConstraintsEditor implements ConstraintsEditor<Number> {
       Collections.sort(sortedCurrentValues);
       //TODO clean up with iterators?
       for (int i = 0; i < sortedCurrentValues.size() - 1; i++) {
-        final Number currentMaxValue = sortedCurrentValues.get(i).maxValue;
-        final Number nextMinValue = sortedCurrentValues.get(i + 1).minValue;
+        final Double currentMaxValue = sortedCurrentValues.get(i).maxValue;
+        final Double nextMinValue = sortedCurrentValues.get(i + 1).minValue;
         final boolean connectedValues = currentMaxValue.equals(nextMinValue);
         checkState(connectedValues, "values are not connected: {}", currentValues);
       }
@@ -111,15 +111,15 @@ public class RangeConstraintsEditor implements ConstraintsEditor<Number> {
     return new RangeConstraintsEditor(values, values, rangeConstraints.getDiscretizeSize());
   }
 
-  static Set<RangeDiscreteValue> generateValues(@Nonnull final Number mininumValue, @Nonnull final Number maximumValue,
-          @Nonnull final Number discretizeSize) {
+  static Set<RangeDiscreteValue> generateValues(@Nonnull final Double mininumValue, @Nonnull final Double maximumValue,
+          @Nonnull final Double discretizeSize) {
     final Set<RangeDiscreteValue> values = Sets.newHashSet();
 
-    final double increment = maximumValue.doubleValue() - mininumValue.doubleValue();
+    final double increment = maximumValue - mininumValue;
 
-    for (double currentValue = mininumValue.doubleValue(), nextValue; currentValue <= maximumValue.doubleValue(); currentValue = nextValue) {
+    for (double currentValue = mininumValue, nextValue; currentValue <= maximumValue; currentValue = nextValue) {
       nextValue = currentValue + increment;
-      values.add(new RangeDiscreteValue(currentValue, Math.min(nextValue, maximumValue.doubleValue())));
+      values.add(new RangeDiscreteValue(currentValue, Math.min(nextValue, maximumValue)));
     }
 
     return values;
@@ -127,17 +127,17 @@ public class RangeConstraintsEditor implements ConstraintsEditor<Number> {
 
   static class RangeDiscreteValue implements DiscreteValue, Comparable<RangeDiscreteValue> {
 
-    private final Number minValue;
-    private final Number meanValue;
-    private final Number maxValue;
+    private final Double minValue;
+    private final Double meanValue;
+    private final Double maxValue;
 
-    public RangeDiscreteValue(@Nonnull final Number minValue, @Nonnull final Number maxValue) {
+    public RangeDiscreteValue(@Nonnull final Double minValue, @Nonnull final Double maxValue) {
       this.minValue = checkNotNull(minValue);
       this.maxValue = checkNotNull(maxValue);
       this.meanValue = (maxValue.doubleValue() + minValue.doubleValue()) / 2;
     }
 
-    public Number getValue() {
+    public Double getValue() {
       return meanValue;
     }
 

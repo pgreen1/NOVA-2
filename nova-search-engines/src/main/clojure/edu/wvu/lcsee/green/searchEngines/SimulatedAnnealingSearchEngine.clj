@@ -8,7 +8,7 @@
  ;(:require )
  (:use clojure.contrib.generic.math-functions
    edu.wvu.lcsee.green.searchEngines.searchlib)
- (:import (edu.wvu.lcsee.green.model.impl ScenarioImpl))
+ (:import (edu.wvu.lcsee.green.model.impl TreatmentImpl))
  )
 
 
@@ -20,28 +20,27 @@
 (defn se-impl-getKey [this]
   "sa")
 
-(defn generateChanges [constrainableAttributes globalAttributeConstraints changeProbability]
-  (let [attributesToChange (filter (fn [_] (< (rand) changeProbability))
-                             constrainableAttributes)]
-    (reduce merge
-      (map (fn [attribute]
-             (let [editor (.getEditor (get globalAttributeConstraints attribute))
-                   valuesToRemove (filter (fn [_] (< (rand) 0.5))
-                                    (.getAllValues editor))]
-               (map (fn [value]
-                      (.removeValue editor value))
-                 valuesToRemove)
-               {attribute (.generateConstraints editor)}))
-        attributesToChange))))
+(defn generateChangeTreatment [constrainableAttributes globalAttributeConstraints changeProbability]
+  (let [attributesToChange (take  (Math/ceil (* changeProbability (count constrainableAttributes)))
+                             (shuffle constrainableAttributes))]
+    (new TreatmentImpl
+      (reduce merge
+        (map (fn [attribute]
+               (let [editor (.getEditor (get globalAttributeConstraints attribute))
+                     valuesToRemove (filter (fn [_] (< (rand) 0.5))
+                                      (.getAllValues editor))]
+                 (map (fn [value]
+                        (.removeValue editor value))
+                   valuesToRemove)
+                 {attribute (.generateConstraints editor)}))
+          attributesToChange)))))
 
 
 (defn calculate-neighbor-state [neighborChangeProbability evaluationFunction constrainableAttributes globalAttributeConstraints state]
   (createStateFrom
     evaluationFunction
-    (new ScenarioImpl (merge
-                        (into {} (.asMap (.getScenario state)))
-                        (generateChanges constrainableAttributes globalAttributeConstraints neighborChangeProbability))
-      constrainableAttributes)))
+    (.applyTreatment (.getScenario state)
+      (generateChangeTreatment constrainableAttributes globalAttributeConstraints neighborChangeProbability))))
 
 
 (defn calculate-energy [state]
@@ -82,8 +81,8 @@
       (search-recur [initialState] initialEnergy initialState initialEnergy 1))))
 
 (defn se-impl-search [this evaluationFunction initialScenario]
- (statesGenerator2path
-   (search evaluationFunction initialScenario
-     (get (.parameters this) :kmax)
-     (get (.parameters this) :emax)
-     (get (.parameters this) :neighborChangeProbability))))
+  (statesGenerator2path
+    (search evaluationFunction initialScenario
+      (get (.parameters this) :kmax)
+      (get (.parameters this) :emax)
+      (get (.parameters this) :neighborChangeProbability))))

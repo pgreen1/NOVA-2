@@ -11,8 +11,8 @@
         attribute2 (new DefaultAttribute "ATTR2" "Test Attribute 2" Number)]
     (new ScenarioImpl
       (hash-map
-        attribute1 (new RangeConstraints 5)
-        attribute2 (new RangeConstraints 10))
+        attribute1 (new RangeConstraints 5.0)
+        attribute2 (new RangeConstraints 10.0))
       (hash-set  attribute1 attribute2))))
 
 

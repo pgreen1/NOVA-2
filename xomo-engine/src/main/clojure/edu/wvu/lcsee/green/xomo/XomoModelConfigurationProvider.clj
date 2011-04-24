@@ -22,11 +22,11 @@
     (.build
       (doto (ModelConfigurationBuilder/newInstance)
         ;FIXME add in correlation between A/B and C/D
-        (.addUnconstrainableAttribute CocomoParameters/KLOC (new RangeConstraints 2   2000     10    ))
-        (.addUnconstrainableAttribute CocomoParameters/A    (new RangeConstraints 2     11      0.1  ))
-        (.addUnconstrainableAttribute CocomoParameters/B    (new RangeConstraints 0.5    1      0.01 ))
-        (.addUnconstrainableAttribute CocomoParameters/C    (new RangeConstraints 3      3.67   0.01 ))
-        (.addUnconstrainableAttribute CocomoParameters/D    (new RangeConstraints 0.28   0.33   0.001))
+        (.addUnconstrainableAttribute CocomoParameters/KLOC (new RangeConstraints 2.0  2000.0   10.0    ))
+        (.addUnconstrainableAttribute CocomoParameters/A    (new RangeConstraints 2.0    11.0    0.1  ))
+        (.addUnconstrainableAttribute CocomoParameters/B    (new RangeConstraints 0.5     1.0    0.01 ))
+        (.addUnconstrainableAttribute CocomoParameters/C    (new RangeConstraints 3.0     3.67   0.01 ))
+        (.addUnconstrainableAttribute CocomoParameters/D    (new RangeConstraints 0.28    0.33   0.001))
         (.addUnconstrainableAttribute CocomoSlopesAttribute/SF_EFFORT_COEFFICIENT_SLOPE    (new RangeConstraints -1.56   -1.01   0.005))
         (.addUnconstrainableAttribute CocomoSlopesAttribute/EM_PLUS_EFFORT_COEFFICIENT_SLOPE    (new RangeConstraints 0.07   0.21   0.005))
         (.addUnconstrainableAttribute CocomoSlopesAttribute/EM_MINUS_EFFORT_COEFFICIENT_SLOPE    (new RangeConstraints -0.18   -0.08   0.005))

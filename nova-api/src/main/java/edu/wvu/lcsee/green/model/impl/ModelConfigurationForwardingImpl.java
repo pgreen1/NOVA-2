@@ -1,6 +1,7 @@
 package edu.wvu.lcsee.green.model.impl;
 
 import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.ImmutableSortedSet;
 import edu.wvu.lcsee.green.model.Attribute;
 import edu.wvu.lcsee.green.model.CaseStudy;
 import edu.wvu.lcsee.green.model.Constraints;
@@ -26,7 +27,7 @@ public abstract class ModelConfigurationForwardingImpl implements ModelConfigura
   protected abstract ModelConfiguration delegate();
 
   @Override
-  public ImmutableSet<Attribute<? extends Serializable>> getAllAttributes() {
+  public ImmutableSortedSet<Attribute<? extends Serializable>> getAllAttributes() {
     return delegate().getAllAttributes();
   }
 

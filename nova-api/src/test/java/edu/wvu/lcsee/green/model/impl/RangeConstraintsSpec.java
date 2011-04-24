@@ -14,11 +14,11 @@ public class RangeConstraintsSpec {
 
   @Test
   public void itShouldGenerateValueThatIsValidWhenNonSingleValue() {
-    final int min = 5;
-    final int max = 10;
+    final double min = 5;
+    final double max = 10;
     final ConstraintsContext constraintsContext = mock(ConstraintsContext.class);
 
-    final RangeConstraints instance = new RangeConstraints(min, max, 1);
+    final RangeConstraints instance = new RangeConstraints(min, max, 1.0);
 
     final Number result = instance.generateValue(constraintsContext);
 
@@ -28,7 +28,7 @@ public class RangeConstraintsSpec {
 
   @Test
   public void itShouldGenerateValueThatIsValidWhenSingleValue() {
-    final int value = 10;
+    final double value = 10;
     final ConstraintsContext constraintsContext = mock(ConstraintsContext.class);
 
     final RangeConstraints instance = new RangeConstraints(value);
@@ -40,7 +40,7 @@ public class RangeConstraintsSpec {
 
   @Test
   public void itShouldReturnTrueForIsSingleValuedWhenSingleValue() {
-    final int value = 10;
+    final double value = 10;
     final RangeConstraints instance = new RangeConstraints(value);
 
     assertThat(instance.isSingleValued(), is(true));
@@ -48,20 +48,20 @@ public class RangeConstraintsSpec {
 
   @Test
   public void itShouldReturnFalseForIsSingleValuedWhenNonSingleValue() {
-    final int min = 5;
-    final int max = 10;
-    final RangeConstraints instance = new RangeConstraints(min, max, 1);
+    final double min = 5;
+    final double max = 10;
+    final RangeConstraints instance = new RangeConstraints(min, max, 1.0);
 
     assertThat(instance.isSingleValued(), is(false));
   }
 
   @Test
   public void isShouldReturnTrueForIsSubrangeWhenSubrange() {
-    final RangeConstraints largeInstance = new RangeConstraints(1, 10, 1);
-    final RangeConstraints frontInstance = new RangeConstraints(1, 5, 1);
-    final RangeConstraints backInstance = new RangeConstraints(5, 10, 1);
-    final RangeConstraints innerInstance = new RangeConstraints(2, 6, 1);
-    final RangeConstraints otherInstance = new RangeConstraints(15, 20, 1);
+    final RangeConstraints largeInstance = new RangeConstraints(1.0, 10.0, 1.0);
+    final RangeConstraints frontInstance = new RangeConstraints(1.0, 5.0, 1.0);
+    final RangeConstraints backInstance = new RangeConstraints(5.0, 10.0, 1.0);
+    final RangeConstraints innerInstance = new RangeConstraints(2.0, 6.0, 1.0);
+    final RangeConstraints otherInstance = new RangeConstraints(15.0, 20.0, 1.0);
 
     assertThat(frontInstance.isSubrangeOf(largeInstance), is(true));
     assertThat(largeInstance.isSubrangeOf(frontInstance), is(false));
@@ -78,9 +78,9 @@ public class RangeConstraintsSpec {
 
   @Test
   public void isShouldReturnTrueForIsSubrangeWhenSubrangeSingle() {
-    final RangeConstraints largeInstance = new RangeConstraints(1, 10, 1);
-    final RangeConstraints singleInstance = new RangeConstraints(5);
-    final RangeConstraints otherSingleInstance = new RangeConstraints(15);
+    final RangeConstraints largeInstance = new RangeConstraints(1.0, 10.0, 1.0);
+    final RangeConstraints singleInstance = new RangeConstraints(5.0);
+    final RangeConstraints otherSingleInstance = new RangeConstraints(15.0);
 
     assertThat(singleInstance.isSubrangeOf(largeInstance), is(true));
     assertThat(largeInstance.isSubrangeOf(singleInstance), is(false));
@@ -91,16 +91,16 @@ public class RangeConstraintsSpec {
 
   @Test
   public void isShouldReturnTrueForIsSubrangeWhenSameRange() {
-    final int min = 5;
-    final int max = 10;
-    final RangeConstraints instance = new RangeConstraints(min, max, 1);
+    final double min = 5;
+    final double max = 10;
+    final RangeConstraints instance = new RangeConstraints(min, max, 1.0);
 
     assertThat(instance.isSubrangeOf(instance), is(true));
   }
 
   @Test
   public void isShouldReturnTrueForIsSubrangeWhenSameSingle() {
-    final int value = 10;
+    final double value = 10;
     final RangeConstraints instance = new RangeConstraints(value);
 
     assertThat(instance.isSubrangeOf(instance), is(true));

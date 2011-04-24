@@ -7,7 +7,6 @@ import edu.wvu.lcsee.green.model.Attribute;
 import edu.wvu.lcsee.green.model.Constraints;
 import edu.wvu.lcsee.green.model.ConstraintsContext;
 import edu.wvu.lcsee.green.model.ConstraintsEditor;
-import java.math.BigDecimal;
 import java.util.Random;
 import javax.annotation.Nonnull;
 
@@ -15,21 +14,21 @@ import javax.annotation.Nonnull;
  *
  * @author pdgreen
  */
-public class RangeConstraints implements Constraints<Number> {
+public class RangeConstraints implements Constraints<Double> {
 
   private static final Random RANDOM = new Random();
-  private final Number mininumValue;
-  private final Number maximumValue;
-  private final Number discretizeSize;
+  private final Double mininumValue;
+  private final Double maximumValue;
+  private final Double discretizeSize;
 
-  public RangeConstraints(@Nonnull final Number value) {
+  public RangeConstraints(@Nonnull final Double value) {
     this.mininumValue = value;
     this.maximumValue = value;
     this.discretizeSize = null;
   }
 
-  public RangeConstraints(@Nonnull final Number minimumValue, @Nonnull final Number maximumValue,
-          @Nonnull final Number discretizeSize) {
+  public RangeConstraints(@Nonnull final Double minimumValue, @Nonnull final Double maximumValue,
+          @Nonnull final Double discretizeSize) {
     this.mininumValue = minimumValue;
     this.maximumValue = maximumValue;
     this.discretizeSize = discretizeSize;
@@ -41,11 +40,11 @@ public class RangeConstraints implements Constraints<Number> {
   }
 
   @Override
-  public Number generateValue(final ConstraintsContext currentContext) {
-    final double minVal = mininumValue.doubleValue();
-    final double maxVal = maximumValue.doubleValue();
+  public Double generateValue(final ConstraintsContext currentContext) {
+    final double minVal = mininumValue;
+    final double maxVal = maximumValue;
 
-    return BigDecimal.valueOf(RANDOM.nextDouble() * (maxVal - minVal) + minVal);
+    return Double.valueOf(RANDOM.nextDouble() * (maxVal - minVal) + minVal);
   }
 
   public boolean isSingleValued() {
@@ -53,20 +52,18 @@ public class RangeConstraints implements Constraints<Number> {
   }
 
   public boolean isSubrangeOf(final RangeConstraints that) {
-    return (this.mininumValue.doubleValue() >= that.mininumValue.doubleValue() && this.mininumValue.doubleValue() <= that.maximumValue.
-            doubleValue())
-            && (this.maximumValue.doubleValue() >= that.mininumValue.doubleValue() && this.maximumValue.doubleValue() <= that.maximumValue.
-            doubleValue());
+    return (this.mininumValue >= that.mininumValue && this.mininumValue <= that.maximumValue)
+            && (this.maximumValue >= that.mininumValue && this.maximumValue <= that.maximumValue);
   }
 
   @Override
-  public Constraints<Number> mergeConstraints(final Constraints<Number> constraintsToMerge) {
+  public Constraints<Double> mergeConstraints(final Constraints<Double> constraintsToMerge) {
     Preconditions.checkArgument(constraintsToMerge instanceof RangeConstraints,
             "Only merging of " + RangeConstraints.class + " is supported: " + constraintsToMerge);
     final RangeConstraints that = (RangeConstraints) constraintsToMerge;
 
-    final Number mergedMinimumValue;
-    final Number mergedMaximumValue;
+    final Double mergedMinimumValue;
+    final Double mergedMaximumValue;
     if (this.isSubrangeOf(that)) {
       mergedMinimumValue = this.mininumValue;
       mergedMaximumValue = this.maximumValue;
@@ -84,20 +81,20 @@ public class RangeConstraints implements Constraints<Number> {
     return mergedConstraints;
   }
 
-  public Number getMininumValue() {
+  public Double getMininumValue() {
     return mininumValue;
   }
 
-  public Number getMaximumValue() {
+  public Double getMaximumValue() {
     return maximumValue;
   }
 
-  public Number getDiscretizeSize() {
+  public Double getDiscretizeSize() {
     return discretizeSize;
   }
 
   @Override
-  public ConstraintsEditor<Number> getEditor() {
+  public ConstraintsEditor<Double> getEditor() {
     return RangeConstraintsEditor.newInstanceFrom(this);
   }
 
