@@ -48,6 +48,24 @@ public class ScoredProjectImpl implements ScoredProject {
   }
 
   @Override
+  public int hashCode() {
+    return Objects.hashCode(project, scores);
+  }
+
+  @Override
+  public boolean equals(final Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (!(o instanceof ScoredProjectImpl)) {
+      return false;
+    }
+    final ScoredProjectImpl that = (ScoredProjectImpl) o;
+
+    return Objects.equal(this.project, that.project) && Objects.equal(this.scores, that.scores);
+  }
+
+  @Override
   public String toString() {
     return Objects.toStringHelper(this).add("project", project).add("scores", scores).toString();
   }

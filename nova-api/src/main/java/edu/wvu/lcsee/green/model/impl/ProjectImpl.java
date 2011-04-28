@@ -1,5 +1,6 @@
 package edu.wvu.lcsee.green.model.impl;
 
+import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
@@ -18,7 +19,7 @@ public class ProjectImpl implements Project {
   private final ImmutableMap<Attribute<? extends Serializable>, ? extends Serializable> values;
 
   public ProjectImpl(final Map<Attribute<? extends Serializable>, ? extends Serializable> values) {
-    Preconditions.checkArgument(!values.isEmpty(),"Project must contain atleast one attribute: %s", values);
+    Preconditions.checkArgument(!values.isEmpty(), "Project must contain atleast one attribute: %s", values);
     this.values = ImmutableMap.copyOf(values);
   }
 
@@ -29,7 +30,8 @@ public class ProjectImpl implements Project {
 
   @Override
   public <V extends Serializable> V getValueFor(final Attribute<V> attribute) {
-    Preconditions.checkArgument(values.containsKey(attribute), "attribute (%s) not in project (%s)", attribute, values.keySet());
+    Preconditions.checkArgument(values.containsKey(attribute), "attribute (%s) not in project (%s)", attribute, values.
+            keySet());
     return (V) values.get(attribute);
   }
 
@@ -39,7 +41,25 @@ public class ProjectImpl implements Project {
   }
 
   @Override
+  public int hashCode() {
+    return Objects.hashCode(values);
+  }
+
+  @Override
+  public boolean equals(final Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (!(o instanceof ProjectImpl)) {
+      return false;
+    }
+    final ProjectImpl that = (ProjectImpl) o;
+
+    return Objects.equal(this.values, that.values);
+  }
+
+  @Override
   public String toString() {
-    return values.toString();
+    return Objects.toStringHelper(this).addValue(values).toString();
   }
 }

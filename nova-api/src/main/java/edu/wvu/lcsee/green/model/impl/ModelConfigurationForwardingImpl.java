@@ -1,5 +1,6 @@
 package edu.wvu.lcsee.green.model.impl;
 
+import com.google.common.base.Objects;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.ImmutableSortedSet;
 import edu.wvu.lcsee.green.model.Attribute;
@@ -60,5 +61,28 @@ public abstract class ModelConfigurationForwardingImpl implements ModelConfigura
   @Override
   public ScoringFunction getScoringFunctionForKey(final String key) {
     return delegate().getScoringFunctionForKey(key);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hashCode(delegate());
+  }
+
+  @Override
+  public boolean equals(final Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (!(o instanceof ModelConfigurationForwardingImpl)) {
+      return false;
+    }
+    final ModelConfigurationForwardingImpl that = (ModelConfigurationForwardingImpl) o;
+
+    return Objects.equal(this.delegate(), that.delegate());
+  }
+
+  @Override
+  public String toString() {
+    return Objects.toStringHelper(this).add("delegate", delegate()).toString();
   }
 }

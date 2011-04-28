@@ -55,7 +55,26 @@ public class ScenarioImpl extends AbstractAttributeConstrainable implements Scen
       mutableAttributeConstraints.put(attribute, currentConstraints.mergeConstraints(treatmentConstraints));
     }
 
-    return new ScenarioImpl(modelConfiguration,mutableAttributeConstraints, constrainableAttributes);
+    return new ScenarioImpl(modelConfiguration, mutableAttributeConstraints, constrainableAttributes);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hashCode(modelConfiguration, constrainableAttributes);
+  }
+
+  @Override
+  public boolean equals(final Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (!(o instanceof ScenarioImpl)) {
+      return false;
+    }
+    final ScenarioImpl that = (ScenarioImpl) o;
+
+    return Objects.equal(this.modelConfiguration, that.modelConfiguration)
+            && Objects.equal(this.constrainableAttributes, this.constrainableAttributes);
   }
 
   @Override

@@ -1,5 +1,6 @@
 package edu.wvu.lcsee.green.model.impl;
 
+import com.google.common.base.Objects;
 import edu.wvu.lcsee.green.model.Attribute;
 import java.io.Serializable;
 import javax.annotation.Nonnull;
@@ -33,7 +34,26 @@ public class DefaultAttribute<V extends Serializable> implements Attribute {
   }
 
   @Override
+  public int hashCode() {
+    return Objects.hashCode(name, valueType);
+  }
+
+  @Override
+  public boolean equals(final Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (!(o instanceof DefaultAttribute)) {
+      return false;
+    }
+    final DefaultAttribute that = (DefaultAttribute) o;
+
+    return Objects.equal(this.name, that.name)
+            && Objects.equal(this.valueType, this.valueType);
+  }
+
+  @Override
   public String toString() {
-    return getName();
+    return Objects.toStringHelper(this).addValue(name).toString();
   }
 }

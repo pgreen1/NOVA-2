@@ -1,5 +1,6 @@
 package edu.wvu.lcsee.green.model.impl;
 
+import com.google.common.base.Objects;
 import java.util.SortedMap;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
@@ -89,5 +90,32 @@ public class ModelConfigurationImpl implements ModelConfiguration {
   @Override
   public ScoringFunction getScoringFunctionForKey(@Nonnull final String key) {
     return scoringFunctionsRegistry.get(key);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hashCode(defaultAttributeConstraints, defaultConstrainableAttributes, scoringFunctionsRegistry);
+  }
+
+  @Override
+  public boolean equals(final Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (!(o instanceof ModelConfigurationImpl)) {
+      return false;
+    }
+    final ModelConfigurationImpl that = (ModelConfigurationImpl) o;
+
+    return Objects.equal(this.defaultConstrainableAttributes, that.defaultConstrainableAttributes)
+            && Objects.equal(this.scoringFunctionsRegistry, that.scoringFunctionsRegistry)
+            && Objects.equal(this.defaultAttributeConstraints, that.defaultAttributeConstraints);
+  }
+
+  @Override
+  public String toString() {
+    return Objects.toStringHelper(this).add("defaultAttributeConstraints", defaultAttributeConstraints).add(
+            "defaultConstrainableAttributes", defaultConstrainableAttributes).add("scoringFunctionsRegistry",
+            scoringFunctionsRegistry).toString();
   }
 }

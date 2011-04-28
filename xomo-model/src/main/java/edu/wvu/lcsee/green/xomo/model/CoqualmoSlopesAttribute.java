@@ -14,11 +14,11 @@ public class CoqualmoSlopesAttribute {
           "SF_DEFECTS_INTRODUCED_SLOPES", "Slopes for defects introduced from Scale Factors",
           DefectsIntroducedSlopesValue.class);
   public static final Attribute<DefectsIntroducedSlopesValue> EM_PLUS_DEFECTS_INTRODUCED_SLOPES = new DefaultAttribute<DefectsIntroducedSlopesValue>(
-          "EM_DEFECTS_INTRODUCED_SLOPES",
+          "EM_PLUS_DEFECTS_INTRODUCED_SLOPES",
           "Slopes for defects introduced from Effort Multipliers with positive correlation",
           DefectsIntroducedSlopesValue.class);
   public static final Attribute<DefectsIntroducedSlopesValue> EM_MINUS_DEFECTS_INTRODUCED_SLOPES = new DefaultAttribute<DefectsIntroducedSlopesValue>(
-          "EM_DEFECTS_INTRODUCED_SLOPES",
+          "EM_MINUS_DEFECTS_INTRODUCED_SLOPES",
           "Slopes for defects introduced from Effort Multipliers with negative correlation",
           DefectsIntroducedSlopesValue.class);
   public static final Attribute<DefectsRemovedSlopesValue> DEFECT_REMOVAL_SLOPES = new DefaultAttribute<DefectsRemovedSlopesValue>(

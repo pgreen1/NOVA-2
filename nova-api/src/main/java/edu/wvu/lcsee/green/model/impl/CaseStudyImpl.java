@@ -1,5 +1,6 @@
 package edu.wvu.lcsee.green.model.impl;
 
+import com.google.common.base.Objects;
 import edu.wvu.lcsee.green.model.Attribute;
 import edu.wvu.lcsee.green.model.CaseStudy;
 import edu.wvu.lcsee.green.model.Constraints;
@@ -31,5 +32,29 @@ public class CaseStudyImpl extends AbstractAttributeConstrainable implements Cas
   @Override
   public String getName() {
     return name;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hashCode(name, asMap());
+  }
+
+  @Override
+  public boolean equals(final Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (!(o instanceof CaseStudyImpl)) {
+      return false;
+    }
+    final CaseStudyImpl that = (CaseStudyImpl) o;
+
+    return Objects.equal(this.name, that.name)
+            && Objects.equal(this.asMap(), that.asMap());
+  }
+
+  @Override
+  public String toString() {
+    return Objects.toStringHelper(this).add("name", name).add("attributeConstraints", asMap()).toString();
   }
 }
