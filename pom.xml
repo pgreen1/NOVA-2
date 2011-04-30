@@ -20,14 +20,11 @@
       <timezone>-5</timezone>
     </developer>
   </developers>
-   <!-- TODO: update scm links -->
-  <!-- 
   <scm>
-    <connection>scm:svn:https://made-up-url</connection>
-    <developerConnection>scm:svn:https://maded-up-url</developerConnection>
-    <url>https://maded-up-url</url>
+    <connection>scm:git://github.com/pgreen1/NOVA-2.git</connection>
+    <developerConnection>scm:git:git@github.com:pgreen1/NOVA-2.git</developerConnection>
+    <url>https://github.com/pgreen1/NOVA-2</url>
   </scm>
-  -->
   <organization>
     <name>
       West Virginia University - Lane Department of Computer Science and Electrical Engineering
@@ -43,13 +40,47 @@
     <log4jVersion>1.2.15</log4jVersion>
   </properties>
   <build>
-    <!-- TODO Organize pom files so that all configuration is in parent -->
     <pluginManagement>
       <plugins>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>2.3.2</version>
+          <configuration>
+            <source>1.6</source>
+            <target>1.6</target>
+            <showDeprecation>true</showDeprecation>
+            <encoding>${project.build.sourceEncoding}</encoding>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-source-plugin</artifactId>
           <version>2.1.2</version>
+          <executions>
+            <execution>
+              <id>attach-sources</id>
+              <goals>
+                <goal>jar-no-fork</goal>
+                <goal>test-jar-no-fork</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-javadoc-plugin</artifactId>
+          <configuration>
+            <linksource>true</linksource>
+            <links>
+                <!-- TODO : update links -->
+              <link>http://download.oracle.com/javase/6/docs/api/</link>->
+	            <!-- <link>clojure</link>-->
+                <!-- <link>guava</link>-->
+                <!-- <link>groovy</link>-->
+            </links>
+            <quiet>true</quiet>
+          </configuration>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -63,32 +94,57 @@
           </configuration>
         </plugin>
         <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>buildnumber-maven-plugin</artifactId>
+          <version>1.0</version>
+          <executions>
+            <execution>
+              <id>generate-svn-buildinfo</id>
+              <phase>validate</phase>
+              <goals>
+                <goal>create</goal>
+              </goals>
+              <configuration>
+                <buildNumberPropertyName>buildScmRevision</buildNumberPropertyName>
+                <scmBranchPropertyName>buildScmBranch</scmBranchPropertyName>
+              </configuration>
+            </execution>
+            <execution>
+              <id>generate-buildtime</id>
+              <phase>validate</phase>
+              <goals>
+                <goal>create</goal>
+              </goals>
+              <configuration>
+                <format>{0,date,yyyy-MM-dd HH:mm:ss z}</format>
+                <items>
+                  <item>timestamp</item>
+                </items>
+                <buildNumberPropertyName>buildDateTime</buildNumberPropertyName>
+              </configuration>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-jar-plugin</artifactId>
           <version>2.3.1</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-compiler-plugin</artifactId>
-          <version>2.3.2</version>
           <configuration>
-            <source>1.6</source>
-            <target>1.6</target>
+            <archive>
+              <manifest>
+                <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                <addExtensions>true</addExtensions>
+              </manifest>
+              <manifestEntries>
+                <Implementation-Branch>${buildScmBranch}</Implementation-Branch>
+                <Implementation-Revision>${buildScmRevision}</Implementation-Revision>
+                <Build-Time>${buildDateTime}</Build-Time>
+              </manifestEntries>
+            </archive>
           </configuration>
         </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-javadoc-plugin</artifactId>
-          <configuration>
-            <linksource>true</linksource>
-            <links>
-              <!-- TODO : update links -->
-              <!-- <link>http://java.sun.com/j2se/1.5.0/docs/api/</link> -->
-	      <!-- <link>clojure </link>-->
-            </links>
-          </configuration>
-        </plugin>
-          <!-- Groovy -->
+
+        <!-- Groovy -->
         <plugin>
           <groupId>org.codehaus.gmaven</groupId>
           <artifactId>gmaven-plugin</artifactId>
@@ -130,7 +186,8 @@
             </dependency>
           </dependencies>
         </plugin>
-        
+
+        <!-- clojure -->
         <plugin>
           <groupId>com.theoryinpractise</groupId>
           <artifactId>clojure-maven-plugin</artifactId>
@@ -370,11 +427,13 @@
         <groupId>javax.inject</groupId>
         <artifactId>javax.inject</artifactId>
         <version>1</version>
+        <scope>provided</scope>
       </dependency>
       <dependency>
         <groupId>javax.annotation</groupId>
         <artifactId>jsr250-api</artifactId>
         <version>1.0</version>
+        <scope>provided</scope>
       </dependency>
 
       <!-- Find Bugs -->
