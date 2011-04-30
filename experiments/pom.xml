@@ -8,7 +8,7 @@
     <version>2.0.0-SNAPSHOT</version>
   </parent>
   <groupId>edu.wvu.lcsee.green.nova</groupId>
-  <artifactId>experiments</artifactId>
+  <artifactId>nova-experiments</artifactId>
   <name>NOVA Experiments</name>
   <version>2.0.0-SNAPSHOT</version>
   <dependencies>
