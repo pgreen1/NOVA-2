@@ -11,11 +11,18 @@ public class DefaultAttribute<V extends Serializable> implements Attribute {
   private final String description;
   private final Class<V> valueType;
 
-  public DefaultAttribute(@Nonnull final String name, @Nonnull final String description,
+  DefaultAttribute(@Nonnull final String name, @Nonnull final String description,
           @Nonnull final Class<V> valueType) {
     this.name = name;
     this.description = description;
     this.valueType = valueType;
+  }
+
+  public static <T extends Serializable> DefaultAttribute<T> newInstance(
+          @Nonnull final String name,
+          @Nonnull final String description,
+          @Nonnull final Class<T> valueType) {
+    return new DefaultAttribute<T>(name, description, valueType);
   }
 
   @Override

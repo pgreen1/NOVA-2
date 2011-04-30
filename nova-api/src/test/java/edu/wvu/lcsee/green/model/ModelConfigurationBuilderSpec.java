@@ -17,10 +17,10 @@ public class ModelConfigurationBuilderSpec {
   @Test
   public void modelConfigurationBuiltShouldReturnAllAttributesInOrderTheyWereAdded() {
 
-    final Attribute<Double> attr1 = new DefaultAttribute<Double>("ATTR1", "Attribute 1", Double.class);
-    final Attribute<Double> attr2 = new DefaultAttribute<Double>("ATTR2", "Attribute 2", Double.class);
-    final Attribute<Double> attr3 = new DefaultAttribute<Double>("ATTR3", "Attribute 3", Double.class);
-    final Attribute<Double> attr4 = new DefaultAttribute<Double>("ATTR4", "Attribute 4", Double.class);
+    final Attribute<Double> attr1 = DefaultAttribute.newInstance("ATTR1", "Attribute 1", Double.class);
+    final Attribute<Double> attr2 = DefaultAttribute.newInstance("ATTR2", "Attribute 2", Double.class);
+    final Attribute<Double> attr3 = DefaultAttribute.newInstance("ATTR3", "Attribute 3", Double.class);
+    final Attribute<Double> attr4 = DefaultAttribute.newInstance("ATTR4", "Attribute 4", Double.class);
 
 
     final ModelConfigurationBuilder instance = ModelConfigurationBuilder.newInstance();

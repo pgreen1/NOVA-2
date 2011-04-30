@@ -12,7 +12,7 @@ import static org.hamcrest.CoreMatchers.*;
  */
 public class ConstraintsContextBuilderSpec {
 
-  static final Attribute<Number> ATTRIBUTE_1 = new DefaultAttribute<Number>("ATTRIBUTE_1", "Testing Attribute 1",
+  static final Attribute<Number> ATTRIBUTE_1 = DefaultAttribute.newInstance("ATTRIBUTE_1", "Testing Attribute 1",
           Number.class);
 
   @Test
